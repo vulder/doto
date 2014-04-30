@@ -43,6 +43,7 @@ filetype off "on
 
 "my Stuff Bundle
 set rtp+=~/.vim/bundle/vundle/
+"set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 
 "set mouse=a
