@@ -3309,6 +3309,8 @@ zrclocal
 source /home/vulder/.module
 
 alias popt="opt -load /home/vulder/opt/polly/lib/LLVMPolly.so"
+#alias tmux-"TERM=screen-256color-bce tmux"
+alias tmux="tmux -2"
 
 ## genrefcard.pl settings
 
