@@ -54,7 +54,8 @@ map <leader>f :pyf /home/vulder/hiwi/llvm/tools/clang/tools/clang-format/clang-f
 map <leader>m :Make!<CR>
 
 Bundle 'gmarik/vundle'
-Bundle 'Command-T'
+Bundle 'ctrlp.vim'
+"Bundle 'Command-T'
 Bundle 'bufexplorer.zip'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'

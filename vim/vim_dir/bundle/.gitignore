@@ -7,4 +7,5 @@ syntastic/
 vim-airline/
 vim-dispatch/
 vim-powerline/
+ctrlp.vim/
 .vundle/
