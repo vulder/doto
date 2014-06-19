@@ -87,7 +87,11 @@ set wildignore+=build,*.a,*.so,*.o,*.obj,.git
 "let g:solarized_termcolors=256
 "set background=dark
 "colorscheme solarized
-colorscheme vividchalk
+"colorscheme vividchalk
+colorscheme lucius
+let g:lucius_style='dark'
+let g:lucius_contrast='normal'
+let g:lucius_contrast_bg='normal'
 
 " Optional
 " C/C++ programming helpers
