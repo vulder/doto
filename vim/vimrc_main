@@ -54,7 +54,8 @@ map <leader>f :pyf /home/vulder/llvm/tools/clang/tools/clang-format/clang-format
 map <leader>m :Make!<CR>
 
 Bundle 'gmarik/vundle'
-Bundle 'Command-T'
+Bundle 'ctrlp.vim'
+"Bundle 'Command-T'
 Bundle 'bufexplorer.zip'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
@@ -66,6 +67,10 @@ Bundle 'vim-dispatch'
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+
+let g:ctrlp_user_command ='find %s -type f | grep -v -P
+   \ "\.git|build\/|\.m4$|\.jpg$|\.png$|\.o$|\.a$|\.so$|\.obj$|\.i$|\.pyc$"
+   \ '
 
 set laststatus=2
 set encoding=utf-8
