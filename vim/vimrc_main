@@ -52,6 +52,10 @@ let mapleader = ","
 
 map <leader>f :pyf /home/vulder/llvm/tools/clang/tools/clang-format/clang-format.py<CR> 
 map <leader>m :Make!<CR>
+map <leader>n :Copen<CR>
+nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
+nnoremap <leader>i :YcmCompleter GoToImplementation <CR>
+nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
 
 Bundle 'gmarik/vundle'
 Bundle 'ctrlp.vim'
