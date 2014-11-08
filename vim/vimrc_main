@@ -50,7 +50,7 @@ call vundle#rc()
 set number
 let mapleader = ","
 
-map <leader>f :pyf /home/vulder/llvm/tools/clang/tools/clang-format/clang-format.py<CR> 
+map <leader>f :pyf /home/vulder/opt/llvm/share/clang/clang-format.py<CR> 
 map <leader>m :Make!<CR>
 map <leader>n :Copen<CR>
 nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
@@ -92,7 +92,8 @@ set wildignore+=build,*.a,*.so,*.o,*.obj,.git
 "set background=dark
 "colorscheme solarized
 "colorscheme vividchalk
-colorscheme lucius
+"colorscheme lucius
+colorscheme wombat256
 let g:lucius_style='dark'
 let g:lucius_contrast='normal'
 let g:lucius_contrast_bg='normal'
