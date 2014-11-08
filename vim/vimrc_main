@@ -87,6 +87,7 @@ let g:ycm_confirm_extra_conf=0
 " Command-t config
 let g:CommandTMaxFiles=100000
 set wildignore+=build,*.a,*.so,*.o,*.obj,.git
+set nohlsearch
 
 "let g:solarized_termcolors=256
 "set background=dark
@@ -94,9 +95,9 @@ set wildignore+=build,*.a,*.so,*.o,*.obj,.git
 "colorscheme vividchalk
 "colorscheme lucius
 colorscheme wombat256
-let g:lucius_style='dark'
-let g:lucius_contrast='normal'
-let g:lucius_contrast_bg='normal'
+"let g:lucius_style='dark'
+"let g:lucius_contrast='normal'
+"let g:lucius_contrast_bg='normal'
 
 " Optional
 " C/C++ programming helpers
