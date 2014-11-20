@@ -5,3 +5,7 @@ xterm*faceSize: 8
 xterm*background: black
 xterm*foreground: green
 xterm*cursorColor: white
+
+xterm*selectToClipboard: true
+
+setxkbmap -option ctrl:nocaps
