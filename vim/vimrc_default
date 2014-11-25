@@ -1,0 +1,1 @@
+map <leader> :pyf /home/vulder/opt/llvm/share/clang/clang-format.py<CR>

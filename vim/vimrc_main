@@ -50,7 +50,15 @@ call vundle#rc()
 set number
 let mapleader = ","
 
-map <leader>f :pyf /home/vulder/opt/llvm/share/clang/clang-format.py<CR> 
+let hostname = substitute(system('hostname'), '\n', '', '')
+if hostname == "barber"
+  source /home/sattlerf/git/doto/vim/vimrc_barber
+  echo "barber"
+elseif hostname == "tyrion"
+  source /home/vulder/git/doto/vim/vimrc_default
+  echo "tyrion"
+endif
+
 map <leader>m :Make!<CR>
 map <leader>n :Copen<CR>
 nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
