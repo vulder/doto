@@ -57,7 +57,6 @@ if hostname == "barber"
   source /home/sattlerf/git/doto/vim/vimrc_barber
 elseif hostname == "tyrion"
   source /home/vulder/git/doto/vim/vimrc_default
-  echo "tyrion"
 elseif hostname == "robert"
   source /home/vulder/git/doto/vim/vimrc_default
 endif
