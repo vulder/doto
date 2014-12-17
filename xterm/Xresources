@@ -1,6 +1,6 @@
 ! Use a nice truetype font
 xterm*faceName: Meslo LG L for Powerline
-xterm*faceSize: 8
+xterm*faceSize: 10
 
 xterm*background: black
 xterm*foreground: green
