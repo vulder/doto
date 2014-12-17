@@ -39,7 +39,9 @@ endif
 set backspace=indent,eol,start
 
 " Enable filetype detection
-filetype off "on
+"filetype off "on
+filetype on
+filetype plugin on
 
 "my Stuff Bundle
 set rtp+=~/.vim/bundle/vundle/
@@ -65,9 +67,15 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
 Bundle 'Solarized'
 Bundle 'fugitive.vim'
+Bundle 'tern_for_vim'
 "Bundle 'Lokaltog/vim-powerline'
 Bundle 'bling/vim-airline'
 Bundle 'vim-dispatch'
+
+
+setlocal omnifunc=tern#Complete
+call tern#Enable()
+"autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
@@ -94,7 +102,8 @@ set nohlsearch
 "colorscheme solarized
 "colorscheme vividchalk
 "colorscheme lucius
-colorscheme wombat256
+"colorscheme wombat256
+colorscheme badwolf
 "let g:lucius_style='dark'
 "let g:lucius_contrast='normal'
 "let g:lucius_contrast_bg='normal'
