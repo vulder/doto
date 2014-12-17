@@ -53,7 +53,6 @@ let mapleader = ","
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "barber"
   source /home/sattlerf/git/doto/vim/vimrc_barber
-  echo "barber"
 elseif hostname == "tyrion"
   source /home/vulder/git/doto/vim/vimrc_default
   echo "tyrion"
