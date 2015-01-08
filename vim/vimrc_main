@@ -60,11 +60,14 @@ elseif hostname == "robert"
   source /home/vulder/git/doto/vim/vimrc_default
 endif
 
-map <leader>m :Make!<CR>
+map <leader>m :Make<CR>
 map <leader>n :Copen<CR>
 nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
 nnoremap <leader>i :YcmCompleter GoToImplementation <CR>
 nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
+
+set wildchar=<Tab> wildmenu wildmode=full
+set wildcharm=<C-Z>
 
 Bundle 'gmarik/vundle'
 Bundle 'ctrlp.vim'
