@@ -3308,9 +3308,12 @@ zrclocal
 
 source /home/vulder/.module
 
+alias vmore="vim -u ~/.vimrc.more -"
 alias popt="opt -load /home/vulder/opt/polly/lib/LLVMPolly.so"
+alias vim="/usr/bin/vim"
 #alias tmux-"TERM=screen-256color-bce tmux"
 alias tmux="tmux -2"
+load llvm
 
 ## genrefcard.pl settings
 
