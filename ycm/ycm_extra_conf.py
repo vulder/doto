@@ -3,60 +3,46 @@ import sys
 import ycm_core
 
 flags = [
-'-std=c++11',
-'-DUSE_CLANG_COMPLETER',
-'-std=c++11',
-'-I/home/vulder/hiwi/llvm/include/',
-'-I/home/vulder/hiwi/llvm/tools/polly/include/',
-'-I/home/vulder/hiwi/sqlite-autoconf-3080002/',
-'-I/home/vulder/git/SchafkopfCounter/include/schafkopfcounter/',
-'-I/home/vulder/git/c_cpp/c/include/',
-'-I/home/vulder/git/c_cpp/cpp/include/',
-'-I/home/vulder/git/TSQueryEx/lib/TSQueryAPI/include/TSQueryAPI/',
-'-I/usr/local/include/',
-'-I/home/vulder/plsremoveCServer/project/include/'
+    '-DYCM_DB_NOT_FOUND',
+    '-std=c++11',
+    '-I', '.'
+    '-I/usr/local/include/',
 ]
 
-# Set this to the absolute path to the folder (NOT the file!) containing the
-# compile_commands.json file to use that instead of 'flags'. See here for
-# more details: http://clang.llvm.org/docs/JSONCompilationDatabase.html
-#
-# Most projects will NOT need to set this to anything; you can just change the
-# 'flags' list of compilation flags. Notice that YCM itself uses that approach.
-# compilation_database_folder = '/home/simbuerg/Projekte/.ycm'
-compilation_database_folder = '/home/vulder/.ycm'
+# If you want to use more than one compilation database, put it in
+# the compilation_database_folder. We will walk the directory recursively
+# and gather all compile_commands.json files.
+compilation_database_folder = '/home/sattlerf/.ycm'
 dbName = 'compile_commands.json'
+databases = None
+SOURCE_EXTENSIONS = ['.cpp', '.cxx', '.cc', '.c', '.m', '.mm']
+HEADER_EXTENSIONS = ['.h', '.hxx', '.hpp', '.hh' ]
 
-def CollectDatabases( name ):
-  dbsFound = []
-  for (path, dirs, files) in os.walk(name):
-    if dbName in files:
-      dbsFound.append(path)
-  return dbsFound
+
+def CollectDatabases(name):
+    return [ path for (path, dirs, files) in os.walk(name) if dbName in files ]
+
 
 def LoadDatabases(dir):
-  dbs = CollectDatabases(dir)
-  compDbs = []
-  for db in dbs:
-    cdb = ycm_core.CompilationDatabase(db)
-    if cdb.DatabaseSuccessfullyLoaded():
-        tempfile.write(" Added: " + db + "\n")
-        compDbs.append({
-            "name": db,
-            "db": cdb
-            })
+    cdb = dict()
+    for db in CollectDatabases(dir):
+        cdb[db] = ycm_core.CompilationDatabase(db)
+    return cdb
 
-  return compDbs
 
-databases = LoadDatabases( compilation_database_folder )
+def IsHeaderFile(filename):
+  extension = os.path.splitext( filename )[ 1 ]
+  return extension in HEADER_EXTENSIONS
+
 
 def DirectoryOfThisScript():
-  return os.path.dirname( os.path.abspath( __file__ ) )
+  return os.path.dirname(os.path.abspath(__file__))
 
 
-def MakeRelativePathsInFlagsAbsolute( flags, working_directory ):
+def MakeRelativePathsInFlagsAbsolute(flags, working_directory):
   if not working_directory:
     return flags
+
   new_flags = []
   make_next_absolute = False
   path_flags = [ '-isystem', '-I', '-iquote', '--sysroot=' ]
@@ -84,27 +70,50 @@ def MakeRelativePathsInFlagsAbsolute( flags, working_directory ):
 
 
 def GetCompilationInfo (filename):
-  if databases:
-    for dbInfo in databases:
-      compilation_info = dbInfo["db"].GetCompilationInfoForFile(filename)
-      num_flags = len(compilation_info.compiler_flags_)
-      if num_flags > 0:
-        return compilation_info
+    global SOURCE_EXTENSIONS
+    global databases
+
+    # If we don't have them yet, load them.
+    if not databases:
+        databases = LoadDatabases(compilation_database_folder)
+
+    # We couldn't find any compilation database.
+    if not databases:
+        return None
+
+    # Check for compilation info of headers
+    if IsHeaderFile(filename):
+        basename = os.path.splitext(filename)[0]
+        for ext in SOURCE_EXTENSIONS:
+            altFile = basename + ext
+            if os.path.exists(altFile):
+                cinfo = GetCompilationInfo(altFile)
+                if cinfo and cinfo.compiler_flags_:
+                    return cinfo
+
+    # Find the right db
+    for db in databases:
+      cinfo = databases[db].GetCompilationInfoForFile(filename)
+      if cinfo and cinfo.compiler_flags_:
+        return cinfo
+
 
 def FlagsForFile( filename ):
-  final_flags = None
-  compilation_info = GetCompilationInfo(filename)
+    final_flags = None
+    cinfo = GetCompilationInfo(filename)
 
-  if compilation_info:
-    final_flags = MakeRelativePathsInFlagsAbsolute(
-      compilation_info.compiler_flags_,
-      compilation_info.compiler_working_dir_ )
-  
-  if not final_flags:
-    relative_to = DirectoryOfThisScript()
-    final_flags = MakeRelativePathsInFlagsAbsolute( flags, relative_to )
+    # Query the DB
+    if cinfo:
+        final_flags = MakeRelativePathsInFlagsAbsolute(
+        cinfo.compiler_flags_,
+        cinfo.compiler_working_dir_ )
 
-  return {
-    'flags': final_flags,
-    'do_cache': True 
-  }
+    # Use default flags
+    if not final_flags:
+        relative_to = DirectoryOfThisScript()
+        final_flags = MakeRelativePathsInFlagsAbsolute( flags, relative_to )
+
+    return {
+        'flags': final_flags,
+        'do_cache': True
+    }
