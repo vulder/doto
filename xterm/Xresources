@@ -1,6 +1,9 @@
 ! Use a nice truetype font
-xterm*faceName: Meslo LG L for Powerline
-xterm*faceSize: 10
+!xterm*faceName: Meslo LG L for Powerline
+!xterm*faceName: SourceCodePro
+xterm*faceName: SourceCodePro for Powerline
+!xterm*faceName: DefjaVuSans
+xterm*faceSize: 12
 
 xterm*background: black
 xterm*foreground: green
@@ -8,4 +11,5 @@ xterm*cursorColor: white
 
 xterm*selectToClipboard: true
 
+setxkbmap: us
 setxkbmap -option ctrl:nocaps
