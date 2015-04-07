@@ -3313,7 +3313,7 @@ alias popt="opt -load /home/vulder/opt/polly/lib/LLVMPolly.so"
 alias vim="/usr/bin/vim"
 #alias tmux-"TERM=screen-256color-bce tmux"
 alias tmux="tmux -2"
-load llvm
+load llvm-r
 
 ## genrefcard.pl settings
 
