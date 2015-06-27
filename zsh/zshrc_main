@@ -3313,7 +3313,8 @@ alias popt="opt -load /home/vulder/opt/polly/lib/LLVMPolly.so"
 alias vim="/usr/bin/vim"
 #alias tmux-"TERM=screen-256color-bce tmux"
 alias tmux="tmux -2"
-load llvm-r
+alias idea="/home/vulder/opt/idea/bin/idea.sh"
+load llvm
 
 # start tmux snippet
 #[[ $- != *i* ]] && return
