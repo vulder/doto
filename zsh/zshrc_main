@@ -3315,6 +3315,22 @@ alias vim="/usr/bin/vim"
 alias tmux="tmux -2"
 load llvm-r
 
+# start tmux snippet
+#[[ $- != *i* ]] && return
+#if which tmux 2>&1 > /dev/null; then
+#  test -z "$TMUX" && (tmux attach || tmux new-session)
+#fi
+
+function startVim {
+    if { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
+        /usr/bin/vim $@
+    else
+        tmux new -n vim vim $@
+    fi
+}
+
+alias vim=startVim
+
 ## genrefcard.pl settings
 
 ### doc strings for external functions from files
