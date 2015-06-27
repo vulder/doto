@@ -367,12 +367,18 @@ awful.rules.rules = {
       properties = {}, callback = function (c)
           awful.client.movetotag(tags[2][1], c)
           c:geometry({ x = 2560, y = 19 })
-      end },
+     end },
+
+    {rule = { class = "Seafile-applet" },
+      properties = {}, callback = function (c)
+          awful.client.movetotag(tags[2][1], c)
+          c:geometry({ x = 3411, y = 19, width = 340, height = 826})
+     end },
 
     {rule = { class = "Pidgin", name = "Buddy List" },
       properties = {}, callback = function (c)
           awful.client.movetotag(tags[2][1], c)
-          c:geometry({ x = 3406, y = 769 })
+          c:geometry({ x = 3409, y = 848 })
       end },
 
     {rule = { class = "Chromium" },
@@ -389,7 +395,7 @@ awful.rules.rules = {
     {rule = { class = "TeamSpeak 3" },
       properties = {}, callback = function (c)
           awful.client.movetotag(tags[2][1], c)
-          c:geometry({ x = 2560, y = 769, width = 842, height = 1147})
+          c:geometry({ x = 2560, y = 848, width = 845, height = 1064})
       end },
 }
 -- }}}
@@ -443,4 +449,5 @@ run_once("pidgin")
 run_once("teamspeak")
 run_once("xscreensaver -no-splash")
 run_once("/home/vulder/goo.sh")
+run_once("seafile-applet")
 -- }}}
