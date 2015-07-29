@@ -38,7 +38,8 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+-- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+beautiful.init("/home/vulder/.config/awesome/awesome-themes-3.5/roig/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "uxterm"
@@ -363,12 +364,12 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
-    { rule = { class = "gimp" },
+    { rule = { class = "Gimp" },
       properties = { floating = true } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
-    { rule = { class = "yakuake" },
+    { rule = { class = "Yakuake" },
       properties = { floating = true } },
 
     -- my rules
@@ -495,14 +496,14 @@ function run_once(cmd)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .." > /dev/null || (" .. cmd .. ")")
 end
 
-run_once("yakuake")
-run_once("nm-applet")
-run_once("wmname LG3D")
---run_once("icedove")
-run_once("thunderbird")
-run_once("chromium")
-run_once("pidgin")
-run_once("teamspeak")
+-- run_once("yakuake")
+-- run_once("nm-applet")
+-- run_once("wmname LG3D")
+-- --run_once("icedove")
+-- run_once("thunderbird")
+-- run_once("chromium")
+-- run_once("pidgin")
+-- run_once("teamspeak")
 --run_once("xscreensaver -no-splash")
 --run_once("/home/vulder/goo.sh")
 -- }}}
