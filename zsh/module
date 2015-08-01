@@ -1,0 +1,55 @@
+
+export CLEAN_LD_RUN_PATH=$LD_RUN_PATH
+export CLEAN_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+export CLEAN_LIBRARY_PATH=$LIBRARY_PATH
+export CLEAN_INCLUDE_PATH=$INCLUDE_PATH
+export CLEAN_C_INCLUDE_PATH=$C_INCLUDE_PATH
+export CLEAN_CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH
+export CLEAN_PATH=$PATH
+
+
+
+export PACKAGES_HOME=/home/vulder/opt
+
+function loaddir {
+  for var in "$@"
+    do
+      abs_path=$(readlink -m $var);
+
+    if [ -d "$abs_path" ]; then
+
+      export PATH=$abs_path/bin:${PATH};
+    export LD_RUN_PATH=$abs_path/lib:${LD_RUN_PATH};
+    export LD_LIBRARY_PATH=$abs_path/lib:${LD_LIBRARY_PATH};
+    export LIBRARY_PATH=$abs_path/lib:${LIBRARY_PATH};
+    export INCLUDE_PATH=$abs_path/include:${INCLUDE_PATH};
+    export C_INCLUDE_PATH=$abs_path/include:${C_INCLUDE_PATH};
+    export CPLUS_INCLUDE_PATH=$abs_path/include:${CPLUS_INCLUDE_PATH};
+
+    else
+
+      echo "module $var not found";
+
+    fi
+      done
+}
+
+function load {
+  for var in "$@"
+    do
+      loaddir $PACKAGES_HOME/$var;
+    done
+}
+
+
+function clearEnv {
+
+  export LD_RUN_PATH=$CLEAN_LD_RUN_PATH
+    export LD_LIBRARY_PATH=$CLEAN_LD_LIBRARY_PATH
+    export LIBRARY_PATH=$CLEAN_LIBRARY_PATH
+    export INCLUDE_PATH=$CLEAN_INCLUDE_PATH
+    export C_INCLUDE_PATH=$CLEAN_C_INCLUDE_PATH
+    export CPLUS_INCLUDE_PATH=$CLEAN_CPLUS_INCLUDE_PATH
+    export PATH=$CLEAN_PATH
+}
+
