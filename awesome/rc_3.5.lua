@@ -49,6 +49,12 @@ beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-darker/t
 terminal = "uxterm"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
+browser    = "chromium"
+gui_editor = "gvim"
+graphics   = "gimp"
+mail       = terminal .. " -e mutt "
+iptraf     = terminal .. " -g 180x54-20+34 -e sudo iptraf-ng -i all "
+musicplr   = terminal .. " -g 130x34-320+16 -e ncmpcpp "
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -454,6 +460,8 @@ globalkeys = awful.util.table.join(
     -- Widgets popups
     awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
     awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
+
+    awful.key({ modkey }, "q", function () awful.util.spawn(browser) end),
 
     awful.key({ modkey }, "x",
               function ()
