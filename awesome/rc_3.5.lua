@@ -604,6 +604,15 @@ awful.rules.rules = {
         c:geometry({ width = w_area.width, height = w_area.height})
       end },
 
+    {rule = { class = "Steam" },
+      properties = {}, callback = function (c)
+        awful.client.movetotag(tags[1][9], c)
+      end },
+    {rule = { class = "Steam", name = "Friends" },
+      properties = {}, callback = function (c)
+        awful.client.movetotag(tags[1][9], c)
+      end },
+
     --{rule = { class = "Ts3client_linux_amd64" },
     {rule = { class = "TeamSpeak 3" },
       properties = {}, callback = function (c)
