@@ -46,7 +46,7 @@ end
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-darker/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "uxterm"
+terminal = "urxvt"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 browser    = "chromium"
@@ -712,7 +712,7 @@ function run_once(cmd)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .." > /dev/null || (" .. cmd .. ")")
 end
 
--- run_once("yakuake")
+run_once("yakuake")
 -- run_once("nm-applet")
 -- run_once("wmname LG3D")
 -- --run_once("icedove")
