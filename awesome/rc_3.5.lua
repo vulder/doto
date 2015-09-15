@@ -575,7 +575,7 @@ awful.rules.rules = {
     {rule = { class = "Thunderbird" },
       properties = {}, callback = function (c)
         if not skipMovingIcedove then
-          awful.client.movetotag(tags[1][4], c)
+          awful.client.movetotag(tags[2][2], c)
           w_area = screen[c.screen].workarea
           c:geometry({ width = w_area.width, height = w_area.height})
           skipMovingIcedove = true;
@@ -618,6 +618,15 @@ awful.rules.rules = {
       properties = {}, callback = function (c)
           awful.client.movetotag(tags[2][1], c)
           c:geometry({ x = 2560, y = 769, width = 842, height = 1147})
+      end },
+    --{rule = { class = "crx_hmjkmjkepdijhoojdojkdfohbdgmmhki" },
+    {rule = { name = "Google Keep" },
+      properties = {}, callback = function (c)
+        if not skipMovingIcedove then
+          awful.client.movetotag(tags[2][9], c)
+          w_area = screen[c.screen].workarea
+          c:geometry({ width = w_area.width, height = w_area.height})
+        end
       end },
 }
 -- }}}
