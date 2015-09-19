@@ -12,7 +12,7 @@ flags = [
 # If you want to use more than one compilation database, put it in
 # the compilation_database_folder. We will walk the directory recursively
 # and gather all compile_commands.json files.
-compilation_database_folder = '/home/sattlerf/.ycm'
+compilation_database_folder = '/home/vulder/.ycm'
 dbName = 'compile_commands.json'
 databases = None
 SOURCE_EXTENSIONS = ['.cpp', '.cxx', '.cc', '.c', '.m', '.mm']
