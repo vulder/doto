@@ -68,6 +68,8 @@ let mapleader = ","
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "barber"
   source /home/sattlerf/git/doto/vim/vimrc_barber
+elseif hostname == "debussy"
+  source /home/sattlerf/git/doto/vim/vimrc_barber
 elseif hostname == "tyrion"
   source /home/vulder/git/doto/vim/vimrc_default
 elseif hostname == "robert"
@@ -81,11 +83,6 @@ nnoremap <leader>i :YcmCompleter GoToImplementation <CR>
 nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
 map <leader>n :Copen<CR>
 
-" resizing window
-nnoremap <C-UP> <C-W>+
-nnoremap <C-DOWN> <C-W>-
-nnoremap <C-LEFT> <C-W><
-nnoremap <C-RIGHT> <C-W>>
 " Bindings for C/C++ DefImp jumps
 nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
 nnoremap <leader>i :YcmCompleter GoToImplementation <CR>
