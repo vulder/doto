@@ -105,6 +105,7 @@ Bundle 'vim-dispatch'
 "Bundle 'davidhalter/jedi-vim'
 
 Plugin 'jedi-vim'
+let g:jedi#auto_initialization = 0
 
 " Enableing tern Autocompletion 4 javascript //remove later I hate js
 setlocal omnifunc=tern#Complete
