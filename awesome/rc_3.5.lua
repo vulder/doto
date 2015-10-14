@@ -50,6 +50,7 @@ terminal = "urxvt"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 browser    = "chromium"
+lock = "xlock"
 gui_editor = "gvim"
 graphics   = "gimp"
 mail       = terminal .. " -e mutt "
@@ -462,6 +463,8 @@ globalkeys = awful.util.table.join(
     awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
 
     awful.key({ modkey }, "q", function () awful.util.spawn(browser) end),
+
+    awful.key({ modkey }, "l", function () awful.util.spawn(lock) end),
 
     awful.key({ modkey }, "x",
               function ()
