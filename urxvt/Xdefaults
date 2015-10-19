@@ -4,7 +4,7 @@ URxvt.foreground: white
 URxvt.background: black
 URxvt.secondaryScroll: true
 !URxvt.font: xft:Terminus (TTF):pixelsize=12
-URxvt.font: xft:SourceCodePro for Powerline:pixelsize=16
+URxvt.font: xft:Hack for Powerline:pixelsize=14
 URxvt.perl-ext-common: default,matcher
 URxvt.urlLauncher: /usr/bin/chromium
 URxvt.matcher.button: 1
