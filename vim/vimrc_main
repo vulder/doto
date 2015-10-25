@@ -122,6 +122,9 @@ let g:ctrlp_user_command ='find %s -type f | grep -v -P
    \ "\.git|build\/|\.m4$|\.jpg$|\.png$|\.o$|\.a$|\.so$|\.obj$|\.i$|\.pyc$"
    \ '
 
+highlight ColorColumn ctermbg=DarkMagenta
+call matchadd('ColorColumn', '\%81v', 100)
+
 set laststatus=2
 set encoding=utf-8
 set t_Co=256
