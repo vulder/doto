@@ -85,6 +85,10 @@ nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
 nnoremap <leader>i :YcmCompleter GoToImplementation <CR>
 nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
 
+inoremap <F9> <C-O>za
+nnoremap <F9> za
+vnoremap <F9> zf
+
 set wildchar=<Tab> wildmenu wildmode=full
 set wildcharm=<C-Z>
 
