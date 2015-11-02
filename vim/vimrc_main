@@ -78,9 +78,6 @@ endif
 
 map <leader>m :Make<CR>
 map <leader>n :Copen<CR>
-nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
-nnoremap <leader>i :YcmCompleter GoToImplementation <CR>
-nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
 map <leader>n :Copen<CR>
 
 " Bindings for C/C++ DefImp jumps
