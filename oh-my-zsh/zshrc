@@ -113,6 +113,6 @@ function startVim {
 
 alias vim=startVim
 
-
+#export GPG_TTY=$(tty)
 
 
