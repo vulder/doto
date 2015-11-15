@@ -158,6 +158,8 @@ let g:ycm_confirm_extra_conf=0
 " Ignore files with type *.x
 set wildignore+=build,*.a,*.so,*.o,*.obj,.git
 
+set incsearch
+
 set nohlsearch
 
 
