@@ -1,0 +1,6 @@
+/home/vulder	40
+/home/vulder/git	40
+/home/vulder/git	40
+/home/vulder/git/spacefoo	40
+/home/vulder/git/spacefoo	40
+/home/vulder	40
