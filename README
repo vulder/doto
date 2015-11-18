@@ -1,0 +1,5 @@
+install:
+  zgen
+  tpm
+  powerline
+  tree

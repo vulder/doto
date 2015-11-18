@@ -1,0 +1,10 @@
+fonts/Apache License.txt
+tmux/tmux_folder/plugins/tmux-copycat/
+tmux/tmux_folder/plugins/tmux-fpp/
+tmux/tmux_folder/plugins/tmux-resurrect/
+tmux/tmux_folder/plugins/tmux-sensible/
+tmux/tmux_folder/plugins/tmux-sidebar/
+tmux/tmux_folder/plugins/tmux-yank/
+vim/vim_dir/bundle/jedi-vim/
+vim/vim_dir/doc/jedi-vim.txt
+vim/vim_dir/plugin/jedi.vim
