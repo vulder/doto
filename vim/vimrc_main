@@ -103,12 +103,12 @@ Bundle 'fugitive.vim'
 " Bundle 'tern_for_vim'
 Bundle 'bling/vim-airline'
 Bundle 'vim-dispatch'
+Bundle 'vim-surround'
 "Bundle 'davidhalter/jedi-vim'
 
-Plugin 'zenorocha/dracula-theme', {'rtp': 'vim/'}
-
 Plugin 'jedi-vim'
-let g:jedi#auto_initialization = 0
+let g:jedi#auto_initialization = 1
+let g:jedi#use_splits_not_buffers = "top"
 
 " Enableing tern Autocompletion 4 javascript //remove later I hate js
 setlocal omnifunc=tern#Complete
@@ -166,6 +166,10 @@ set nohlsearch
 " Highlight syntax in programming languages
 syntax on
 
+set incsearch
+
+set hidden
+
 " Vim Colors
 "let g:solarized_termcolors=256
 "set background=dark
@@ -173,8 +177,7 @@ syntax on
 "colorscheme vividchalk
 "colorscheme lucius
 "colorscheme wombat256
-" colorscheme badwolf
-colorscheme dracula
+colorscheme badwolf
 "let g:lucius_style='dark'
 "let g:lucius_contrast='normal'
 "let g:lucius_contrast_bg='normal'
