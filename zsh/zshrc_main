@@ -502,7 +502,12 @@ PROMPT='%(?, ,%{$fg[red]%}FAIL: $?%{$reset_color%}
 %{$fg_user%}%n%{$fg_at%}@%{$fg_host%}%m%{$reset_color%}: %{$fg_oA%}%~%{$reset_color%}$(git_prompt_info)
 %_$(prompt_char) '
 
-RPROMPT='%{$fg_lgray%}[%*]%{$reset_color%}'
+function prompt_ip {
+  ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -1
+}
+
+#RPROMPT='%{$fg_lgray%}[%*]%{$reset_color%}'
+RPROMPT='%{$fg_lgray%}[$(prompt_ip)]%{$reset_color%}'
 
 #source /home/vulder/.oh-my-zsh/themes/tjkirch.zsh-theme
 
