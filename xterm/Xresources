@@ -3,7 +3,7 @@
 !xterm*faceName: SourceCodePro
 xterm*faceName: SourceCodePro for Powerline
 !xterm*faceName: DefjaVuSans
-xterm*faceSize: 12
+xterm*faceSize: 10
 
 xterm*background: black
 xterm*foreground: green
