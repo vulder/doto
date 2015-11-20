@@ -635,3 +635,4 @@ autoload -U compinit
 # source /root/.local/lib/python3.4/site-packages/powerline/bindings/zsh/powerline.zsh
 unalias gg
 export PATH="/usr/local/p/versions/python:$PATH"
+eval "$(fasd --init auto)"
