@@ -481,10 +481,10 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then fg_oA=$FG[213]; fi	# ssh
 # PROMPT='$FG[154]%~%'
 # PROMPT="${fg_lgreen}%n${fg_lgray}[${fg_cyan}%~${fg_lgray}]: "
 PROMPT="${fg_oB}%n${fg_oB}[${fg_oA}%~${fg_oB}]: ${fg_lgray}"
-PS2='$FG[240]> '	# sub prompt
-PS3='$FG[254]?#'	# ksh
-# PS4='($FG[154]${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]'
-PS4='$FG[240][%N:$FG[060]%i$FG[240]]$reset_color $FG[190]'
+#PS2='$FG[240]> '	# sub prompt
+#PS3='$FG[254]?#'	# ksh
+## PS4='($FG[154]${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]} - [${SHLVL},${BASH_SUBSHELL}, $?]'
+#PS4='$FG[240][%N:$FG[060]%i$FG[240]]$reset_color $FG[190]'
 #
 
 
@@ -494,7 +494,7 @@ ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}⚡"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 
 function prompt_char {
-	if [ $UID -eq 0 ]; then echo "%{$fg[red]%}#%{$reset_color%}"; else echo "%{$fg_lineStart%}$"; fi
+	if [ $UID -eq 0 ]; then echo "%{$fg[red]%}#%{$reset_color%}"; else echo "%{$fg_lineStart%}$%{$reset_color%}"; fi
 }
 
 PROMPT='%(?, ,%{$fg[red]%}FAIL: $?%{$reset_color%}
