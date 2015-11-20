@@ -459,6 +459,8 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=magenta,bold'
 
 alias zNoflwLink="unsetopt chaselinks"
 
+alias tmux="tmux -2"
+
 #HISTFILE=/root/.zsh-histfile
 HISTFILE=/home/vulder/.zsh-histfile
 HISTSIZE=5000
