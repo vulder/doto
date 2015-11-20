@@ -15,7 +15,8 @@ URxvt.tabbed.tabbar-bg: 0
 URxvt.tabbed.tab-fg: 0
 URxvt.tabbed.tab-bg: 1
 URxvt.tabbed.secondaryScroll: true
-URxvt.tabbed.font: xft:SourceCodePro for Powerline:pixelsize=16
+!URxvt.tabbed.font: xft:SourceCodePro for Powerline:pixelsize=16
+URxvt.tabbed.font: xft:Hack for Powerline:pixelsize=14
 URxvt*inheritPixmap: true 
 URxvt*shading: 10
 
