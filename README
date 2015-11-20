@@ -3,3 +3,4 @@ install:
   tpm
   powerline
   tree
+  tmux-mem-cpu-load
