@@ -633,7 +633,7 @@ autoload -U compinit
 # compinit
 # compinit -u
 # compinit -C
-[ -f ~/.fzf.zsh ] && source /root/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # source /root/.local/lib/python3.4/site-packages/powerline/bindings/zsh/powerline.zsh
 unalias gg
 export PATH="/usr/local/p/versions/python:$PATH"
