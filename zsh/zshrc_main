@@ -499,9 +499,8 @@ function prompt_char {
 	if [ $UID -eq 0 ]; then echo "%{$fg[red]%}#%{$reset_color%}"; else echo "%{$fg_lineStart%}$%{$reset_color%}"; fi
 }
 
-PROMPT='%(?, ,%{$fg[red]%}FAIL: $?%{$reset_color%}
-)
-%{$fg_user%}%n%{$fg_at%}@%{$fg_host%}%m%{$reset_color%}: %{$fg_oA%}%~%{$reset_color%}$(git_prompt_info)
+PROMPT='
+%(?,,%{$fg[red]%}$? %{$reset_color%})%{$fg_user%}%n%{$fg_at%}@%{$fg_host%}%m%{$reset_color%}: %{$fg_oA%}%~%{$reset_color%}$(git_prompt_info)
 %_$(prompt_char) '
 
 function prompt_ip {
