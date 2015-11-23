@@ -127,6 +127,22 @@ let g:ctrlp_user_command ='find %s -type f | grep -v -P
    \ "\.git|build\/|\.m4$|\.jpg$|\.png$|\.o$|\.a$|\.so$|\.obj$|\.i$|\.pyc$"
    \ '
 
+" bindings for fzf-vim
+nmap <c-p> :FZF<CR>
+
+"nmap <leader><tab> <plug>(fzf-maps-n)
+"xmap <leader><tab> <plug>(fzf-maps-x)
+"omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+"imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+
 " adds blinking when jumping to the next word
 nnoremap <silent> n n:call HLNext(0.4)<cR>
 nnoremap <silent> N N:call HLNext(0.4)<cR>
