@@ -1,0 +1,8 @@
+new_session -n vim
+send_line vim "cd /home/vulder/git/gameDev"
+send_line vim "vim"
+new_window -n test
+send_line test "cd /home/vulder/git/gameDev/build/debug"
+new_window -n git
+send_line git "cd /home/vulder/git/gameDev/"
+select_window vim
