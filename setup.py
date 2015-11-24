@@ -36,11 +36,39 @@ class SymlinkEntry:
             ln["-s", rootP + "/" + self.source, homeP + "/" + self.target]()
 
 
+class Prog:
+
+    def __init__(self,name,giturl,installLoc,installR=""):
+        self.name = name
+        self.giturl = giturl
+        self.installLoc = installLoc
+        self.installR = installR
+
+    def clone(self):
+        from plumbum.cmd import git
+
+        if path.exists(self.installLoc):
+            with local.cwd(self.installLoc):
+                print git["pull"]
+                git["pull"]()
+        else:
+            print git["clone", self.giturl, self.installLoc]
+            git["clone", self.giturl, self.installLoc]()
+
+    def install(self):
+        pass
 
 if __name__ == "__main__":
     linkEntrys = []
     linkEntrys.append(SymlinkEntry("vim_dir","vim/vim_dir","vim_new"))
     linkEntrys.append(SymlinkEntry("tmux_dir","tmux/tmux_dir","tmux_new"))
+
+    programms = []
+    programms.append(Prog("enhanced","git@github.com:b4b4r07/enhancd.git", homeP + "/.enhancd_new"))
+
+    # checkout and install programs
+    for prog in programms:
+        prog.clone()
 
     # backing up old files
     for linkEntr in linkEntrys:
