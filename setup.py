@@ -18,20 +18,18 @@ class SymlinkEntry:
         self.hidden = hidden
 
     def backup(self):
+        print "Backing up " + self.name
         if self.hidden:
             srcPath = homeP + "/." + self.target
-            print srcPath
-            if path.exists(srcPath):
-                print "yes"
+            if path.islink(srcPath) or path.isfile(srcPath):
                 mv[srcPath , homeP + "/." + self.target + "_back"]()
-            else:
-                print "no"
         else:
             srcPath = homeP + "/" + self.target
-            if path.exists(srcPath):
+            if path.islink(srcPath) or path.isfile(srcPath):
                 mv[srcPath, homeP + "/vim_new_back"]()
 
     def link(self):
+        print "Linking " + self.name
         if self.hidden:
             ln["-s", rootP + "/" + self.source, homeP + "/." + self.target]()
         else:
@@ -47,7 +45,6 @@ if __name__ == "__main__":
     # backing up old files
     for linkEntr in linkEntrys:
         linkEntr.backup()
-
 
     # setup symlinks
     for linkEntr in linkEntrys:
