@@ -460,6 +460,14 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=magenta,bold'
 alias zNoflwLink="unsetopt chaselinks"
 
 alias tmux="tmux -2"
+function vim_sf() {
+  if { [ $# -eq 0 ]; } then
+    vim `sf`
+  else
+    vim $@
+  fi
+}
+alias vim=vim_sf
 
 #HISTFILE=/root/.zsh-histfile
 HISTFILE=/home/vulder/.zsh-histfile
