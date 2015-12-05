@@ -467,7 +467,7 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey }, "s", function () awful.util.spawn(soundGui) end),
 
-    awful.key({ modkey }, "l", function () awful.util.spawn(lock) end),
+    awful.key({ modkey }, "u", function () awful.util.spawn(lock) end),
 
     awful.key({ modkey }, "x",
               function ()
