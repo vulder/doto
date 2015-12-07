@@ -49,6 +49,12 @@ class SymlinkEntry(object):
             ln["-s", ROOT_PATH + "/" + self.source, HOME_PATH + "/" +
                self.target]()
 
+    def __repr__(self):
+        string_repr = ""
+        string_repr += "{name: \"" + self.name + "\" src_path: \"" + \
+                self.source + "\" tar_path: \"" + self.target + "\"}"
+        return string_repr
+
 
 class Prog(object):
     """
@@ -81,43 +87,73 @@ class Prog(object):
         """
         pass
 
+    def __repr__(self):
+        string_repr = ""
+        string_repr += "{name: \"" + self.name + "\" giturl: \"" + self.giturl \
+                + "\" install_location: \"" + self.install_loc + "\"}"
+        return string_repr
+
 
 class Config(object):
     """
     A configuration file for the configs and programs to install.
     """
 
+    link_entrys = []
+    programms = []
+
     def __init__(self, config_file):
         with open(config_file, "r") as conf:
-            for line in conf.readlines:
-                print line
+            import json
+            jsn = json.load(conf)
+            # read dot files to link
+            for dot_file in jsn["dot_files"]:
+                self.link_entrys.append(SymlinkEntry(dot_file["name"], \
+                        dot_file["src_path"], dot_file["tar_path"]))
+            # read programs to install
+            for prog_file in jsn["programs"]:
+                self.programms.append(Prog(prog_file["name"], \
+                    prog_file["git_url"], \
+                    HOME_PATH + prog_file["install_path"]))
+
+    def link_all(self):
+        """
+        Links all dot files specified in the config.
+        """
+        for link_entry in self.link_entrys:
+            link_entry.link()
+
+
+    def backup_all(self):
+        """
+        Backs up all dot files that could be touched by new files.
+        """
+        for link_entry in self.link_entrys:
+            link_entry.backup()
+
+    def install_all(self):
+        """
+        Installs all programs specified in the config.
+        """
+        pass
+
+    def clone_all(self):
+        """
+        Checks out all programs specified in the config.
+        """
+        for prog in self.programms:
+            prog.clone()
 
 
 def main():
     """
     Executs the setup of the specified config file.
     """
-    Config("~/git/doto.conf")
+    conf = Config("/home/sattlerf/git/doto/doto.conf")
 
-    link_entrys = []
-    link_entrys.append(SymlinkEntry("vim_dir", "vim/vim_dir", "vim_new"))
-    link_entrys.append(SymlinkEntry("tmux_dir", "tmux/tmux_dir", "tmux_new"))
-
-    programms = []
-    programms.append(Prog("enhanced", "git@github.com:b4b4r07/enhancd.git", \
-            HOME_PATH + "/.enhancd_new"))
-
-    # checkout and install programs
-    for prog in programms:
-        prog.clone()
-
-    # backing up old files
-    for link_entry in link_entrys:
-        link_entry.backup()
-
-    # setup symlinks
-    for link_entry in link_entrys:
-        link_entry.link()
+    conf.backup_all()
+    conf.link_all()
+    conf.clone_all()
 
 
 if __name__ == "__main__":
