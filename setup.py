@@ -61,12 +61,15 @@ class Prog(object):
     A program that needs to be installed for the config to work.
     """
     git_options = []
+    install_cmds = []
 
     def __init__(self, json_repr):
         self.name = json_repr["name"]
         self.giturl = json_repr["git_url"]
         self.install_loc = HOME_PATH + json_repr["install_path"]
-        self.install_cmd = json_repr["install_cmd"]
+        for cmd in json_repr["install_cmds"]:
+            print cmd
+
         for git_opt in json_repr["git_opts"]:
             for key in git_opt:
                 self.git_options.append(str(key))
@@ -90,6 +93,7 @@ class Prog(object):
         """
         Installs the program in the default setup.
         """
+        #TODO exec install cmds
         pass
 
     def __repr__(self):
@@ -138,7 +142,8 @@ class Config(object):
         """
         Installs all programs specified in the config.
         """
-        pass
+        for prog in self.programms:
+            prog.install()
 
     def clone_all(self):
         """
@@ -157,6 +162,7 @@ def main():
     conf.backup_all()
     conf.link_all()
     conf.clone_all()
+    conf.install_all()
 
 
 if __name__ == "__main__":
