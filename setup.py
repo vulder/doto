@@ -1,80 +1,124 @@
 #!/usr/bin/env python
+"""
+Script to auto setup programming environment.
+"""
 
 from plumbum import local
 from plumbum.cmd import cat, ln, mv
 
 from os import path
-from glob import glob
 
-rootP = local.env["PWD"]
-homeP = local.env["HOME"]
+ROOT_PATH = local.env["PWD"]
+HOME_PATH = local.env["HOME"]
 
-class SymlinkEntry:
 
-    def __init__(self,name,source,target,hidden=True):
+class SymlinkEntry(object):
+    """
+    Handling a symlink to a given dot file.
+    """
+
+    def __init__(self, name, source, target, hidden=True):
         self.name = name
         self.source = source
         self.target = target
         self.hidden = hidden
 
     def backup(self):
+        """
+        Backups the current installed config to a dot file with {name}_back.
+        """
         print "Backing up " + self.name
         if self.hidden:
-            srcPath = homeP + "/." + self.target
-            if path.islink(srcPath) or path.isfile(srcPath):
-                mv[srcPath , homeP + "/." + self.target + "_back"]()
+            src_path = HOME_PATH + "/." + self.target
+            if path.islink(src_path) or path.isfile(src_path):
+                mv[src_path, HOME_PATH + "/." + self.target + "_back"]()
         else:
-            srcPath = homeP + "/" + self.target
-            if path.islink(srcPath) or path.isfile(srcPath):
-                mv[srcPath, homeP + "/vim_new_back"]()
+            src_path = HOME_PATH + "/" + self.target
+            if path.islink(src_path) or path.isfile(src_path):
+                mv[src_path, HOME_PATH + "/vim_new_back"]()
 
     def link(self):
+        """
+        Linkes the dot file to the corret location in the home folder.
+        """
         print "Linking " + self.name
         if self.hidden:
-            ln["-s", rootP + "/" + self.source, homeP + "/." + self.target]()
+            ln["-s", ROOT_PATH + "/" + self.source, HOME_PATH + "/." +
+               self.target]()
         else:
-            ln["-s", rootP + "/" + self.source, homeP + "/" + self.target]()
+            ln["-s", ROOT_PATH + "/" + self.source, HOME_PATH + "/" +
+               self.target]()
 
 
-class Prog:
+class Prog(object):
+    """
+    A program that needs to be installed for the config to work.
+    """
 
-    def __init__(self,name,giturl,installLoc,installR=""):
+    def __init__(self, name, giturl, install_loc, install_r=""):
         self.name = name
         self.giturl = giturl
-        self.installLoc = installLoc
-        self.installR = installR
+        self.install_loc = install_loc
+        self.install_r = install_r
 
     def clone(self):
+        """
+        Clones the git repo for the program.
+        """
         from plumbum.cmd import git
 
-        if path.exists(self.installLoc):
-            with local.cwd(self.installLoc):
+        if path.exists(self.install_loc):
+            with local.cwd(self.install_loc):
                 print git["pull"]
                 git["pull"]()
         else:
-            print git["clone", self.giturl, self.installLoc]
-            git["clone", self.giturl, self.installLoc]()
+            print git["clone", self.giturl, self.install_loc]
+            git["clone", self.giturl, self.install_loc]()
 
     def install(self):
+        """
+        Installs the program in the default setup.
+        """
         pass
 
-if __name__ == "__main__":
-    linkEntrys = []
-    linkEntrys.append(SymlinkEntry("vim_dir","vim/vim_dir","vim_new"))
-    linkEntrys.append(SymlinkEntry("tmux_dir","tmux/tmux_dir","tmux_new"))
+
+class Config(object):
+    """
+    A configuration file for the configs and programs to install.
+    """
+
+    def __init__(self, config_file):
+        with open(config_file, "r") as conf:
+            for line in conf.readlines:
+                print line
+
+
+def main():
+    """
+    Executs the setup of the specified config file.
+    """
+    Config("~/git/doto.conf")
+
+    link_entrys = []
+    link_entrys.append(SymlinkEntry("vim_dir", "vim/vim_dir", "vim_new"))
+    link_entrys.append(SymlinkEntry("tmux_dir", "tmux/tmux_dir", "tmux_new"))
 
     programms = []
-    programms.append(Prog("enhanced","git@github.com:b4b4r07/enhancd.git", homeP + "/.enhancd_new"))
+    programms.append(Prog("enhanced", "git@github.com:b4b4r07/enhancd.git", \
+            HOME_PATH + "/.enhancd_new"))
 
     # checkout and install programs
     for prog in programms:
         prog.clone()
 
     # backing up old files
-    for linkEntr in linkEntrys:
-        linkEntr.backup()
+    for link_entry in link_entrys:
+        link_entry.backup()
 
     # setup symlinks
-    for linkEntr in linkEntrys:
-        linkEntr.link()
+    for link_entry in link_entrys:
+        link_entry.link()
 
+
+if __name__ == "__main__":
+    main()
