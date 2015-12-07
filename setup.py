@@ -112,13 +112,12 @@ class Config(object):
             jsn = json.load(conf)
             # read dot files to link
             for dot_file in jsn["dot_files"]:
+                hidden = (dot_file["hidden"] == "True")
                 self.link_entrys.append(SymlinkEntry(dot_file["name"], \
-                        dot_file["src_path"], dot_file["tar_path"]))
+                        dot_file["src_path"], dot_file["tar_path"], hidden))
             # read programs to install
             for prog_file in jsn["programs"]:
-                self.programms.append(Prog(prog_file["name"], \
-                    prog_file["git_url"], \
-                    HOME_PATH + prog_file["install_path"]))
+                self.programms.append(Prog(prog_file))
 
     def link_all(self):
         """
