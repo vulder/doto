@@ -69,7 +69,8 @@ class Prog(object):
         self.install_cmd = json_repr["install_cmd"]
         for git_opt in json_repr["git_opts"]:
             for key in git_opt:
-                self.git_options.append((key, git_opt[key]))
+                self.git_options.append(str(key))
+                self.git_options.append(str(git_opt[key]))
 
     def clone(self):
         """
@@ -82,8 +83,8 @@ class Prog(object):
                 print git["pull"]
                 git["pull"]()
         else:
-            print git["clone", self.giturl, self.install_loc]
-            git["clone", self.giturl, self.install_loc]()
+            print git["clone", self.git_options, self.giturl, self.install_loc]
+            git["clone", self.git_options, self.giturl, self.install_loc]()
 
     def install(self):
         """
