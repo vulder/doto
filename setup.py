@@ -60,12 +60,16 @@ class Prog(object):
     """
     A program that needs to be installed for the config to work.
     """
+    git_options = []
 
-    def __init__(self, name, giturl, install_loc, install_r=""):
-        self.name = name
-        self.giturl = giturl
-        self.install_loc = install_loc
-        self.install_r = install_r
+    def __init__(self, json_repr):
+        self.name = json_repr["name"]
+        self.giturl = json_repr["git_url"]
+        self.install_loc = HOME_PATH + json_repr["install_path"]
+        self.install_cmd = json_repr["install_cmd"]
+        for git_opt in json_repr["git_opts"]:
+            for key in git_opt:
+                self.git_options.append((key, git_opt[key]))
 
     def clone(self):
         """
