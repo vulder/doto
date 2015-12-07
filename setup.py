@@ -123,7 +123,6 @@ class Config(object):
         for link_entry in self.link_entrys:
             link_entry.link()
 
-
     def backup_all(self):
         """
         Backs up all dot files that could be touched by new files.
