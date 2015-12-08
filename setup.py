@@ -179,6 +179,12 @@ class Config(object):
             prog.update()
         print "Finished updating programs"
 
+def print_help():
+    """
+    Prints help output to the console.
+    """
+    # TODO impl help txt
+    print "HELP"
 
 def main():
     """
@@ -187,6 +193,9 @@ def main():
     import sys
 
     conf = Config("/home/sattlerf/git/doto/doto.conf")
+
+    if len(sys.argv) == 1:
+        print_help()
 
     # handling user flags
     for arg in sys.argv:
@@ -197,6 +206,11 @@ def main():
             conf.install_all()
         if arg == "update":
             conf.update_all()
+        if arg == "help":
+            print_help()
+        if arg == "remove":
+            # TODO impl remove programms
+            pass
 
 
 if __name__ == "__main__":
