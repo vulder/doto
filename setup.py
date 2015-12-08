@@ -77,7 +77,17 @@ class Prog(object):
 
     def clone(self):
         """
-        Clones the git repo for the program.
+        Clones the git repo of the program.
+        """
+        from plumbum.cmd import git
+
+        if not path.exists(self.install_loc):
+            print git["clone", self.git_options, self.giturl, self.install_loc]
+            git["clone", self.git_options, self.giturl, self.install_loc]()
+
+    def update(self):
+        """
+        Updates the git repo of the program.
         """
         from plumbum.cmd import git
 
@@ -85,9 +95,6 @@ class Prog(object):
             with local.cwd(self.install_loc):
                 print git["pull"]
                 git["pull"]()
-        else:
-            print git["clone", self.git_options, self.giturl, self.install_loc]
-            git["clone", self.git_options, self.giturl, self.install_loc]()
 
     def install(self):
         """
@@ -152,17 +159,31 @@ class Config(object):
         for prog in self.programms:
             prog.clone()
 
+    def update_all(self):
+        """
+        Updates all programs specified in the config.
+        """
+        for prog in self.programms:
+            prog.update()
+
 
 def main():
     """
     Executs the setup of the specified config file.
     """
+    import sys
+
     conf = Config("/home/sattlerf/git/doto/doto.conf")
 
-    conf.backup_all()
-    conf.link_all()
-    conf.clone_all()
-    conf.install_all()
+    # handling user flags
+    for arg in sys.argv:
+        if arg == "install":
+            conf.backup_all()
+            conf.link_all()
+            conf.clone_all()
+            conf.install_all()
+        if arg == "update":
+            conf.update_all()
 
 
 if __name__ == "__main__":
