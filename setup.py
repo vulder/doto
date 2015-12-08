@@ -67,7 +67,6 @@ class Prog(object):
         self.name = json_repr["name"]
         self.giturl = json_repr["git_url"]
         self.install_loc = HOME_PATH + json_repr["install_path"]
-        print self.install_loc
         self.install_cmds = [e for e in json_repr["install_cmds"] \
                 if isinstance(e, dict) and e.has_key("cmd")]
 
@@ -106,12 +105,8 @@ class Prog(object):
             for cmd in self.install_cmds:
                 exec_cmd = local[cmd["cmd"]]
                 args = cmd["args"] if cmd.has_key("args") else []
-                print "before"
-                print args
                 args = [arg.replace("$HOME", local.env["HOME"]) \
                         for arg in args]
-                print "after"
-                print args
                 exec_cmd = exec_cmd[args]
                 with local.env(**cmd["env"] if cmd.has_key("env") else {}):
                     print exec_cmd()
