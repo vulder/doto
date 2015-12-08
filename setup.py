@@ -67,8 +67,9 @@ class Prog(object):
         self.name = json_repr["name"]
         self.giturl = json_repr["git_url"]
         self.install_loc = HOME_PATH + json_repr["install_path"]
-        for cmd in json_repr["install_cmds"]:
-            print cmd
+        print self.install_loc
+        self.install_cmds = [e for e in json_repr["install_cmds"] \
+                if isinstance(e, dict) and e.has_key("cmd")]
 
         for git_opt in json_repr["git_opts"]:
             for key in git_opt:
@@ -82,26 +83,38 @@ class Prog(object):
         from plumbum.cmd import git
 
         if not path.exists(self.install_loc):
-            print git["clone", self.git_options, self.giturl, self.install_loc]
+            print "Cloning " + self.name
             git["clone", self.git_options, self.giturl, self.install_loc]()
 
     def update(self):
         """
         Updates the git repo of the program.
         """
+        print "Updating " + self.name
         from plumbum.cmd import git
 
         if path.exists(self.install_loc):
             with local.cwd(self.install_loc):
-                print git["pull"]
                 git["pull"]()
 
     def install(self):
         """
         Installs the program in the default setup.
         """
-        #TODO exec install cmds
-        pass
+        print "Installing " + self.name
+        with local.cwd(self.install_loc):
+            for cmd in self.install_cmds:
+                exec_cmd = local[cmd["cmd"]]
+                args = cmd["args"] if cmd.has_key("args") else []
+                print "before"
+                print args
+                args = [arg.replace("$HOME", local.env["HOME"]) \
+                        for arg in args]
+                print "after"
+                print args
+                exec_cmd = exec_cmd[args]
+                with local.env(**cmd["env"] if cmd.has_key("env") else {}):
+                    print exec_cmd()
 
     def __repr__(self):
         string_repr = ""
@@ -137,6 +150,7 @@ class Config(object):
         """
         for link_entry in self.link_entrys:
             link_entry.link()
+        print "Finished linking dot files"
 
     def backup_all(self):
         """
@@ -144,6 +158,7 @@ class Config(object):
         """
         for link_entry in self.link_entrys:
             link_entry.backup()
+        print "Finished backup old dot files"
 
     def install_all(self):
         """
@@ -151,6 +166,7 @@ class Config(object):
         """
         for prog in self.programms:
             prog.install()
+        print "Finished installing programs"
 
     def clone_all(self):
         """
@@ -158,6 +174,7 @@ class Config(object):
         """
         for prog in self.programms:
             prog.clone()
+        print "Finished cloning program repositories"
 
     def update_all(self):
         """
@@ -165,6 +182,7 @@ class Config(object):
         """
         for prog in self.programms:
             prog.update()
+        print "Finished updating programs"
 
 
 def main():
