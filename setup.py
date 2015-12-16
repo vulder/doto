@@ -2,6 +2,13 @@
 """
 Script to auto setup programming environment.
 """
+import imp
+import sys
+try:
+    imp.find_module("plumbum")
+except ImportError:
+    print "Please install plumbum"
+    sys.exit()
 
 from plumbum import local
 from plumbum.cmd import cat, ln, mv
@@ -261,13 +268,48 @@ def print_help():
     print "HELP"
 
 
+def which(program):
+    """
+    Checks if the given program exists in the current enviroment.
+    """
+    import os
+
+    def is_exe(fpath):
+        """
+        Checks if file behind fpath is a executable.
+        """
+        return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+
+    fpath, _ = os.path.split(program)
+    if fpath:
+        if is_exe(program):
+            return program
+    else:
+        for current_path in os.environ["PATH"].split(os.pathsep):
+            current_path = current_path.strip('"')
+            exe_file = os.path.join(current_path, program)
+            if is_exe(exe_file):
+                return exe_file
+
+    return None
+
+
 def main():
     """
     Executs the setup of the specified config file.
     """
-    import sys
+    config_path = "/home/sattlerf/git/doto/doto.conf"
 
-    conf = Config("/home/sattlerf/git/doto/doto.conf")
+    config = Config(config_path)
+
+    with open(config_path, "r") as conf:
+        import json
+        jsn = json.load(conf)
+        # checking requirements
+        for requirement in jsn["requirements"]:
+            if which(requirement["name"]) == None:
+                print "Please install " + requirement["name"] \
+                + " on your system."
 
     if len(sys.argv) == 1:
         print_help()
@@ -275,20 +317,20 @@ def main():
     # handling user flags
     for arg in sys.argv:
         if arg == "install":
-            conf.backup_all()
-            conf.link_all()
-            conf.clone_all()
-            conf.install_all()
+            config.backup_all()
+            config.link_all()
+            config.clone_all()
+            config.install_all()
         if arg == "update":
-            conf.update_all()
+            config.update_all()
         if arg == "help":
             print_help()
         if arg == "uninstall":
-            conf.uninstall_all()
+            config.uninstall_all()
         if arg == "remove":
-            conf.remove_all()
+            config.remove_all()
         if arg == "remove_backups":
-            conf.remove_backups_all()
+            config.remove_backups_all()
 
 
 if __name__ == "__main__":
