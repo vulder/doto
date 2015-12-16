@@ -35,7 +35,7 @@ class SymlinkEntry(object):
         else:
             src_path = HOME_PATH + "/" + self.target
             if path.islink(src_path) or path.isfile(src_path):
-                mv[src_path, HOME_PATH + "/vim_new_back"]()
+                mv[src_path, HOME_PATH + "/" + self.target + "_back"]()
 
     def link(self):
         """
@@ -48,6 +48,36 @@ class SymlinkEntry(object):
         else:
             ln["-s", ROOT_PATH + "/" + self.source, HOME_PATH + "/" +
                self.target]()
+
+    def remove(self):
+        """
+        Removes the symlink.
+        """
+        from plumbum.cmd import rm  # pylint: disable=E0401
+        print "Removing Symlink " + self.name
+        if self.hidden:
+            rm[HOME_PATH + "/." + self.target]()
+        else:
+            rm[HOME_PATH + "/" + self.target]()
+
+    def remove_backup(self):
+        """
+        Removes the symlink.
+        """
+        from plumbum.cmd import rm  # pylint: disable=E0401
+        print "Removing backup links " + self.name
+        if self.hidden:
+            exec_path = HOME_PATH + "/." + self.target + "_back"
+            if not exec_path == "/" and not exec_path == HOME_PATH:
+                rm["-rf", exec_path]()
+            else:
+                print "WOOOPS don't delete / or home folder"
+        else:
+            exec_path = HOME_PATH + "/" + self.target + "_back"
+            if not exec_path == "/" and not exec_path == HOME_PATH:
+                rm["-rf", exec_path]()
+            else:
+                print "WOOOPS don't delete / or home folder"
 
     def __repr__(self):
         string_repr = ""
@@ -117,7 +147,7 @@ class Prog(object):
         """
         Uninstalls the program.
         """
-        from plumbum.cmd import rm # pylint: disable=E0401
+        from plumbum.cmd import rm  # pylint: disable=E0401
         print "Uninstalling " + self.name
         with local.cwd(self.install_loc):
             for cmd in self.uninstall_cmds:
@@ -206,12 +236,30 @@ class Config(object):
             prog.update()
         print "Finished updating programs"
 
+    def remove_all(self):
+        """
+        Removes all Symlinks.
+        """
+        for link_entry in self.link_entrys:
+            link_entry.remove()
+        print "Finished removing Symlinks."
+
+    def remove_backups_all(self):
+        """
+        Removes all backup Symlinks.
+        """
+        for link_entry in self.link_entrys:
+            link_entry.remove_backup()
+        print "Finished removing Symlinks."
+
+
 def print_help():
     """
     Prints help output to the console.
     """
     # TODO impl help txt
     print "HELP"
+
 
 def main():
     """
@@ -238,8 +286,9 @@ def main():
         if arg == "uninstall":
             conf.uninstall_all()
         if arg == "remove":
-            # TODO impl remove programms
-            pass
+            conf.remove_all()
+        if arg == "remove_backups":
+            conf.remove_backups_all()
 
 
 if __name__ == "__main__":
