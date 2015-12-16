@@ -69,6 +69,8 @@ class Prog(object):
         self.install_loc = HOME_PATH + json_repr["install_path"]
         self.install_cmds = [e for e in json_repr["install_cmds"] \
                 if isinstance(e, dict) and e.has_key("cmd")]
+        self.uninstall_cmds = [e for e in json_repr["uninstall_cmds"] \
+                if isinstance(e, dict) and e.has_key("cmd")]
 
         for git_opt in json_repr["git_opts"]:
             for key in git_opt:
@@ -110,6 +112,23 @@ class Prog(object):
                 exec_cmd = exec_cmd[args]
                 with local.env(**cmd["env"] if cmd.has_key("env") else {}):
                     print exec_cmd()
+
+    def uninstall(self):
+        """
+        Uninstalls the program.
+        """
+        from plumbum.cmd import rm # pylint: disable=E0401
+        print "Uninstalling " + self.name
+        with local.cwd(self.install_loc):
+            for cmd in self.uninstall_cmds:
+                exec_cmd = local[cmd["cmd"]]
+                args = cmd["args"] if cmd.has_key("args") else []
+                args = [arg.replace("$HOME", local.env["HOME"]) \
+                        for arg in args]
+                exec_cmd = exec_cmd[args]
+                with local.env(**cmd["env"] if cmd.has_key("env") else {}):
+                    print exec_cmd()
+        rm("-rf", self.install_loc)
 
     def __repr__(self):
         string_repr = ""
@@ -163,6 +182,14 @@ class Config(object):
             prog.install()
         print "Finished installing programs"
 
+    def uninstall_all(self):
+        """
+        Uninstalls all programs.
+        """
+        for prog in self.programms:
+            prog.uninstall()
+        print "Finished uninstalling programs"
+
     def clone_all(self):
         """
         Checks out all programs specified in the config.
@@ -208,6 +235,8 @@ def main():
             conf.update_all()
         if arg == "help":
             print_help()
+        if arg == "uninstall":
+            conf.uninstall_all()
         if arg == "remove":
             # TODO impl remove programms
             pass
