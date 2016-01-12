@@ -64,6 +64,8 @@ set number
 " Mapleader later used 4 shortcuts
 let mapleader = ","
 
+nnoremap <leader>y :call Yapf()<cr>
+
 " Load System dependent vimrc
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "barber"
@@ -105,7 +107,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'davidhalter/jedi-vim', { 'for': 'python'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim',
 
 call plug#end()
 
