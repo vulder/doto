@@ -140,7 +140,7 @@ let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-i>'
 
 " ultisnips
-let g:UltiSnipsExpandTrigger = "<c-jtab>"
+let g:UltiSnipsExpandTrigger = "<c-j>"
 let g:UltiSnipsJumpForwardTrigger = "<cr>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
