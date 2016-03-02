@@ -111,6 +111,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'tweekmonster/braceless.vim', { 'for': 'python'}
 Plug 'airblade/vim-gitgutter'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'ervandew/supertab'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -130,6 +133,16 @@ autocmd FileType python :BracelessEnable +highlight +indent
 nnoremap <leader>gs :GitGutterStageHunk<CR>
 nnoremap <leader>gr :GitGutterRevertHunk<CR>
 nnoremap <leader>gp :GitGutterPreviewHunk<CR>
+
+" supertab settings
+let g:ycm_key_list_select_completion = ['<C-i>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-i>'
+
+" ultisnips
+let g:UltiSnipsExpandTrigger = "<c-jtab>"
+let g:UltiSnipsJumpForwardTrigger = "<cr>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " Airline display Buffers at top row
 let g:airline#extensions#tabline#enabled = 1
