@@ -110,6 +110,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tweekmonster/braceless.vim', { 'for': 'python'}
 Plug 'airblade/vim-gitgutter'
+Plug 'terryma/vim-multiple-cursors'
 
 call plug#end()
 
