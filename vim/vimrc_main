@@ -108,13 +108,9 @@ Plug 'tpope/vim-surround'
 Plug 'davidhalter/jedi-vim', { 'for': 'python'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'nathanaelkane/vim-indent-guides', { 'for': 'python'}
+Plug 'tweekmonster/braceless.vim', { 'for': 'python'}
 
 call plug#end()
-
-" python indet guides
-autocmd FileType python :IndentGuidesEnable
-let g:indent_guides_guide_size = 1
 
 let g:jedi#auto_initialization = 1
 let g:jedi#use_splits_not_buffers = "top"
@@ -123,6 +119,10 @@ let g:jedi#use_splits_not_buffers = "top"
 "setlocal omnifunc=tern#Complete
 " call tern#Enable()
 "autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+"
+
+" python indent support
+autocmd FileType python :BracelessEnable +highlight +indent
 
 " Airline display Buffers at top row
 let g:airline#extensions#tabline#enabled = 1
