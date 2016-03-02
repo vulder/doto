@@ -135,9 +135,9 @@ nnoremap <leader>gr :GitGutterRevertHunk<CR>
 nnoremap <leader>gp :GitGutterPreviewHunk<CR>
 
 " supertab settings
-let g:ycm_key_list_select_completion = ['<C-i>', '<Down>']
+let g:ycm_key_list_select_completion = ['<C-Tab>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-i>'
+let g:SuperTabDefaultCompletionType = '<C-Tab>'
 
 " ultisnips
 let g:UltiSnipsExpandTrigger = "<c-j>"
