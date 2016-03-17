@@ -114,6 +114,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'eagletmt/neco-ghc'
 
 call plug#end()
 
@@ -202,6 +203,12 @@ let g:Powerline_symbols = 'fancy'
 nnoremap <unique> <Leader>l :BufExplorer<CR>
 
 let g:ycm_confirm_extra_conf=0
+
+let g:ycm_semantic_triggers = {'haskell' : ['.']}
+
+let g:haskellmode_completion_ghc = 0
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+let g:necoghc_enable_detailed_browse = 1
 
 " Ignore files with type *.x
 set wildignore+=build,*.a,*.so,*.o,*.obj,.git
