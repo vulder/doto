@@ -80,7 +80,6 @@ endif
 
 map <leader>m :Make<CR>
 map <leader>n :Copen<CR>
-map <leader>n :Copen<CR>
 
 " Bindings for C/C++ DefImp jumps
 nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
@@ -97,9 +96,7 @@ set wildcharm=<C-Z>
 call plug#begin('~/.vim/plugged')
 
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer'}
-Plug 'junegunn/fzf.vim'
 Plug 'bufexplorer.zip'
-Plug 'Valloric/YouCompleteMe'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'bling/vim-airline'
@@ -169,7 +166,7 @@ nmap <c-p> :FZF<CR>
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-"imap <c-x><c-l> <plug>(fzf-complete-line)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Advanced customization using autoload functions
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
@@ -222,7 +219,6 @@ set nohlsearch
 syntax on
 
 set incsearch
-
 set hidden
 
 " Vim Colors
