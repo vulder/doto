@@ -46,7 +46,7 @@ if ! zgen saved; then
 	# zgen oh-my-zsh plugins/copyfile
 	zgen oh-my-zsh plugins/cp
 	# zgen oh-my-zsh plugins/cpanm
-	zgen oh-my-zsh plugins/debian
+	# zgen oh-my-zsh plugins/debian
 	zgen oh-my-zsh plugins/dircycle
 	zgen oh-my-zsh plugins/dirhistory
 	zgen oh-my-zsh plugins/dirpersist
