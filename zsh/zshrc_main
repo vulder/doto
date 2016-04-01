@@ -161,7 +161,7 @@ if ! zgen saved; then
 	# zgen oh-my-zsh plugins/sprunge
 	###zgen oh-my-zsh plugins/ssh-agent
 	###zgen oh-my-zsh plugins/sublime
-	zgen oh-my-zsh plugins/sudo
+	#zgen oh-my-zsh plugins/sudo
 	# zgen oh-my-zsh plugins/supervisor
 	# zgen oh-my-zsh plugins/suse
 	# zgen oh-my-zsh plugins/svn
