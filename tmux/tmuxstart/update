@@ -1,9 +1,0 @@
-new_session -n update
-select_window update
-split update -v -p "30"
-split update.0 -v -p "30"
-select_layout update even-vertical
-send_line update.2 "ssh home"
-send_line update.1 "ssh 192.168.0.105"
-send_line update.0 "sudo su"
-send_line update.2 "su root"
