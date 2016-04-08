@@ -298,6 +298,10 @@ def main():
     """
     Executs the setup of the specified config file.
     """
+
+    print("Please dont use me I'm not ready :(")
+    exit(0)
+
     config_path = "/home/sattlerf/git/doto/doto.conf"
 
     config = Config(config_path)
