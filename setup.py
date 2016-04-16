@@ -8,6 +8,7 @@ try:
     imp.find_module("plumbum")
 except ImportError:
     print "Please install plumbum"
+    print "https://plumbum.readthedocs.org/en/latest/"
     sys.exit()
 
 from plumbum import local
