@@ -646,3 +646,5 @@ unalias gg
 export PATH="/usr/local/p/versions/python:$PATH"
 source ~/.enhancd/zsh/enhancd.zsh
 eval "$(fasd --init auto)"
+
+source ~/.tmuxinator/tmuxinator.zsh
