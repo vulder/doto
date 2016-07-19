@@ -53,6 +53,10 @@ filetype on
 " Enable loading the plugin files
 filetype plugin on
 
+augroup filetype
+  au! BufRead,BufNewFile *.tex     set filetype=tex
+augroup END
+
 "" Add vundle to rtp
 "set rtp+=~/.vim/bundle/vundle/
 " Start vundle
