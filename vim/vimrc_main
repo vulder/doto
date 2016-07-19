@@ -138,6 +138,11 @@ let g:OmniSharp_server_type = 'roslyn'
 " python indent support
 autocmd FileType python :BracelessEnable +highlight +indent
 
+autocmd FileType java let g:EclimCompletionMethod='omnifunc'
+autocmd FileType java set omnifunc=eclim#java#complete#CodeComplete
+autocmd FileType java nnoremap <leader>b :ProjectBuild<CR>
+autocmd FileType java nnoremap <leader>r :ProjectRun<CR>
+
 " vim-gitgutter settings
 nnoremap <leader>gs :GitGutterStageHunk<CR>
 nnoremap <leader>gr :GitGutterRevertHunk<CR>
