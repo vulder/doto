@@ -119,6 +119,7 @@ Plug 'eagletmt/neco-ghc'
 "Plug 'OmniSharp/omnisharp-server'
 Plug 'OmniSharp/omnisharp-vim'
 "Plug 'OmniSharp/omnisharp-roslyn', { 'do': './build.sh'}
+"Plug 'morhetz/gruvbox'
 Plug 'kien/rainbow_parentheses.vim'
 
 call plug#end()
@@ -241,6 +242,16 @@ set hidden
 " colorscheme badwolf
 " colorscheme wellsokai
 colorscheme jellybeans
+
+" set background=dark
+" let g:gruvbox_contrast_light="hard"
+" let g:gruvbox_italic=1
+" let g:gruvbox_invert_signs=0
+" let g:gruvbox_improved_strings=0
+" let g:gruvbox_improved_warnings=1
+" let g:gruvbox_contrast_dark="hard"
+" colorscheme gruvbox
+
 "let g:lucius_style='dark'
 "let g:lucius_contrast='normal'
 "let g:lucius_contrast_bg='normal'
