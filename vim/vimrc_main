@@ -115,6 +115,7 @@ Plug 'eagletmt/neco-ghc'
 "Plug 'OmniSharp/omnisharp-server'
 Plug 'OmniSharp/omnisharp-vim'
 "Plug 'OmniSharp/omnisharp-roslyn', { 'do': './build.sh'}
+Plug 'kien/rainbow_parentheses.vim'
 
 call plug#end()
 
@@ -239,6 +240,12 @@ colorscheme jellybeans
 "let g:lucius_style='dark'
 "let g:lucius_contrast='normal'
 "let g:lucius_contrast_bg='normal'
+
+" Add highlighting for matching braces
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
 " Optional
 " C/C++ programming helpers
