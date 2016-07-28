@@ -467,7 +467,7 @@ function vim_sf() {
     vim $@
   fi
 }
-alias vim=vim_sf
+#alias vim=vim_sf
 
 #HISTFILE=/root/.zsh-histfile
 HISTFILE=/home/vulder/.zsh-histfile
