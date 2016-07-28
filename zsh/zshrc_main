@@ -454,7 +454,8 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=magenta,bold'
 
 # ______________________________________________[OSO]
 #. /usr/share/autojump/autojump.sh
-. /usr/share/autojump/autojump.zsh
+# . /usr/share/autojump/autojump.zsh
+. ~/.doto_src/autojump/bin/autojump.zsh
 #source /oso/db/xcl/oso/_FC/_opt/sh/shOpt.sh
 
 alias zNoflwLink="unsetopt chaselinks"
@@ -644,7 +645,7 @@ autoload -U compinit
 # source /root/.local/lib/python3.4/site-packages/powerline/bindings/zsh/powerline.zsh
 unalias gg
 export PATH="/usr/local/p/versions/python:$PATH"
-source ~/.doto_src/enhancd/zsh/enhancd.zsh
+source ~/.doto_src/enhancd/init.sh
 eval "$(fasd --init auto)"
 
 source ~/.tmuxinator/tmuxinator.zsh
