@@ -51,7 +51,7 @@ editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 browser    = "chromium"
 soundGui = "pavucontrol"
-lock = "xlock"
+lock = "i3lock -c 094C75"
 gui_editor = "gvim"
 graphics   = "gimp"
 mail       = terminal .. " -e mutt "
@@ -458,6 +458,8 @@ globalkeys = awful.util.table.join(
 
     -- Dropdown terminal
     awful.key({ modkey,	          }, "z",      function () drop(terminal) end),
+    -- Dropdown terminal
+    awful.key({}, "F12",      function () drop(terminal .. " -e tmux new-session -A -s drop", "top", "center", 1.0, 0.3, true) end),
 
     -- Widgets popups
     awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
@@ -727,7 +729,9 @@ function run_once(cmd)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .." > /dev/null || (" .. cmd .. ")")
 end
 
-run_once("yakuake")
+awful.util.spawn_with_shell('~/.config/awesome/locker.sh')
+
+-- run_once("yakuake")
 run_once("nm-applet")
 run_once("thunderbird")
 run_once("wmname LG3D")
