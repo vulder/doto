@@ -445,4 +445,4 @@ endfunction ClangComplete
 
 " This to enables the somewhat-experimental clang-based
 " autocompletion support.
-set omnifunc=ClangComplete
+autocmd FileType c,cpp set omnifunc=ClangComplete
