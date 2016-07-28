@@ -1,7 +1,7 @@
-# ~/.tmuxinator/test.yml
+# ~/.tmuxinator/tmv.yml
 
-name: test
-root: ~/
+name: tmv
+root: ~/git/TextMining/VL/tasks/florian_tasks/
 
 # Optional tmux socket
 # socket_name: foo
@@ -25,13 +25,13 @@ root: ~/
 # attach: false
 
 # Runs after everything. Use it to attach to tmux with custom options etc.
-# post: tmux -CC attach -t test
+# post: tmux -CC attach -t tmv
 
 windows:
-  - editor:
-      layout: main-vertical
+  - code:
+      layout: even-horizontal
       panes:
-        - vim
-        - guard
-  - server: bundle exec rails s
-  - logs: tail -f log/development.log
+        - vim:
+          - vim
+        - clear:
+          - 
