@@ -336,6 +336,7 @@ def main():
         if arg == "remove_backups":
             config.remove_backups_all()
 
+        # TODO: give last instructions
 
 if __name__ == "__main__":
     main()
