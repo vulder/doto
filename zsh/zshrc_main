@@ -1,7 +1,7 @@
 # $reset_color
 
 #source /root/zgen/zgen.zsh
-source /home/vulder/source/zgen/zgen.zsh
+source ~/.zgen/zgen.zsh
 
 if ! zgen saved; then
 	echo "_______________________[Creating a zgen save]"
@@ -228,7 +228,7 @@ if ! zgen saved; then
 # EOPLUGINS
 	zgen load tarruda/zsh-autosuggestions	# must last
 	zle-line-init() {zle autosuggest-start}; zle -N zle-line-init	# autosuggestions
-	AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=8'
+	ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 	
         echo "saving"
 	zgen save
