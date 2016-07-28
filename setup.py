@@ -300,9 +300,6 @@ def main():
     Executs the setup of the specified config file.
     """
 
-    print("Please dont use me I'm not ready :(")
-    exit(0)
-
     config_path = "doto.conf"
 
     config = Config(config_path)
@@ -315,6 +312,8 @@ def main():
             if which(requirement["name"]) == None:
                 print "Please install " + requirement["name"] \
                 + " on your system."
+                # TODO: add check for ZSH
+                # TODO: add check if all deps are present
 
     if len(sys.argv) == 1:
         print_help()
