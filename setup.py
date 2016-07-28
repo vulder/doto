@@ -303,7 +303,7 @@ def main():
     print("Please dont use me I'm not ready :(")
     exit(0)
 
-    config_path = "/home/sattlerf/git/doto/doto.conf"
+    config_path = "doto.conf"
 
     config = Config(config_path)
 
