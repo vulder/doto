@@ -116,9 +116,6 @@ Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'eagletmt/neco-ghc'
-"Plug 'OmniSharp/omnisharp-server'
-Plug 'OmniSharp/omnisharp-vim'
-"Plug 'OmniSharp/omnisharp-roslyn', { 'do': './build.sh'}
 "Plug 'morhetz/gruvbox'
 Plug 'kien/rainbow_parentheses.vim'
 
@@ -127,8 +124,6 @@ call plug#end()
 let g:jedi#auto_initialization = 1
 let g:jedi#use_splits_not_buffers = "top"
 
-" C# completion server
-let g:OmniSharp_server_type = 'roslyn'
 " Enableing tern Autocompletion 4 javascript //remove later I hate js
 "setlocal omnifunc=tern#Complete
 " call tern#Enable()
