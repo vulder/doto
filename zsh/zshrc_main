@@ -645,6 +645,9 @@ autoload -U compinit
 # source /root/.local/lib/python3.4/site-packages/powerline/bindings/zsh/powerline.zsh
 unalias gg
 export PATH="/usr/local/p/versions/python:$PATH"
+if which ruby >/dev/null && which gem >/dev/null; then
+    PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
 source ~/.doto_src/enhancd/init.sh
 eval "$(fasd --init auto)"
 
