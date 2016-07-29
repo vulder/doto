@@ -1,6 +1,27 @@
-install:
-  zgen
-  tpm
-  powerline
-  tree
-  tmux-mem-cpu-load
+# Dot files
+- [Dependencies](#install-dependencies)
+- [Setup](#setup)
+
+## Install dependencies:
+  * python-dev
+  * pip
+  * cmake
+  * ruby
+  * zsh
+  * plumbum
+
+## Setup
+### Ubuntu
+1. Install package dependencies
+```bash
+  > sudo apt-get install python-dev python-pip cmake ruby zsh
+  > pip install --user plumbum
+```
+2. Run setup script
+```bash
+  > ./setup.py install
+```
+3. Install vim pluggins
+  * start vim
+  * run :PlugInstall
+
