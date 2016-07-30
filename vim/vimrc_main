@@ -112,7 +112,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tweekmonster/braceless.vim', { 'for': 'python'}
 Plug 'airblade/vim-gitgutter'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'ervandew/supertab'
+"Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'eagletmt/neco-ghc'
@@ -123,6 +123,24 @@ call plug#end()
 
 let g:jedi#auto_initialization = 1
 let g:jedi#use_splits_not_buffers = "top"
+
+
+" syntatisc options
+set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntatisc_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntatisc_python_python_exec = '/usr/bin/python3'
+"let g:syntastic_python_checkers = ['python', 'py3kwarn']
+let g:syntastic_python_checkers = ['pylint', 'python']
+" let g:syntastic_python_pylint_args='-d E1101 -f parseable -r n -i y'
+let g:syntastic_python_pylint_post_args='-j 4 --disable=E0611,E1101'
+
+"let g:PyLintDissabledMessages = 'C0103,C0111,C0301,W0141,W0142,W0212,W0221,W0223,W0232,W0401,W0613,W0631,E1101,E1120,R0903,R0904,R0913'
 
 " Enableing tern Autocompletion 4 javascript //remove later I hate js
 "setlocal omnifunc=tern#Complete
@@ -143,10 +161,10 @@ nnoremap <leader>gs :GitGutterStageHunk<CR>
 nnoremap <leader>gr :GitGutterRevertHunk<CR>
 nnoremap <leader>gp :GitGutterPreviewHunk<CR>
 
-" supertab settings
-let g:ycm_key_list_select_completion = ['<C-Tab>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-Tab>'
+"" supertab settings
+"let g:ycm_key_list_select_completion = ['<C-Tab>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+"let g:SuperTabDefaultCompletionType = '<C-Tab>'
 
 " ultisnips
 let g:UltiSnipsExpandTrigger = "<c-j>"

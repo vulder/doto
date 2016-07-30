@@ -5,6 +5,7 @@ import ycm_core
 flags = [
     '-DYCM_DB_NOT_FOUND',
     '-std=c++11',
+    '-Wall',
     '-I', '.'
     '-I/usr/local/include/',
 ]
