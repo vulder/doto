@@ -57,6 +57,9 @@ augroup filetype
   au! BufRead,BufNewFile *.tex     set filetype=tex
 augroup END
 
+let g:LatexBox_latexmk_options="-shell-escape"
+let g:LatexBox_latexmk_async=1
+
 "" Add vundle to rtp
 "set rtp+=~/.vim/bundle/vundle/
 " Start vundle
