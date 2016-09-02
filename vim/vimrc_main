@@ -81,6 +81,8 @@ elseif hostname == "debussy"
   source /home/sattlerf/git/doto/vim/vimrc_barber
 elseif hostname == "tyrion"
   source /home/vulder/git/doto/vim/vimrc_default
+elseif hostname == "fenrir"
+  source /home/vulder/git/doto/vim/vimrc_default
 elseif hostname == "robert"
   source /home/vulder/git/doto/vim/vimrc_default
 endif
