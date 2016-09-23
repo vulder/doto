@@ -69,7 +69,8 @@ set mouse=a
 set number
 
 " Mapleader later used 4 shortcuts
-let mapleader = ","
+" let mapleader = ","
+let mapleader = " "
 
 nnoremap <leader>y :call Yapf()<cr>
 
@@ -95,6 +96,7 @@ nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
 nnoremap <leader>i :YcmCompleter GoToImplementation <CR>
 nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
 
+" folding
 inoremap <F9> <C-O>za
 nnoremap <F9> za
 vnoremap <F9> zf
@@ -111,6 +113,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
+Plug 'easymotion/vim-easymotion'
 Plug 'davidhalter/jedi-vim', { 'for': 'python'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -129,6 +133,8 @@ call plug#end()
 
 let g:jedi#auto_initialization = 1
 let g:jedi#use_splits_not_buffers = "top"
+
+map <leader> <Plug>(easymotion-prefix)
 
 
 " syntatisc options
