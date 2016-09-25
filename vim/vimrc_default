@@ -1,2 +1,2 @@
 " Binding for clang auto format
-map <leader>f :pyf /home/vulder/opt/llvm/share/clang/clang-format.py<CR><CR>
+map <leader>c :pyf /home/vulder/opt/llvm/share/clang/clang-format.py<CR><CR>
