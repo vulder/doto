@@ -86,6 +86,8 @@ elseif hostname == "fenrir"
   source /home/vulder/git/doto/vim/vimrc_default
 elseif hostname == "robert"
   source /home/vulder/git/doto/vim/vimrc_default
+elseif hostname == "jotunheim"
+  source /home/vulder/git/doto/vim/vimrc_default
 endif
 
 map <leader>m :Make<CR>
