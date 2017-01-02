@@ -131,6 +131,7 @@ Plug 'eagletmt/neco-ghc'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'rhysd/committia.vim'
+Plug 'cohama/lexima.vim'
 
 call plug#end()
 
