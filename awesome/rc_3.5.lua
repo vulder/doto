@@ -46,7 +46,8 @@ end
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-darker/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminald = "urxvt"
+terminal = "terminator"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 browser    = "chromium"
@@ -459,7 +460,7 @@ globalkeys = awful.util.table.join(
     -- Dropdown terminal
     awful.key({ modkey,	          }, "z",      function () drop(terminal) end),
     -- Dropdown terminal
-    awful.key({}, "F12",      function () drop(terminal .. " -e tmux new-session -A -s drop", "top", "center", 1.0, 0.3, true) end),
+    awful.key({}, "F12",      function () drop(terminald .. " -e tmux new-session -A -s drop", "top", "center", 1.0, 0.3, true) end),
 
     -- Widgets popups
     awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
