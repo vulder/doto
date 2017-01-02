@@ -1,0 +1,29 @@
+[global_config]
+  borderless = True
+  title_font = Hack for Powerline 9
+  title_use_system_font = False
+[keybindings]
+  full_screen = <Primary>Page_Up
+  go_down = <Primary>Page_Up
+  go_left = <Primary>Page_Up
+  go_right = <Primary>Page_Up
+  go_up = <Primary>Page_Up
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_darkness = 0.8
+    background_image = None
+    background_type = transparent
+    cursor_color = "#aaaaaa"
+    font = Hack for Powerline 10
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
