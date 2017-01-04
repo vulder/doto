@@ -92,6 +92,7 @@ endif
 
 map <leader>m :Make<CR>
 map <leader>n :Copen<CR>
+nmap <leader>a :Ag 
 
 " Bindings for C/C++ DefImp jumps
 nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
