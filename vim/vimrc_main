@@ -133,6 +133,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'rhysd/committia.vim'
 Plug 'cohama/lexima.vim'
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
