@@ -50,8 +50,8 @@ conky.text = [[
  ${alignr}system -${color cyan}─┤${color}  
  ${alignr}cpu -─┤    │  
  ${alignr}used -─┤    │    │  
- ${alignr}${color 20C20E}[${cpu 1}%]${color} CPU1 ${color 20C20E}[${color}${color 20C20E}${cpu 2}%]${color} CPU2 -─┤    │    │    │  
- ${alignr}${color 20C20E}[${cpu 3}%]${color} CPU3 ${color 20C20E}[${color}${color 20C20E}${cpu 4}%]${color} CPU4 -─┘    │    │    │  
+ ${alignr}${color 20C20E}[${cpu cpu1}%]${color} CPU1 ${color 20C20E}[${color}${color 20C20E}${cpu cpu2}%]${color} CPU2 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${cpu cpu3}%]${color} CPU3 ${color 20C20E}[${color}${color 20C20E}${cpu cpu4}%]${color} CPU4 -─┘    │    │    │  
  ${alignr}freq -─┤    │    │  
  ${alignr}${color cyan}[${color} ${freq 1}mhz ${color cyan}]${color} cpu1 -─┤    │    │    │  
  ${alignr}${color cyan}[${color} ${freq 2}mhz ${color cyan}]${color} cpu2 -─┤    │    │    │  
