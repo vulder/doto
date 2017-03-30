@@ -8,6 +8,7 @@
   go_left = <Primary>Page_Up
   go_right = <Primary>Page_Up
   go_up = <Primary>Page_Up
+  layout_launcher = <Primary>Page_Up
 [layouts]
   [[default]]
     [[[child1]]]
@@ -23,7 +24,17 @@
     background_image = None
     background_type = transparent
     cursor_color = "#aaaaaa"
-    font = Hack for Powerline 10
+    font = Hack for Powerline 9
+    palette = "#000000:#cd0000:#00cd00:#cdcd00:#3636fd:#cd00cd:#00cdcd:#faebd7:#404040:#ff0000:#00ff00:#ffff00:#7373ff:#ff00ff:#00ffff:#ffffff"
     scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
+  [[clang]]
+    background_color = "#ffffff"
+    background_image = None
+    cursor_color = "#aaaaaa"
+    font = Hack for Powerline 11
+    foreground_color = "#292929"
+    palette = "#000000:#ff0000:#008c00:#919100:#0000cd:#cd00cd:#00b0b0:#faebd7:#404040:#ff0000:#129112:#ffff00:#0000ff:#bf00bf:#00cccc:#ffffff"
     show_titlebar = False
     use_system_font = False
