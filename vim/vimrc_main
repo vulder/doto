@@ -263,6 +263,11 @@ set nohlsearch
 " Highlight syntax in programming languages
 syntax on
 
+" Enable syntax highlighting for ram files. To use, copy
+augroup filetype
+  au! BufRead,BufNewFile *.ram     set filetype=ram
+augroup END
+
 set incsearch
 set hidden
 
