@@ -9,6 +9,7 @@
   go_right = <Primary>Page_Up
   go_up = <Primary>Page_Up
   layout_launcher = <Primary>Page_Up
+  help = <Primary>Page_Up
 [layouts]
   [[default]]
     [[[child1]]]
