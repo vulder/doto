@@ -13,8 +13,8 @@ local wibox = require("wibox")
 local os    = { getenv = os.getenv }
 
 local theme                                     = {}
-theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-dark"
-theme.wallpaper                                 = theme.dir .. "/wall.png"
+theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-darker"
+theme.wallpaper                                 = theme.dir .. "/wall.jpg"
 theme.font                                      = "xos4 Terminus 9"
 theme.fg_normal                                 = "#DDDDFF"
 theme.fg_focus                                  = "#EA6F81"
@@ -245,7 +245,9 @@ local arrl_ld = separators.arrow_left("alpha", theme.bg_focus)
 
 function theme.at_screen_connect(s)
     -- Quake application
-    s.quake = lain.util.quake({ app = awful.util.terminal })
+    s.quake = lain.util.quake({ app = awful.util.terminal,
+                                extra = awful.util.terminal_args
+                              })
 
     -- If wallpaper is a function, call it with the screen
     local wallpaper = theme.wallpaper
