@@ -56,7 +56,6 @@ local function run_once(cmd_arr)
     end
 end
 
--- run_once({ "urxvtd", "unclutter -root" })
 run_once({"nm-applet"})
 run_once({"thunderbird"})
 -- run_once("wmname LG3D")
