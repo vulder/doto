@@ -70,7 +70,7 @@ local chosen_theme = "powerarrow-darker"
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "terminator"
-local terminald     = "urxvt"
+local terminal_args = "-x tmux -2 new-session -A -s drop"
 local editor       = os.getenv("EDITOR") or "nano" or "vi"
 local gui_editor   = "gvim"
 local browser      = "chromium"
@@ -78,7 +78,8 @@ local graphics     = "gimp"
 local lock         = "i3lock -c 094C75"
 local soundGui     = "pavucontrol"
 
-awful.util.terminal = terminal
+awful.util.terminal       = terminal
+awful.util.terminal_args  = terminal_args
 awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
 awful.layout.layouts = {
     awful.layout.suit.floating,
@@ -357,7 +358,8 @@ globalkeys = awful.util.table.join(
 
     -- Dropdown application
     awful.key({ modkey, }, "z", function () awful.screen.focused().quake:toggle() end),
-    awful.key({}, "F12", function () drop(terminald .. " -e tmux new-session -A -s drop", "top", "center", 1.0, 0.3, true) end),
+    awful.key({}, "F12", function () awful.screen.focused().quake:toggle() end),
+    -- awful.key({}, "F12", function () drop(terminald .. " -e tmux new-session -A -s drop", "top", "center", 1.0, 0.3, true) end),
 
     -- Widgets popups
     awful.key({ altkey, }, "c", function () lain.widget.calendar.show(7) end),
@@ -365,17 +367,17 @@ globalkeys = awful.util.table.join(
     awful.key({ altkey, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end),
 
     -- ALSA volume control
-    awful.key({ altkey }, "Up",
+    awful.key({ altkey, "Shift" }, "Up",
         function ()
             os.execute(string.format("amixer set %s 1%%+", beautiful.volume.channel))
             beautiful.volume.update()
         end),
-    awful.key({ altkey }, "Down",
+    awful.key({ altkey, "Shift" }, "Down",
         function ()
             os.execute(string.format("amixer set %s 1%%-", beautiful.volume.channel))
             beautiful.volume.update()
         end),
-    awful.key({ altkey }, "m",
+    awful.key({ altkey, "Shift" }, "m",
         function ()
             os.execute(string.format("amixer set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
             beautiful.volume.update()
