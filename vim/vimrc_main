@@ -282,6 +282,8 @@ set hidden
 " colorscheme wellsokai
 colorscheme jellybeans
 
+autocmd BufEnter *.py colorscheme monokai
+
 " Highlight trailing whitespace and lines longer than 80 columns.
 "highlight LongLine ctermbg=DarkYellow guibg=DarkYellow
 "highlight WhitespaceEOL ctermbg=DarkYellow guibg=DarkYellow
