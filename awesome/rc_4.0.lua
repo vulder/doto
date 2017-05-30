@@ -57,9 +57,10 @@ local function run_once(cmd_arr)
 end
 
 run_once({"nm-applet"})
-run_once({"thunderbird"})
+-- run_once({"thunderbird"})
 -- run_once("wmname LG3D")
 run_once({"chromium"})
+run_once({"redshift -l manual"})
 run_once({"seafile-applet"})
 run_once({"conky", " -c /home/vulder/.conkyrc"})
 -- }}}
@@ -287,7 +288,7 @@ globalkeys = awful.util.table.join(
               {description = "focus the next screen", group = "screen"}),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"}),
-    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
+    awful.key({ modkey, "Control" }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
     awful.key({ modkey,           }, "Tab",
         function ()
