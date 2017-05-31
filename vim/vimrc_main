@@ -248,6 +248,9 @@ set tags+=./.tags
 
 let g:ycm_semantic_triggers = {'haskell' : ['.']}
 
+let g:ycm_min_num_of_chars_for_completion = 1
+let g:ycm_always_populate_location_list = 1
+
 let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 let g:necoghc_enable_detailed_browse = 1
@@ -272,14 +275,14 @@ set incsearch
 set hidden
 
 " Vim Colors
-"let g:solarized_termcolors=256
+let g:solarized_termcolors=256
 "set background=dark
 "colorscheme solarized
 "colorscheme vividchalk
 "colorscheme lucius
 "colorscheme wombat256
-" colorscheme badwolf
-" colorscheme wellsokai
+"colorscheme badwolf
+"colorscheme wellsokai
 colorscheme jellybeans
 
 autocmd BufEnter *.py colorscheme monokai
