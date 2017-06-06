@@ -4,6 +4,9 @@ eix-sync
 
 emerge -auND --keep-going world
 
+su vulder -c "vi -c 'PlugUpgrade | q'"
+su vulder -c "vi -c 'PlugUpdate | qa'"
+
 read -r -p "Update 9999? [y/N] " response
 response=${response,,} # tolower
 if [[ "$response" =~ ^(yes|y)$ ]]
