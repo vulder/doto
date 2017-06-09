@@ -25,6 +25,8 @@ set nocompatible
 set softtabstop=2
 set shiftwidth=2
 set expandtab
+set tabstop=2
+autocmd FileType go set listchars=tab:▸\ 
 
 set backspace=indent,eol,start
 
@@ -114,6 +116,8 @@ Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'rhysd/committia.vim'
 Plug 'cohama/lexima.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'fatih/molokai',
 
 call plug#end()
 
@@ -286,6 +290,9 @@ let g:solarized_termcolors=256
 colorscheme jellybeans
 
 autocmd BufEnter *.py colorscheme monokai
+
+let g:rehash256 = 1
+autocmd BufNew *.go colorscheme molokai
 
 " Highlight trailing whitespace and lines longer than 80 columns.
 "highlight LongLine ctermbg=DarkYellow guibg=DarkYellow
