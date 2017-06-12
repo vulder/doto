@@ -289,7 +289,7 @@ let g:solarized_termcolors=256
 "colorscheme wellsokai
 colorscheme jellybeans
 
-autocmd BufEnter *.py colorscheme monokai
+autocmd BufNew *.py colorscheme monokai
 
 let g:rehash256 = 1
 autocmd BufNew *.go colorscheme molokai
