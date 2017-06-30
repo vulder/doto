@@ -118,13 +118,7 @@ Plug 'cohama/lexima.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'fatih/molokai',
-Plug 'KabbAmine/zeavim.vim', {'on': [
-      \ 'Zeavim', 'Docset',
-      \ '<Plug>Zeavim',
-      \ '<Plug>ZVVisSelection',
-      \ '<Plug>ZVKeyDocset',
-      \ '<Plug>ZVMotion'
-      \ ]},
+Plug 'KabbAmine/zeavim.vim',
 
 call plug#end()
 
