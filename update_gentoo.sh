@@ -11,7 +11,7 @@ read -r -p "Update 9999? [y/N] " response
 response=${response,,} # tolower
 if [[ "$response" =~ ^(yes|y)$ ]]
 then
-  emerge -a1 neovim tig llvm-vim
+  emerge -a1 neovim tig llvm-common
 fi
 
 read -r -p "Build new compiler? [y/N] " response
