@@ -7,8 +7,8 @@ import sys
 try:
     imp.find_module("plumbum")
 except ImportError:
-    print "Please install plumbum"
-    print "https://plumbum.readthedocs.org/en/latest/"
+    print("Please install plumbum")
+    print("https://plumbum.readthedocs.org/en/latest/")
     sys.exit()
 
 from plumbum import local
@@ -35,7 +35,7 @@ class SymlinkEntry(object):
         """
         Backups the current installed config to a dot file with {name}_back.
         """
-        print "Backing up " + self.name
+        print("Backing up " + self.name)
         if self.hidden:
             src_path = HOME_PATH + "/." + self.target
             if path.islink(src_path) or path.isfile(src_path):
@@ -49,7 +49,7 @@ class SymlinkEntry(object):
         """
         Linkes the dot file to the corret location in the home folder.
         """
-        print "Linking " + self.name
+        print("Linking " + self.name)
         if self.hidden:
             ln["-s", ROOT_PATH + "/" + self.source, HOME_PATH + "/." +
                self.target]()
@@ -62,7 +62,7 @@ class SymlinkEntry(object):
         Removes the symlink.
         """
         from plumbum.cmd import rm  # pylint: disable=E0401
-        print "Removing Symlink " + self.name
+        print("Removing Symlink " + self.name)
         if self.hidden:
             rm[HOME_PATH + "/." + self.target]()
         else:
@@ -73,19 +73,19 @@ class SymlinkEntry(object):
         Removes the symlink.
         """
         from plumbum.cmd import rm  # pylint: disable=E0401
-        print "Removing backup links " + self.name
+        print("Removing backup links " + self.name)
         if self.hidden:
             exec_path = HOME_PATH + "/." + self.target + "_back"
             if not exec_path == "/" and not exec_path == HOME_PATH:
                 rm["-rf", exec_path]()
             else:
-                print "WOOOPS don't delete / or home folder"
+                print("WOOOPS don't delete / or home folder")
         else:
             exec_path = HOME_PATH + "/" + self.target + "_back"
             if not exec_path == "/" and not exec_path == HOME_PATH:
                 rm["-rf", exec_path]()
             else:
-                print "WOOOPS don't delete / or home folder"
+                print("WOOOPS don't delete / or home folder")
 
     def __repr__(self):
         string_repr = ""
@@ -122,14 +122,14 @@ class Prog(object):
         from plumbum.cmd import git
 
         if not path.exists(self.install_loc):
-            print "Cloning " + self.name
+            print("Cloning " + self.name)
             git["clone", self.git_options, self.giturl, self.install_loc]()
 
     def update(self):
         """
         Updates the git repo of the program.
         """
-        print "Updating " + self.name
+        print("Updating " + self.name)
         from plumbum.cmd import git
 
         if path.exists(self.install_loc):
@@ -140,7 +140,7 @@ class Prog(object):
         """
         Installs the program in the default setup.
         """
-        print "Installing " + self.name
+        print("Installing " + self.name)
         with local.cwd(self.install_loc):
             for cmd in self.install_cmds:
                 exec_cmd = local[cmd["cmd"]]
@@ -149,14 +149,14 @@ class Prog(object):
                         for arg in args]
                 exec_cmd = exec_cmd[args]
                 with local.env(**cmd["env"] if cmd.has_key("env") else {}):
-                    print exec_cmd()
+                    print(exec_cmd())
 
     def uninstall(self):
         """
         Uninstalls the program.
         """
         from plumbum.cmd import rm  # pylint: disable=E0401
-        print "Uninstalling " + self.name
+        print("Uninstalling " + self.name)
         with local.cwd(self.install_loc):
             for cmd in self.uninstall_cmds:
                 exec_cmd = local[cmd["cmd"]]
@@ -165,7 +165,7 @@ class Prog(object):
                         for arg in args]
                 exec_cmd = exec_cmd[args]
                 with local.env(**cmd["env"] if cmd.has_key("env") else {}):
-                    print exec_cmd()
+                    print(exec_cmd())
         rm("-rf", self.install_loc)
 
     def __repr__(self):
@@ -202,7 +202,7 @@ class Config(object):
         """
         for link_entry in self.link_entrys:
             link_entry.link()
-        print "Finished linking dot files"
+        print("Finished linking dot files")
 
     def backup_all(self):
         """
@@ -210,7 +210,7 @@ class Config(object):
         """
         for link_entry in self.link_entrys:
             link_entry.backup()
-        print "Finished backup old dot files"
+        print("Finished backup old dot files")
 
     def install_all(self):
         """
@@ -218,7 +218,7 @@ class Config(object):
         """
         for prog in self.programms:
             prog.install()
-        print "Finished installing programs"
+        print("Finished installing programs")
 
     def uninstall_all(self):
         """
@@ -226,7 +226,7 @@ class Config(object):
         """
         for prog in self.programms:
             prog.uninstall()
-        print "Finished uninstalling programs"
+        print("Finished uninstalling programs")
 
     def clone_all(self):
         """
@@ -234,7 +234,7 @@ class Config(object):
         """
         for prog in self.programms:
             prog.clone()
-        print "Finished cloning program repositories"
+        print("Finished cloning program repositories")
 
     def update_all(self):
         """
@@ -242,7 +242,7 @@ class Config(object):
         """
         for prog in self.programms:
             prog.update()
-        print "Finished updating programs"
+        print("Finished updating programs")
 
     def remove_all(self):
         """
@@ -250,7 +250,7 @@ class Config(object):
         """
         for link_entry in self.link_entrys:
             link_entry.remove()
-        print "Finished removing Symlinks."
+        print("Finished removing Symlinks.")
 
     def remove_backups_all(self):
         """
@@ -258,7 +258,7 @@ class Config(object):
         """
         for link_entry in self.link_entrys:
             link_entry.remove_backup()
-        print "Finished removing Symlinks."
+        print("Finished removing Symlinks.")
 
 
 def print_help():
@@ -266,7 +266,7 @@ def print_help():
     Prints help output to the console.
     """
     # TODO impl help txt
-    print "HELP"
+    print("HELP")
 
 
 def which(program):
@@ -310,8 +310,8 @@ def main():
         # checking requirements
         for requirement in jsn["requirements"]:
             if which(requirement["name"]) == None:
-                print "Please install " + requirement["name"] \
-                + " on your system."
+                print("Please install " + requirement["name"] \
+                + " on your system.")
                 # TODO: add check for ZSH
                 # TODO: add check if all deps are present
 
