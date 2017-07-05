@@ -11,6 +11,8 @@ except ImportError:
     print("https://plumbum.readthedocs.org/en/latest/")
     sys.exit()
 
+BLOCK = True
+
 from plumbum import local
 from plumbum.cmd import cat, ln, mv
 
@@ -266,7 +268,7 @@ def print_help():
     Prints help output to the console.
     """
     # TODO impl help txt
-    print("HELP")
+    print("Only use setup if you now what you're doing.\nJust set block = false")
 
 
 def which(program):
@@ -315,7 +317,11 @@ def main():
                 # TODO: add check for ZSH
                 # TODO: add check if all deps are present
 
-    if len(sys.argv) == 1:
+    if BLOCK:
+        print_help()
+        return
+
+    if len(sys.argv) != 1:
         print_help()
 
     # handling user flags
