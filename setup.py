@@ -112,7 +112,7 @@ class SetupCmd(object):
         Run the setup command chain.
         """
         print("Running " + self.name)
-        for cmd in self.install_cmds:
+        for cmd in self.cmds:
             exec_cmd = local[cmd["cmd"]]
             args = cmd["args"] if "args" in cmd else []
             args = [arg.replace("$HOME", local.env["HOME"]) \
