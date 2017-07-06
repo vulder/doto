@@ -120,7 +120,8 @@ class SetupCmd(object):
             exec_cmd = exec_cmd[args]
             with local.env(**cmd["env"] if "env" in cmd else {}):
                 print("Dbg: ", exec_cmd)
-                print(exec_cmd())
+                from plumbum import FG
+                exec_cmd & FG
 
 class Prog(object):
     """
