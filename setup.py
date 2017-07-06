@@ -96,6 +96,32 @@ class SymlinkEntry(object):
         return string_repr
 
 
+class SetupCmd(object):
+    """
+    Run sequence of commands to finalize setup.
+    """
+
+    def __init__(self, json_repr):
+        self.name = json_repr["name"]
+        self.desc = json_repr["desc"]
+        self.cmds = [e for e in json_repr["cmds"]\
+                     if isinstance(e, dict) and "cmd" in e]
+
+    def run(self):
+        """
+        Run the setup command chain.
+        """
+        print("Running " + self.name)
+        for cmd in self.install_cmds:
+            exec_cmd = local[cmd["cmd"]]
+            args = cmd["args"] if "args" in cmd else []
+            args = [arg.replace("$HOME", local.env["HOME"]) \
+                    for arg in args]
+            exec_cmd = exec_cmd[args]
+            with local.env(**cmd["env"] if "env" in cmd else {}):
+                print("Dbg: ", exec_cmd)
+                print(exec_cmd())
+
 class Prog(object):
     """
     A program that needs to be installed for the config to work.
@@ -184,6 +210,7 @@ class Config(object):
 
     link_entrys = []
     programms = []
+    setup_cmds = []
 
     def __init__(self, config_file):
         with open(config_file, "r") as conf:
@@ -197,6 +224,10 @@ class Config(object):
             # read programs to install
             for prog_file in jsn["programs"]:
                 self.programms.append(Prog(prog_file))
+
+            # read setup cmds
+            for setup_file in jsn["setup_cmds"]:
+                self.setup_cmds.append(SetupCmd(setup_file))
 
     def link_all(self):
         """
@@ -221,6 +252,9 @@ class Config(object):
         for prog in self.programms:
             prog.install()
         print("Finished installing programs")
+        print("Running setup")
+        for setup_cmd in self.setup_cmds:
+            setup_cmd.run()
 
     def uninstall_all(self):
         """
