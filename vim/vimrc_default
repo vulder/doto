@@ -1,2 +1,3 @@
 " Binding for clang auto format
 map <leader>c :py3f /home/vulder/opt/llvm/share/clang/clang-format.py<CR><CR>
+" imap <leader>c <c-o>:py3f /home/vulder/opt/llvm/share/clang/clang-format.py<CR>
