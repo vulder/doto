@@ -28,7 +28,7 @@ then
   if [[ "$response" =~ ^(yes|y)$ ]]
   then
     echo Updating clang
-    cp -r /usr/lib/llvm/5/* /usr/lib/llvm/5_old/
+    cp -r /usr/lib/llvm/6/* /usr/lib/llvm/6_old/
   fi
 fi
 
