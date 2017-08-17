@@ -149,7 +149,7 @@ let g:ale_cpp_clang_options = '-std=c++14 -Wall -I''/home/vulder/git/llvm/includ
 let g:ale_cpp_clangtidy_checks = []
 let g:ale_pattern_options = {
       \ '\.h$': {
-      \   'ale_cpp_clang_options': '-I/home/vulder/git/llvm/include/ -I/home/vulder/git/llvm/build/debug/include/ -I/home/vulder/git/llvm/tools/clang/include/ -I/home/vulder/git/llvm/tools/VaRA/include/',
+      \   'ale_cpp_clangtidy_options': '-std=c++14 -I/home/vulder/git/llvm/include/ -I/home/vulder/git/llvm/build/debug/include/ -I/home/vulder/git/llvm/tools/clang/include/ -I/home/vulder/git/llvm/tools/VaRA/include/',
       \   }
       \}
 
