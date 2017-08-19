@@ -1,99 +1,113 @@
-", LLVM coding guidelines conformance for VIM
-" $Revision$
+" vulder's vimrc
 "
-" Maintainer: The LLVM Team, http://llvm.org
+" Maintainer: vulder
 " WARNING:    Read before you source in all these commands and macros!  Some
 "             of them may change VIM behavior that you depend on.
 "
-" You can run VIM with these settings without changing your current setup with:
-" $ vim -u /path/to/llvm/utils/vim/vimrc
-
-" check out
-" magic maker map! will call :make but silently -- this will skip the 'Press
-" ENTER to continue' message which is really nice. However, this is may leave
-" the screen blank so we need to have vim send itself the Ctrl-L keybind to
-" force it to redraw the screen (:redraw doesn't cut it). And because this is
-" all silenced, it isn't included into the command history keeping it cleaner of
-" repeated calls to make
-" nnoremap gm :silent :make<CR>:silent :exe "normal \<c-l>"<CR>
-
 
 " It's VIM, not VI
 set nocompatible
+
+" * General configurations
+set backspace=indent,eol,start
+set cursorline
+set encoding=utf-8
+set hidden
+set incsearch
+set laststatus=2
+set list
+set listchars=trail:.
+set mouse=a
+set nohlsearch
+set number
+set tags+=./.tags
+
+" Ignore files with type *.x
+set wildignore+=build,*.a,*.so,*.o,*.obj,.git
 
 " A tab produces a 2-space indentation
 set softtabstop=2
 set shiftwidth=2
 set expandtab
 set tabstop=2
+" Add and delete spaces in increments of `shiftwidth' for tabs
+set smarttab
+
+" Go specific tab handling
 autocmd FileType go set listchars=tab:▸\ 
 
-set backspace=indent,eol,start
-
-" Enable filetype detection
+" Enable file type detection
 filetype on
 " Enable loading the plugin files
 filetype plugin on
 
+" Fixed file type detection
 augroup filetype
   au! BufRead,BufNewFile *.tex     set filetype=tex
 augroup END
 
-let g:LatexBox_latexmk_options="-shell-escape"
-let g:LatexBox_latexmk_async=1
-
-"" Add vundle to rtp
-"set rtp+=~/.vim/bundle/vundle/
-" Start vundle
-"call vundle#rc()
-
-set mouse=a
-set number
-
-" Mapleader later used 4 shortcuts
-" let mapleader = ","
+" Map leader later used 4 shortcuts
 let mapleader = " "
 
-nnoremap <leader>y :call Yapf()<cr>
+" Highlight syntax in programming languages
+syntax on
 
-" Load System dependent vimrc
+" Enable syntax highlighting for ram files. To use, copy
+augroup filetype
+  au! BufRead,BufNewFile *.ram     set filetype=ram
+augroup END
+
+" Load System dependent part of vimrc
 let hostname = substitute(system('hostname'), '\n', '', '')
-if hostname == "barber"
+if hostname == "barber" || hostname == "debussy"
   source /home/sattlerf/git/doto/vim/vimrc_barber
-elseif hostname == "debussy"
-  source /home/sattlerf/git/doto/vim/vimrc_barber
-elseif hostname == "tyrion"
-  source /home/vulder/git/doto/vim/vimrc_default
-elseif hostname == "fenrir"
-  source /home/vulder/git/doto/vim/vimrc_default
-elseif hostname == "robert"
-  source /home/vulder/git/doto/vim/vimrc_default
-elseif hostname == "jotunheim"
+else
   source /home/vulder/git/doto/vim/vimrc_default
 endif
 
+" * General key bindings
+set wildchar=<Tab> wildmenu wildmode=full
+nnoremap <leader>y :call Yapf()<cr>
+
 map <leader>m :Make<CR>
 map <leader>n :Copen<CR>
-nmap <leader>a :Ag 
+" Ag search needs silver-searcher
+nmap <leader>a :Ag
 
-" Bindings for C/C++ DefImp jumps
-nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
-nnoremap <leader>i :YcmCompleter GoToImplementation <CR>
-nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
-
-" folding
+" Folding
 inoremap <F9> <C-O>za
 nnoremap <F9> za
 vnoremap <F9> zf
 
-set wildchar=<Tab> wildmenu wildmode=full
-set wildcharm=<C-Z>
+" * General extra modifications
 
+" Blinking when jumping to the next word
+nnoremap <silent> n n:call HLNext(0.2)<cR>
+nnoremap <silent> N N:call HLNext(0.2)<cR>
+
+function! HLNext (blinktime)
+    highlight WhiteOnRed ctermfg=White ctermbg=Red
+    let [bufnum, lnum, col, off] = getpos('.')
+    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+    let target_pat = '\c\%#\%('.@/.'\)'
+    let ring = matchadd('WhiteOnRed', target_pat, 101)
+    redraw
+    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+    call matchdelete(ring)
+    redraw
+endfunction
+
+" Delete trailing whitespace and tabs at the end of each line
+command! DeleteTrailingWs :%s/\s\+$//
+
+" Convert all tab characters to two spaces
+command! Untab :%s/\t/  /g
+
+" Plugin loading
 call plug#begin('~/.vim/plugged')
 
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer'}
 Plug 'jlanzarotta/bufexplorer'
-" Plug 'scrooloose/syntastic' old linter
 Plug 'w0rp/ale'
 Plug 'tpope/vim-fugitive'
 Plug 'bling/vim-airline'
@@ -107,16 +121,16 @@ Plug 'junegunn/fzf.vim'
 Plug 'tweekmonster/braceless.vim', { 'for': 'python'}
 Plug 'airblade/vim-gitgutter'
 Plug 'terryma/vim-multiple-cursors'
-"Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'eagletmt/neco-ghc'
-"Plug 'morhetz/gruvbox'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'rhysd/committia.vim'
 Plug 'cohama/lexima.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'mgedmin/coverage-highlight.vim', { 'for': 'python' }
+Plug 'micha/vim-colors-solarized'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'fatih/molokai',
 Plug 'KabbAmine/zeavim.vim',
@@ -124,40 +138,102 @@ Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
-let g:jedi#auto_initialization = 1
-let g:jedi#use_splits_not_buffers = "top"
+" * Plugin options
 
-map <leader> <Plug>(easymotion-prefix)
-let g:EasyMotion_keys = "asdfghjklqwertyuiopzxcvbnm"
+" -> YouCompleteMe
+" Bindings for C/C++ DefImp jumps
+nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
+nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
+nnoremap <leader>i :YcmCompleter GoToImplementation <CR>
 
-" Doc settings
-let g:zv_file_types = {
-    \ 'cpp' : 'cpp',
-    \ }
+let g:ycm_always_populate_location_list = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_confirm_extra_conf=0
+let g:ycm_min_num_of_chars_for_completion = 1
+let g:ycm_semantic_triggers = {'haskell' : ['.']}
 
-" ale options
+autocmd FileType java let g:EclimCompletionMethod='omnifunc'
+autocmd FileType java set omnifunc=eclim#java#complete#CodeComplete
+autocmd FileType java nnoremap <leader>b :ProjectBuild<CR>
+autocmd FileType java nnoremap <leader>r :ProjectRun<CR>
+
+" -> bufexplorer
+nnoremap <unique> <Leader>l :BufExplorer<CR>
+
+" -> ale
 let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
 
-"\ 'cpp': ['clang', 'clangtidy'],
 let g:ale_linters = {
       \ 'cpp': ['clangtidy'],
       \ }
 
-let g:ale_cpp_clang_options = '-std=c++14 -Wall -I''/home/vulder/git/llvm/include'''
-
-let g:ale_cpp_clangtidy_checks = []
 let g:ale_pattern_options = {
       \ '\.h$': {
-      \   'ale_cpp_clangtidy_options': '-std=c++14 -I/home/vulder/git/llvm/include/ -I/home/vulder/git/llvm/build/debug/include/ -I/home/vulder/git/llvm/tools/clang/include/ -I/home/vulder/git/llvm/tools/VaRA/include/',
+      \   'ale_cpp_clangtidy_options': '-x c++ -std=c++14 -I/home/vulder/git/llvm/include/ -I/home/vulder/git/llvm/build/debug/include/ -I/home/vulder/git/llvm/tools/clang/include/ -I/home/vulder/git/llvm/tools/VaRA/include/',
       \   }
       \}
 
+" ale: c/cpp
+let g:ale_cpp_clang_options = '-std=c++14 -Wall -I''/home/vulder/git/llvm/include'''
+let g:ale_cpp_clangtidy_checks = []
+
 let g:ale_c_build_dir_names = ['build/debug/', 'build/']
 
-"let g:PyLintDissabledMessages = 'C0103,C0111,C0301,W0141,W0142,W0212,W0221,W0223,W0232,W0401,W0613,W0631,E1101,E1120,R0903,R0904,R0913'
-    "\ ['Darkblue',    'firebrick3'],
-    "\ ['Darkblue',    'SeaGreen3'],
+" -> vim-fugitive
+" -> vim-airline
+" Airline display Buffers at top row
+let g:airline#extensions#tabline#enabled = 1
+" Enable Powerline fonts
+let g:airline_powerline_fonts = 1
+
+" -> vim-dispatch
+" -> vim-surround
+" -> vim-endwise
+" -> vim-easymotion
+map <leader> <Plug>(easymotion-prefix)
+let g:EasyMotion_keys = "asdfghjklqwertyuiopzxcvbnm"
+
+" -> jedi-vim
+let g:jedi#auto_initialization = 1
+let g:jedi#use_splits_not_buffers = "top"
+
+" -> fzf
+" -> fzf.vim
+nmap <c-p> :FZF<CR>
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+
+" -> braceless.vim
+" python indent support
+autocmd FileType python :BracelessEnable +highlight +indent
+
+" -> vim-gitgutter
+nnoremap <leader>gp :GitGutterPreviewHunk<CR>
+nnoremap <leader>gr :GitGutterRevertHunk<CR>
+nnoremap <leader>gs :GitGutterStageHunk<CR>
+
+" -> vim-multiple-cursors
+" -> ultisnips
+let g:UltiSnipsExpandTrigger = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsJumpForwardTrigger = "<cr>"
+let g:ultisnips_python_style = "google"
+
+" -> vim-snippets
+" -> neco-ghc
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+let g:necoghc_enable_detailed_browse = 1
+
+" -> rainbow_parentheses.vim
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
     \ ['darkgray',    'DarkOrchid3'],
@@ -174,129 +250,41 @@ let g:rbpt_colorpairs = [
     \ ['red',         'firebrick3'],
     \ ]
 
-" Enableing tern Autocompletion 4 javascript //remove later I hate js
-"setlocal omnifunc=tern#Complete
-" call tern#Enable()
-"autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-"
+" Add highlighting for matching braces
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
-" python indent support
-autocmd FileType python :BracelessEnable +highlight +indent
+" -> LaTeX-Box
+let g:LatexBox_latexmk_async=1
+let g:LatexBox_latexmk_options="-shell-escape"
+let g:LatexBox_show_warnings=0
 
-autocmd FileType java let g:EclimCompletionMethod='omnifunc'
-autocmd FileType java set omnifunc=eclim#java#complete#CodeComplete
-autocmd FileType java nnoremap <leader>b :ProjectBuild<CR>
-autocmd FileType java nnoremap <leader>r :ProjectRun<CR>
+" -> committia.vim
+" -> lexima.vim
+" -> goyo.vim
+let $GOPATH = "/home/vulder/go/:/home/vulder/git/GoDeeper/"
 
-" vim-gitgutter settings
-nnoremap <leader>gs :GitGutterStageHunk<CR>
-nnoremap <leader>gr :GitGutterRevertHunk<CR>
-nnoremap <leader>gp :GitGutterPreviewHunk<CR>
+" -> coverage-highlight.vim
+" -> vim-colors-solarized
+" -> vim-go
+" -> molokai
+" -> zeavim.vim
+" Doc settings
+let g:zv_file_types = {
+    \ 'cpp' : 'cpp',
+    \ }
 
-"" supertab settings
-"let g:ycm_key_list_select_completion = ['<C-Tab>', '<Down>']
-"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-"let g:SuperTabDefaultCompletionType = '<C-Tab>'
+" -> vim-devicons
 
-" ultisnips
-let g:UltiSnipsExpandTrigger = "<c-j>"
-let g:UltiSnipsJumpForwardTrigger = "<cr>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:ultisnips_python_style = "google"
-
-" Airline display Buffers at top row
-let g:airline#extensions#tabline#enabled = 1
-" Enable Powerline fonts
-let g:airline_powerline_fonts = 1
-
-" find/grep magic to speedup ctrl-p
-let g:ctrlp_user_command ='find %s -type f | grep -v -P
-   \ "\.git|build\/|\.m4$|\.jpg$|\.png$|\.o$|\.a$|\.so$|\.obj$|\.i$|\.pyc$"
-   \ '
-
-set cursorline
-
-" bindings for fzf-vim
-nmap <c-p> :FZF<CR>
-
-"nmap <leader><tab> <plug>(fzf-maps-n)
-"xmap <leader><tab> <plug>(fzf-maps-x)
-"omap <leader><tab> <plug>(fzf-maps-o)
-
-" Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-
-" Advanced customization using autoload functions
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
-
-" adds blinking when jumping to the next word
-nnoremap <silent> n n:call HLNext(0.2)<cR>
-nnoremap <silent> N N:call HLNext(0.2)<cR>
-
-
-function! HLNext (blinktime)
-    highlight WhiteOnRed ctermfg=White ctermbg=Red
-    let [bufnum, lnum, col, off] = getpos('.')
-    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
-    let target_pat = '\c\%#\%('.@/.'\)'
-    let ring = matchadd('WhiteOnRed', target_pat, 101)
-    redraw
-    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
-    call matchdelete(ring)
-    redraw
-endfunction
-
-set laststatus=2
-set encoding=utf-8
+" * Color settings
 set t_Co=256
-let g:Powerline_symbols = 'fancy'
 
-" Shortcut to open BufExplorer
-nnoremap <unique> <Leader>l :BufExplorer<CR>
-
-let g:ycm_confirm_extra_conf=0
-" let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-set tags+=./.tags
-
-let g:ycm_semantic_triggers = {'haskell' : ['.']}
-
-let g:ycm_min_num_of_chars_for_completion = 1
-let g:ycm_always_populate_location_list = 1
-
-let g:haskellmode_completion_ghc = 0
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-let g:necoghc_enable_detailed_browse = 1
-
-" Ignore files with type *.x
-set wildignore+=build,*.a,*.so,*.o,*.obj,.git
-
-set incsearch
-
-set nohlsearch
-
-
-" Highlight syntax in programming languages
-syntax on
-
-" Enable syntax highlighting for ram files. To use, copy
-augroup filetype
-  au! BufRead,BufNewFile *.ram     set filetype=ram
-augroup END
-
-set incsearch
-set hidden
-
-" Vim Colors
-let g:solarized_termcolors=256
-"set background=dark
 "colorscheme solarized
+"let g:solarized_termcolors=256
+"set background=dark
 "colorscheme vividchalk
-"colorscheme lucius
 "colorscheme wombat256
 "colorscheme badwolf
 "colorscheme wellsokai
@@ -307,64 +295,22 @@ autocmd BufNew *.py colorscheme monokai
 let g:rehash256 = 1
 autocmd BufNew *.go colorscheme molokai
 
-" Highlight trailing whitespace and lines longer than 80 columns.
-"highlight LongLine ctermbg=DarkYellow guibg=DarkYellow
-"highlight WhitespaceEOL ctermbg=DarkYellow guibg=DarkYellow
-"if v:version >= 702
-"  " Lines longer than 80 columns.
-"  "au BufWinEnter * let w:m0=matchadd('LongLine', '\%>80v.\+', -1)
-"
-"  " Whitespace at the end of a line. This little dance suppresses
-"  " whitespace that has just been typed.
-"  au BufWinEnter * let w:m1=matchadd('WhitespaceEOL', '\s\+$', -1)
-"  au InsertEnter * call matchdelete(w:m1)
-"  au InsertEnter * let w:m2=matchadd('WhitespaceEOL', '\s\+\%#\@<!$', -1)
-"  au InsertLeave * call matchdelete(w:m2)
-"  au InsertLeave * let w:m1=matchadd('WhitespaceEOL', '\s\+$', -1)
-"else
-"  "au BufRead,BufNewFile * syntax match LongLine /\%>80v.\+/
-"  au InsertEnter * syntax match WhitespaceEOL /\s\+\%#\@<!$/
-"  au InsertLeave * syntax match WhitespaceEOL /\s\+$/
-"endif
-
-set list
-set listchars=trail:.
-
 " highlight ColorColumn ctermbg=DarkMagenta
 call matchadd('ColorColumn', '\%81v', 100)
 
-" set background=dark
-" let g:gruvbox_contrast_light="hard"
-" let g:gruvbox_italic=1
-" let g:gruvbox_invert_signs=0
-" let g:gruvbox_improved_strings=0
-" let g:gruvbox_improved_warnings=1
-" let g:gruvbox_contrast_dark="hard"
-" colorscheme gruvbox
-
-"let g:lucius_style='dark'
-"let g:lucius_contrast='normal'
-"let g:lucius_contrast_bg='normal'
-
-" Add highlighting for matching braces
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-
-" Optional
-" C/C++ programming helpers
+" * Optional C/C++ programming helpers
 augroup csrc
   au!
   autocmd FileType *      set nocindent smartindent
   autocmd FileType c,cpp  set cindent
 augroup END
+
+" * LLVM specific options
+
 " Set a few indentation parameters. See the VIM help for cinoptions-values for
 " details.  These aren't absolute rules; they're just an approximation of
 " common style in LLVM source.
 set cinoptions=:0,g0,(0,Ws,l1
-" Add and delete spaces in increments of `shiftwidth' for tabs
-set smarttab
 
 " LLVM Makefiles can have names such as Makefile.rules or TEST.nightly.Makefile,
 " so it's important to categorize them as such.
@@ -374,14 +320,6 @@ augroup END
 
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs
 autocmd FileType make set noexpandtab
-
-" Useful macros for cleaning up code to conform to LLVM coding guidelines
-
-" Delete trailing whitespace and tabs at the end of each line
-command! DeleteTrailingWs :%s/\s\+$//
-
-" Convert all tab characters to two spaces
-command! Untab :%s/\t/  /g
 
 " Enable syntax highlighting for LLVM files. To use, copy
 " utils/vim/llvm.vim to ~/.vim/syntax .
@@ -401,138 +339,3 @@ augroup END
 augroup filetype
  au! BufRead,BufNewFile *.rst     set filetype=rest
 augroup END
-
-" Additional vim features to optionally uncomment.
-"set showcmd
-"set showmatch
-"set showmode
-"set incsearch
-"set ruler
-
-" Clang code-completion support. This is somewhat experimental!
-
-" A path to a clang executable.
-let g:clang_path = "clang++"
-
-" A list of options to add to the clang commandline, for example to add
-" include paths, predefined macros, and language options.
-let g:clang_opts = [
-  \ "-x","c++",
-  \ "-D__STDC_LIMIT_MACROS=1","-D__STDC_CONSTANT_MACROS=1",
-  \ "-Iinclude" ]
-
-function! ClangComplete(findstart, base)
-   if a:findstart == 1
-      " In findstart mode, look for the beginning of the current identifier.
-      let l:line = getline('.')
-      let l:start = col('.') - 1
-      while l:start > 0 && l:line[l:start - 1] =~ '\i'
-         let l:start -= 1
-      endwhile
-      return l:start
-   endif
-
-   " Get the current line and column numbers.
-   let l:l = line('.')
-   let l:c = col('.')
-
-   " Build a clang commandline to do code completion on stdin.
-   let l:the_command = shellescape(g:clang_path) .
-                     \ " -cc1 -code-completion-at=-:" . l:l . ":" . l:c
-   for l:opt in g:clang_opts
-      let l:the_command .= " " . shellescape(l:opt)
-   endfor
-
-   " Copy the contents of the current buffer into a string for stdin.
-   " TODO: The extra space at the end is for working around clang's
-   " apparent inability to do code completion at the very end of the
-   " input.
-   " TODO: Is it better to feed clang the entire file instead of truncating
-   " it at the current line?
-   let l:process_input = join(getline(1, l:l), "\n") . " "
-
-   " Run it!
-   let l:input_lines = split(system(l:the_command, l:process_input), "\n")
-
-   " Parse the output.
-   for l:input_line in l:input_lines
-      " Vim's substring operator is annoyingly inconsistent with python's.
-      if l:input_line[:11] == 'COMPLETION: '
-         let l:value = l:input_line[12:]
-
-        " Chop off anything after " : ", if present, and move it to the menu.
-        let l:menu = ""
-        let l:spacecolonspace = stridx(l:value, " : ")
-        if l:spacecolonspace != -1
-           let l:menu = l:value[l:spacecolonspace+3:]
-           let l:value = l:value[:l:spacecolonspace-1]
-        endif
-
-        " Chop off " (Hidden)", if present, and move it to the menu.
-        let l:hidden = stridx(l:value, " (Hidden)")
-        if l:hidden != -1
-           let l:menu .= " (Hidden)"
-           let l:value = l:value[:l:hidden-1]
-        endif
-
-        " Handle "Pattern". TODO: Make clang less weird.
-        if l:value == "Pattern"
-           let l:value = l:menu
-           let l:pound = stridx(l:value, "#")
-           " Truncate the at the first [#, <#, or {#.
-           if l:pound != -1
-              let l:value = l:value[:l:pound-2]
-           endif
-        endif
-
-         " Filter out results which don't match the base string.
-         if a:base != ""
-            if l:value[:strlen(a:base)-1] != a:base
-               continue
-            end
-         endif
-
-        " TODO: Don't dump the raw input into info, though it's nice for now.
-        " TODO: The kind string?
-        let l:item = {
-          \ "word": l:value,
-          \ "menu": l:menu,
-          \ "info": l:input_line,
-          \ "dup": 1 }
-
-        " Report a result.
-        if complete_add(l:item) == 0
-           return []
-        endif
-        if complete_check()
-           return []
-        endif
-
-      elseif l:input_line[:9] == "OVERLOAD: "
-         " An overload candidate. Use a crazy hack to get vim to
-         " display the results. TODO: Make this better.
-         let l:value = l:input_line[10:]
-         let l:item = {
-           \ "word": " ",
-           \ "menu": l:value,
-           \ "info": l:input_line,
-           \ "dup": 1}
-
-        " Report a result.
-        if complete_add(l:item) == 0
-           return []
-        endif
-        if complete_check()
-           return []
-        endif
-
-      endif
-   endfor
-
-
-   return []
-endfunction ClangComplete
-
-" This to enables the somewhat-experimental clang-based
-" autocompletion support.
-autocmd FileType c,cpp set omnifunc=ClangComplete

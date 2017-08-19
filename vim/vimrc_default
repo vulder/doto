@@ -1,3 +1,4 @@
 " Binding for clang auto format
-map <leader>c :py3f /home/vulder/opt/llvm/share/clang/clang-format.py<CR><CR>
+map <leader>c :py3f /home/vulder/opt/llvm-orig/share/clang/clang-format.py<CR><CR>
 " imap <leader>c <c-o>:py3f /home/vulder/opt/llvm/share/clang/clang-format.py<CR>
+let g:ale_cpp_clangtidy_executable = "/home/vulder/opt/llvm-orig/bin/clang-tidy"
