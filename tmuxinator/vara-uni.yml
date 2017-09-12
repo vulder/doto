@@ -1,0 +1,45 @@
+# ~/.tmuxinator/vara-uni.yml
+
+name: vara-uni
+root: ~
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+# pre: sudo /etc/rc.d/mysqld start
+pre: cd /home/vulder/git/llvm
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+tmux_options: -2
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+startup_window: llvm
+
+# Specitifes (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
+startup_pane: 1
+
+# Controls whether the tmux session should be attached to automatically. Defaults to true.
+# attach: false
+
+# Runs after everything. Use it to attach to tmux with custom options etc.
+# post: tmux -CC attach -t vara-uni
+
+windows:
+  - llvm: vim
+  - vara: cd tools/VaRA && vim
+  - git:
+      layout: even-vertical
+      panes:
+        - tig
+        - cd tools/clang && tig
+        - cd tools/VaRA && tig
+  - debug: cd build/debug && ninja
+  - start_others: tmux new-session -t vara-uni -s vara-right -d; tmux new-session -t vara-uni -s vara-debug -d; exit
