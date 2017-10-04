@@ -5,6 +5,9 @@
 "             of them may change VIM behavior that you depend on.
 "
 
+" nvim fix for leaking symbols
+set guicursor=
+
 " It's VIM, not VI
 set nocompatible
 
@@ -72,7 +75,7 @@ nnoremap <leader>y :call Yapf()<cr>
 map <leader>m :Make<CR>
 map <leader>n :Copen<CR>
 " Ag search needs silver-searcher
-nmap <leader>a :Ag
+nmap <leader>a :Ag 
 
 " Folding
 inoremap <F9> <C-O>za
