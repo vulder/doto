@@ -138,6 +138,8 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'fatih/molokai',
 Plug 'KabbAmine/zeavim.vim',
 Plug 'ryanoasis/vim-devicons'
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+Plug 'jeaye/color_coded', { 'do': 'mkdir build; cd build && cmake .. && make install'}
 
 call plug#end()
 
@@ -280,18 +282,21 @@ let g:zv_file_types = {
     \ }
 
 " -> vim-devicons
+" -> rdnetto/YCM-Generator
+" -> jeaye/color_coded
 
 " * Color settings
 set t_Co=256
 
-"colorscheme solarized
-"let g:solarized_termcolors=256
-"set background=dark
 "colorscheme vividchalk
 "colorscheme wombat256
 "colorscheme badwolf
 "colorscheme wellsokai
 colorscheme jellybeans
+"let g:solarized_termcolors=256
+"set background=dark
+"colorscheme solarizeded
+"colorscheme solarized
 
 autocmd BufNew *.py colorscheme monokai
 
