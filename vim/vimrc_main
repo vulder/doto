@@ -301,6 +301,9 @@ set t_Co=256
 "colorscheme wombat256
 "colorscheme badwolf
 "colorscheme wellsokai
+
+let updatetime=400
+let g:jellybeans_ccextra=1
 colorscheme jellybeans
 "let g:rehash256 = 1
 "colorscheme molokaied

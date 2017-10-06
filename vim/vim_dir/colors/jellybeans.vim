@@ -372,6 +372,37 @@ hi! link Error ErrorMsg
 hi! link MoreMsg Special
 call s:X("Question","65C254","","","Green","")
 
+if !exists("g:jellybeans_ccextra") || g:jellybeans_ccextra
+  " color_coded
+  call s:X("Member","65C254","","","","")
+  "call s:X("Member","e0b3ff","","","","")
+  call s:X("Variable","b3b3b3","","","","")
+  call s:X("VarDecl","b3b3b3","","underline","","")
+  call s:X("ParmDecl","00cccc","","","","")
+  call s:X("VarRef","f442ee","","bold,underline","","")
+  "call s:X("Namespace","dad085","","","","")
+  call s:X("Namespace","ffff57","","","","")
+  call s:X("EnumConstant","f442ee","","","","")
+
+
+  call s:X("TypeAliasDecl","ffa333","","","","")
+  call s:X("TypedefDecl","ffa333","","","","")
+
+  "call s:X("Function","f442ee","","bold,underline","","")
+  call s:X("FunctionDecl","ffff99","","","","")
+  call s:X("FunctionTemplate","b300b3","","","","")
+  call s:X("CXXMethod","4da93d","","","","")
+  call s:X("Constructor","4da93d","","","","")
+  call s:X("Destructor","4da93d","","","","")
+
+
+  call s:X("ClassDecl","1aff1a","","","","")
+  call s:X("StructDecl","1aff1a","","","","")
+  call s:X("UnionDecl","1aff1a","","","","")
+  call s:X("CXXBaseSpecifier","00ff00","","","","") " TODO:
+
+  " call s:X("Variable","ffaf4d","","underline","","")
+endif
 
 " Spell Checking
 
