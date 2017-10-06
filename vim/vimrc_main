@@ -106,6 +106,15 @@ command! DeleteTrailingWs :%s/\s\+$//
 " Convert all tab characters to two spaces
 command! Untab :%s/\t/  /g
 
+" Get highlight color
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+command! GetHigh call SynStack()
+
 " Plugin loading
 call plug#begin('~/.vim/plugged')
 
@@ -293,6 +302,8 @@ set t_Co=256
 "colorscheme badwolf
 "colorscheme wellsokai
 colorscheme jellybeans
+"let g:rehash256 = 1
+"colorscheme molokaied
 "let g:solarized_termcolors=256
 "set background=dark
 "colorscheme solarizeded
