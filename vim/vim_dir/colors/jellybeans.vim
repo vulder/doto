@@ -376,8 +376,8 @@ if !exists("g:jellybeans_ccextra") || g:jellybeans_ccextra
   " color_coded
   call s:X("Member","65C254","","","","")
   "call s:X("Member","e0b3ff","","","","")
-  call s:X("Variable","b3b3b3","","","","")
-  call s:X("VarDecl","b3b3b3","","underline","","")
+  call s:X("Variable","a6a6a6","","","","")
+  "call s:X("VarDecl","b3b3b3","","underline","","")
   call s:X("ParmDecl","00cccc","","","","")
   call s:X("VarRef","f442ee","","bold,underline","","")
   "call s:X("Namespace","dad085","","","","")
@@ -390,7 +390,6 @@ if !exists("g:jellybeans_ccextra") || g:jellybeans_ccextra
 
   "call s:X("Function","f442ee","","bold,underline","","")
   call s:X("FunctionDecl","ffff99","","","","")
-  call s:X("FunctionTemplate","b300b3","","","","")
   call s:X("CXXMethod","4da93d","","","","")
   call s:X("Constructor","4da93d","","","","")
   call s:X("Destructor","4da93d","","","","")
@@ -400,6 +399,15 @@ if !exists("g:jellybeans_ccextra") || g:jellybeans_ccextra
   call s:X("StructDecl","1aff1a","","","","")
   call s:X("UnionDecl","1aff1a","","","","")
   call s:X("CXXBaseSpecifier","00ff00","","","","") " TODO:
+
+  call s:X("FunctionTemplate","b300b3","","","","")
+  call s:X("ClassTemplate","e600e6","","","","")
+
+  call s:X("TemplateTypeParameter","bf00ff","","","","")
+  call s:X("TemplateTemplateParameter","9900cc","","bold","","")
+  call s:X("NonTypeTemplateParameter","e699ff","","","","")
+  call s:X("TemplateRef","00ff00","","","","") " TODO:
+
 
   " call s:X("Variable","ffaf4d","","underline","","")
 endif
