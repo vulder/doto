@@ -125,6 +125,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-endwise'
 Plug 'easymotion/vim-easymotion'
 Plug 'davidhalter/jedi-vim', { 'for': 'python'}
@@ -204,6 +205,7 @@ let g:airline_powerline_fonts = 1
 
 " -> vim-dispatch
 " -> vim-surround
+" -> tpope/vim-unimpaired
 " -> vim-endwise
 " -> vim-easymotion
 map <leader> <Plug>(easymotion-prefix)
