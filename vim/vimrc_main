@@ -119,7 +119,6 @@ command! GetHigh call SynStack()
 call plug#begin('~/.vim/plugged')
 
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer'}
-Plug 'jlanzarotta/bufexplorer'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-fugitive'
 Plug 'bling/vim-airline'
@@ -173,9 +172,6 @@ autocmd FileType java set omnifunc=eclim#java#complete#CodeComplete
 autocmd FileType java nnoremap <leader>b :ProjectBuild<CR>
 autocmd FileType java nnoremap <leader>r :ProjectRun<CR>
 
-" -> bufexplorer
-nnoremap <unique> <Leader>l :BufExplorer<CR>
-
 " -> ale
 let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
@@ -218,6 +214,7 @@ let g:jedi#use_splits_not_buffers = "top"
 " -> fzf
 " -> fzf.vim
 nmap <c-p> :FZF<CR>
+nmap <leader>l :Buffers<CR>
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
