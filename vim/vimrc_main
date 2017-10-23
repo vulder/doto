@@ -150,7 +150,7 @@ Plug 'fatih/molokai',
 Plug 'KabbAmine/zeavim.vim',
 Plug 'ryanoasis/vim-devicons'
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-Plug 'jeaye/color_coded', { 'do': 'mkdir build; cd build && cmake .. && make install'}
+Plug 'jeaye/color_coded', { 'do': 'mkdir build; cd build && cmake .. && make install'},
 
 call plug#end()
 
@@ -168,6 +168,8 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_confirm_extra_conf=0
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_semantic_triggers = {'haskell' : ['.']}
+let g:ycm_seed_identifiers_with_syntax=1
+let g:ycm_add_preview_to_completeopt=1
 
 autocmd FileType java let g:EclimCompletionMethod='omnifunc'
 autocmd FileType java set omnifunc=eclim#java#complete#CodeComplete
