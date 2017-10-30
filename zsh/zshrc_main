@@ -520,6 +520,15 @@ function prompt_ip {
 #RPROMPT='%{$fg_lgray%}[%*]%{$reset_color%}'
 RPROMPT='%{$fg_lgray%}[$(prompt_ip)]%{$reset_color%}'
 
+TIMEFMT="
+Time: $fg[red]%E$reset_color (%P)"
+TIMEFMT_D="%J  %U user %S system %P cpu %*E total"
+function timed {
+  local TIMEFMT=$TIMEFMT_D
+  time $@
+}
+REPORTTIME=2
+
 #source /home/vulder/.oh-my-zsh/themes/tjkirch.zsh-theme
 
 setopt APPEND_HISTORY
