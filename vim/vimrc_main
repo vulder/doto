@@ -150,7 +150,7 @@ Plug 'fatih/molokai',
 Plug 'KabbAmine/zeavim.vim',
 Plug 'ryanoasis/vim-devicons'
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-Plug 'jeaye/color_coded', { 'do': 'mkdir build; cd build && cmake .. && make install'},
+Plug 'jeaye/color_coded', { 'do': 'mkdir build; cd build && rm -f CMakeCache.txt && cmake .. && make install'},
 
 call plug#end()
 
