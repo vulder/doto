@@ -244,9 +244,9 @@ let g:UltiSnipsExpandTrigger = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsJumpForwardTrigger = "<cr>"
 let g:ultisnips_python_style = "google"
+let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 
 " -> vim-snippets
-let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 
 " -> neco-ghc
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
