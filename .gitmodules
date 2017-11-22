@@ -4,3 +4,6 @@
 [submodule "awesome/freedesktop"]
 	path = awesome/freedesktop
 	url = git@github.com:copycat-killer/awesome-freedesktop.git
+[submodule "vim/vim_dir/UltiSnips"]
+	path = vim/vim_dir/UltiSnips
+	url = https://github.com/vulder/UltiSnips-llvm.git
