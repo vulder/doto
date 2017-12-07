@@ -7,3 +7,6 @@
 [submodule "vim/vim_dir/UltiSnips"]
 	path = vim/vim_dir/UltiSnips
 	url = https://github.com/vulder/UltiSnips-llvm.git
+[submodule "tmux/tmux_folder/plugins/tpm"]
+	path = tmux/tmux_folder/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
