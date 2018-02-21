@@ -167,9 +167,14 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_confirm_extra_conf=0
 let g:ycm_min_num_of_chars_for_completion = 1
-let g:ycm_semantic_triggers = {'haskell' : ['.']}
+let g:ycm_semantic_triggers = {
+      \   'haskell' : ['.'],
+      \ 'cpp' : ['->', '.', '::', 're![a-zA-Z]+'],
+      \ }
 let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_add_preview_to_completeopt=1
+let g:ycm_max_num_candidates=20
+let g:ycm_max_num_identifier_candidates=2
 
 autocmd FileType java let g:EclimCompletionMethod='omnifunc'
 autocmd FileType java set omnifunc=eclim#java#complete#CodeComplete
