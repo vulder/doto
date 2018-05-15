@@ -192,7 +192,7 @@ let g:ale_linters = {
 let g:ale_pattern_options = {
       \ '\.h$': {
       \   'ale_cpp_clangtidy_options': '-x c++ -std=c++14 -I/home/vulder/git/llvm/include/ -I/home/vulder/git/llvm/build/debug/include/ -I/home/vulder/git/llvm/tools/clang/include/ -I/home/vulder/git/llvm/tools/VaRA/include/',
-      \   }
+      \   },
       \}
 
 " ale: c/cpp
@@ -200,6 +200,14 @@ let g:ale_cpp_clang_options = '-std=c++14 -Wall -I''/home/vulder/git/llvm/includ
 let g:ale_cpp_clangtidy_checks = []
 
 let g:ale_c_build_dir_names = ['build/debug/', 'build/']
+
+" ale: python
+let g:ale_python_flake8_executable = 'python3'
+let g:ale_python_flake8_options = '-m flake8'
+let g:ale_python_pylint_executable = 'python3'
+let g:ale_python_pylint_options = '-m pylint'
+nmap <silent> <leader>eu <Plug>(ale_previous_wrap)
+nmap <silent> <leader>ed <Plug>(ale_next_wrap)
 
 " -> vim-fugitive
 " -> vim-airline
@@ -322,10 +330,10 @@ colorscheme jellybeans
 "colorscheme solarizeded
 "colorscheme solarized
 
-autocmd BufNew *.py colorscheme monokai
 
 let g:rehash256 = 1
 autocmd BufNew *.go colorscheme molokai
+autocmd BufNew *.py colorscheme molokai
 
 " highlight ColorColumn ctermbg=DarkMagenta
 call matchadd('ColorColumn', '\%81v', 100)
