@@ -3,8 +3,9 @@ URxvt.scrollBar: false
 URxvt.foreground: white
 URxvt.background: black
 URxvt.secondaryScroll: true
-!URxvt.font: xft:Terminus (TTF):pixelsize=12
+!URxvt.font: xft:Terminus (TTF):pixelsize=16
 URxvt.font: xft:Hack for Powerline:pixelsize=12
+!URxvt.font: xft:Knack Regular Nerd Font Complete.ttf:pixelsize=10
 URxvt.perl-ext-common: default,matcher
 URxvt.urlLauncher: /usr/bin/chromium
 URxvt.matcher.button: 1
@@ -25,3 +26,8 @@ URxvt*color12: #0066FF
 
 ! bright_magenta
 URxvt*color13: #ff33cc
+
+!xterm*faceName: Knack Regular Nerd Font Complete.ttf
+xterm*faceName: Hack for Powerline:pixelsize=10
+xterm*background: black
+xterm*foreground: lightgray
