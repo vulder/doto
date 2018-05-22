@@ -192,8 +192,11 @@ let g:ale_linters = {
 
 let g:ale_pattern_options = {
       \ '\.h$': {
-      \   'ale_cpp_clangtidy_options': '-x c++ -std=c++14 -I/home/vulder/git/llvm/include/ -I/home/vulder/git/llvm/build/debug/include/ -I/home/vulder/git/llvm/tools/clang/include/ -I/home/vulder/git/llvm/tools/VaRA/include/',
+      \   'ale_cpp_clangtidy_options': '-x c++ -std=c++17 -I/home/vulder/git/llvm/include/ -I/home/vulder/git/llvm/build/debug/include/ -I/home/vulder/git/llvm/tools/clang/include/ -I/home/vulder/git/llvm/tools/VaRA/include/',
       \   },
+      \ '\.cpp$': {
+      \   'ale_cpp_clangtidy_options': '-std=c++17 -I/home/vulder/git/llvm/include/ -I/home/vulder/git/llvm/build/debug/include/ -I/home/vulder/git/llvm/tools/clang/include/ -I/home/vulder/git/llvm/tools/VaRA/include/',
+      \   }
       \}
 
 " ale: c/cpp
