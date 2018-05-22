@@ -3,11 +3,13 @@ import sys
 import ycm_core
 
 flags = [
-    '-DYCM_DB_NOT_FOUND',
-    '-std=c++14',
+    '-std=c++17',
     '-Wall',
-    '-I', '.'
+    '-I.',
+    '-I/usr/include/c++/v1/',
     '-I/usr/local/include/',
+    '-I/usr/include',
+    # '-lstdc++',
 ]
 
 # If you want to use more than one compilation database, put it in
