@@ -10,3 +10,6 @@ vim/vim_dir/doc/jedi-vim.txt
 vim/vim_dir/plugin/jedi.vim
 tmux/tmux_folder/sidebar
 vim/vim_dir/.netrwhist
+vim/vim_dir/eclim/
+vim/vim_dir/init.vim
+vim/vim_dir/plugin/eclim.vim
