@@ -661,4 +661,5 @@ fi
 source ~/.doto_src/enhancd/init.sh
 eval "$(fasd --init auto)"
 
+set bell-style none
 source ~/.tmuxinator/tmuxinator.zsh
