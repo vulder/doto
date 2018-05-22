@@ -8,12 +8,13 @@
   go_left = <Primary>Page_Up
   go_right = <Primary>Page_Up
   go_up = <Primary>Page_Up
-  layout_launcher = <Primary>Page_Up
   help = <Primary>Page_Up
+  layout_launcher = <Primary>Page_Up
 [layouts]
   [[default]]
     [[[child1]]]
       parent = window0
+      profile = default
       type = Terminal
     [[[window0]]]
       parent = ""
@@ -25,7 +26,7 @@
     background_image = None
     background_type = transparent
     cursor_color = "#aaaaaa"
-    font = Hack for Powerline 9
+    font = Knack Nerd Font Mono 9
     palette = "#000000:#cd0000:#00cd00:#cdcd00:#3636fd:#cd00cd:#00cdcd:#faebd7:#404040:#ff0000:#00ff00:#ffff00:#7373ff:#ff00ff:#00ffff:#ffffff"
     scrollbar_position = hidden
     show_titlebar = False
