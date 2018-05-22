@@ -19,7 +19,7 @@ response=${response,,} # tolower
 if [[ "$response" =~ ^(yes|y)$ ]]
 then
   echo Building new Compiler
-  emerge -1 --keep-going clang llvm compiler-rt compiler-rt-sanitizers llvm-libunwind clang-runtime libcxxabi libcxx libomp mesa
+  emerge -1 --keep-going clang llvm compiler-rt compiler-rt-sanitizers llvm-libunwind clang-runtime libcxxabi libcxx libomp mesa lld
 
   clang++ --version; clang_old++ --version
 
@@ -28,7 +28,7 @@ then
   if [[ "$response" =~ ^(yes|y)$ ]]
   then
     echo Updating clang
-    cp -r /usr/lib/llvm/6/* /usr/lib/llvm/6_old/
+    cp -r /usr/lib/llvm/7/* /usr/lib/llvm/7_old/
   fi
 fi
 
