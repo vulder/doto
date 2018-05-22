@@ -24,6 +24,7 @@ set mouse=a
 set nohlsearch
 set number
 set tags+=./.tags
+set splitbelow
 
 " Ignore files with type *.x
 set wildignore+=build,*.a,*.so,*.o,*.obj,.git
