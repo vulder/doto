@@ -33,13 +33,13 @@ startup_pane: 1
 # post: tmux -CC attach -t vara-uni
 
 windows:
-  - llvm: vim
-  - vara: cd tools/VaRA && vim
+  - llvm: vi
+  - vara: cd tools/VaRA && vi
   - git:
       layout: even-vertical
       panes:
         - tig
         - cd tools/clang && tig
         - cd tools/VaRA && tig
-  - debug: cd build/debug && ninja
+  - debug: cd build/dev && ninja
   - start_others: tmux new-session -t vara-uni -s vara-right -d; tmux new-session -t vara-uni -s vara-debug -d; exit
