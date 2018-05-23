@@ -662,4 +662,5 @@ source ~/.doto_src/enhancd/init.sh
 eval "$(fasd --init auto)"
 
 set bell-style none
+export PATH="/home/vulder/bin:$PATH"
 source ~/.tmuxinator/tmuxinator.zsh
