@@ -379,7 +379,7 @@ if !exists("g:jellybeans_ccextra") || g:jellybeans_ccextra
   call s:X("Variable","a6a6a6","","","","")
   "call s:X("VarDecl","b3b3b3","","underline","","")
   call s:X("ParmDecl","00cccc","","","","")
-  call s:X("VarRef","f442ee","","bold,underline","","")
+  call s:X("VariableRef","f442ee","","underline","","")
   "call s:X("Namespace","dad085","","","","")
   call s:X("Namespace","ffff57","","","","")
   call s:X("EnumConstant","f442ee","","","","")
