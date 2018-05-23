@@ -65,6 +65,8 @@ augroup END
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "barber" || hostname == "debussy"
   source /home/sattlerf/git/doto/vim/vimrc_barber
+elseif hostname == "jotunheim"
+  source /home/vulder/git/doto/vim/vimrc_jotunheim
 else
   source /home/vulder/git/doto/vim/vimrc_default
 endif
@@ -84,6 +86,8 @@ nnoremap <F9> za
 vnoremap <F9> zf
 
 nmap <leader>b :!tmux send-keys -t vara-debug:4.1 C-p C-j <CR><CR>
+
+nmap <leader>/ :!trans :en ''<left>
 
 " * General extra modifications
 
