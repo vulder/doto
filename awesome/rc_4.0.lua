@@ -69,7 +69,7 @@ run_once({"conky", " -c /home/vulder/.conkyrc"})
 local chosen_theme = "powerarrow-darker"
 local modkey       = "Mod4"
 local altkey       = "Mod1"
-local terminal     = "terminator"
+local terminal     = "terminator --geometry=958x529"
 local terminal_args = "-x tmux -2 new-session -A -s drop"
 local editor       = os.getenv("EDITOR") or "nano" or "vi"
 local gui_editor   = "gvim"
@@ -83,8 +83,8 @@ awful.util.terminal_args  = terminal_args
 awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
 awful.layout.layouts = {
     awful.layout.suit.floating,
-    awful.layout.suit.tile.top,
     awful.layout.suit.fair,
+    awful.layout.suit.tile.top,
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.magnifier,
