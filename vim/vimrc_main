@@ -67,7 +67,6 @@ let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "barber" || hostname == "debussy"
   source /home/sattlerf/git/doto/vim/vimrc_barber
 elseif hostname == "jotunheim"
-  source /home/vulder/git/doto/vim/vimrc_default
   source /home/vulder/git/doto/vim/vimrc_jotunheim
 else
 endif
