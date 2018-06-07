@@ -112,7 +112,7 @@ if ! zgen saved; then
 	# zgen oh-my-zsh plugins/meteor
 	# zgen oh-my-zsh plugins/mix
 	# zgen oh-my-zsh plugins/mix-fast
-	# zgen oh-my-zsh plugins/mosh
+	zgen oh-my-zsh plugins/mosh
 	# zgen oh-my-zsh plugins/mvn
 	# zgen oh-my-zsh plugins/mysql-macports
 	# zgen oh-my-zsh plugins/nanoc
@@ -161,7 +161,7 @@ if ! zgen saved; then
 	# zgen oh-my-zsh plugins/sprunge
 	###zgen oh-my-zsh plugins/ssh-agent
 	###zgen oh-my-zsh plugins/sublime
-	#zgen oh-my-zsh plugins/sudo
+	# zgen oh-my-zsh plugins/sudo
 	# zgen oh-my-zsh plugins/supervisor
 	# zgen oh-my-zsh plugins/suse
 	# zgen oh-my-zsh plugins/svn
@@ -184,9 +184,9 @@ if ! zgen saved; then
 	###zgen oh-my-zsh plugins/ubuntu
 	zgen oh-my-zsh plugins/urltools
 	# zgen oh-my-zsh plugins/vagrant
-	# zgen oh-my-zsh plugins/vim-interaction
+	zgen oh-my-zsh plugins/vim-interaction
 	# zgen oh-my-zsh plugins/vi-mode
-	# zgen oh-my-zsh plugins/virtualenv
+	zgen oh-my-zsh plugins/virtualenv
 	# zgen oh-my-zsh plugins/virtualenvwrapper
 	# zgen oh-my-zsh plugins/vundle
 	zgen oh-my-zsh plugins/wakeonlan
@@ -662,5 +662,8 @@ source ~/.doto_src/enhancd/init.sh
 eval "$(fasd --init auto)"
 
 set bell-style none
-export PATH="/home/vulder/bin:$PATH"
+export PATH="$PATH:/home/vulder/bin/"
+export PATH="$PATH:/home/vulder/.local/bin/"
+export PATH="/usr/lib/llvm/7_old/bin/:$PATH"
+
 source ~/.tmuxinator/tmuxinator.zsh
