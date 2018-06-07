@@ -1,0 +1,1 @@
+/home/vulder/.vimrc
