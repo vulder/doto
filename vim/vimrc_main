@@ -156,6 +156,7 @@ Plug 'KabbAmine/zeavim.vim',
 Plug 'ryanoasis/vim-devicons'
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'jeaye/color_coded', { 'do': 'mkdir build; cd build && rm -f CMakeCache.txt && cmake .. && make install'},
+Plug 'nickhutchinson/vim-cmake-syntax'
 
 call plug#end()
 
@@ -207,7 +208,7 @@ let g:ale_pattern_options = {
 let g:ale_cpp_clang_options = '-std=c++14 -Wall -I''/home/vulder/git/llvm/include'''
 let g:ale_cpp_clangtidy_checks = []
 
-let g:ale_c_build_dir_names = ['build/debug/', 'build/']
+let g:ale_c_build_dir_names = ['build/debug/', 'build/dev/', 'build/dbg/', 'build/']
 
 " ale: python
 let g:ale_python_flake8_executable = 'python3'
@@ -341,7 +342,7 @@ colorscheme jellybeans
 
 let g:rehash256 = 1
 autocmd BufNew *.go colorscheme molokai
-autocmd BufNew *.py colorscheme molokai
+autocmd BufNew *.py if g:colors_name != 'molokai' | colorscheme molokai | endif
 
 " highlight ColorColumn ctermbg=DarkMagenta
 call matchadd('ColorColumn', '\%81v', 100)
