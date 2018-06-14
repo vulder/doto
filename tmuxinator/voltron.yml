@@ -1,0 +1,46 @@
+# ~/.tmuxinator/voltron.yml
+
+name: voltron
+# root: ~
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+# pre: sudo /etc/rc.d/mysqld start
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+tmux_options: -2
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+startup_window: voltron
+
+# Specitifes (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
+startup_pane: 4
+
+# Controls whether the tmux session should be attached to automatically. Defaults to true.
+# attach: false
+
+# Runs after everything. Use it to attach to tmux with custom options etc.
+# post: tmux -CC attach -t vara-uni
+
+    #layout: ed73,273x77,0,0{214x77,0,0[214x27,0,0{119x27,0,0,64,94x27,120,0,65},214x28,0,28,66,214x20,0,57{119x20,0,57,67,94x20,120,57,68}],58x77,215,0,69}
+    #layout: c24f,273x77,0,0[273x21,0,0{107x21,0,0,79,97x21,108,0,80,67x21,206,0,81},273x22,0,22,82,273x25,0,45,83,273x6,0,71,84]
+windows:
+  - voltron:
+      layout: 6cf0,273x77,0,0[273x23,0,0{107x23,0,0,40,97x23,108,0,44,67x23,206,0,77},273x24,0,24,42,273x16,0,49,43,273x11,0,66,78]
+      panes:
+        - voltron view disasm
+        - voltron v c 'frame variable'
+        - voltron view reg
+        - lldb
+        - voltron view stack
+        - voltron view bt
+
