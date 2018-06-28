@@ -126,6 +126,8 @@ command! GetHigh call SynStack()
 call plug#begin('~/.vim/plugged')
 
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer'}
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-fugitive'
 Plug 'bling/vim-airline'
@@ -186,6 +188,23 @@ autocmd FileType java let g:EclimCompletionMethod='omnifunc'
 autocmd FileType java set omnifunc=eclim#java#complete#CodeComplete
 autocmd FileType java nnoremap <leader>b :ProjectBuild<CR>
 autocmd FileType java nnoremap <leader>r :ProjectRun<CR>
+
+" -> async.vim
+" -> vim-lsp
+if executable('clangd')
+  augroup lsp_clangd
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'clangd',
+          \ 'cmd': {server_info->['clangd']},
+          \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+          \ })
+    autocmd FileType c setlocal omnifunc=lsp#complete
+    autocmd FileType cpp setlocal omnifunc=lsp#complete
+    autocmd FileType objc setlocal omnifunc=lsp#complete
+    autocmd FileType objcpp setlocal omnifunc=lsp#complete
+  augroup end
+endif
 
 " -> ale
 let g:ale_sign_error = ''
