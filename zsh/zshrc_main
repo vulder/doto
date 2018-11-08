@@ -455,7 +455,7 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=magenta,bold'
 # ______________________________________________[OSO]
 #. /usr/share/autojump/autojump.sh
 # . /usr/share/autojump/autojump.zsh
-. ~/.doto_src/autojump/bin/autojump.zsh
+#. ~/.doto_src/autojump/bin/autojump.zsh
 #source /oso/db/xcl/oso/_FC/_opt/sh/shOpt.sh
 
 alias zNoflwLink="unsetopt chaselinks"
@@ -654,16 +654,24 @@ autoload -U compinit
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # source /root/.local/lib/python3.4/site-packages/powerline/bindings/zsh/powerline.zsh
 unalias gg
-export PATH="/usr/local/p/versions/python:$PATH"
+if [[ ! "$PATH" == */usr/local/p/versions/python* ]]; then
+  export PATH="/usr/local/p/versions/python:$PATH"
+fi
+
 if which ruby >/dev/null && which gem >/dev/null; then
-    PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+    TMP_PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin"
+    if [[ ! "$PATH" == *$TMP_PATH* ]]; then
+      PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+    fi
 fi
 source ~/.doto_src/enhancd/init.sh
 eval "$(fasd --init auto)"
 
 set bell-style none
-export PATH="$PATH:/home/vulder/bin/"
-export PATH="$PATH:/home/vulder/.local/bin/"
-export PATH="/usr/lib/llvm/7_old/bin/:$PATH"
-
+if [[ ! "$PATH" == */home/vulder/.local/bin* ]]; then
+  export PATH="$PATH:/home/vulder/.local/bin"
+fi
+if [[ ! "$PATH" == */home/vulder/bin* ]]; then
+  export PATH="/home/vulder/bin:$PATH"
+fi
 source ~/.tmuxinator/tmuxinator.zsh
