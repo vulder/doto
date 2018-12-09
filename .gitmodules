@@ -1,9 +1,9 @@
 [submodule "awesome/lain"]
 	path = awesome/lain
-	url = https://github.com/copycat-killer/lain.git
+	url = git@github.com:lcpz/lain.git
 [submodule "awesome/freedesktop"]
 	path = awesome/freedesktop
-	url = git@github.com:copycat-killer/awesome-freedesktop.git
+	url = git@github.com:lcpz/awesome-copycats.git
 [submodule "vim/vim_dir/UltiSnips"]
 	path = vim/vim_dir/UltiSnips
 	url = https://github.com/vulder/UltiSnips-llvm.git
