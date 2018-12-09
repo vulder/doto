@@ -23,7 +23,6 @@
 [profiles]
   [[default]]
     background_darkness = 0.8
-    background_image = None
     background_type = transparent
     cursor_color = "#aaaaaa"
     font = Knack Nerd Font Mono 9
@@ -33,7 +32,6 @@
     use_system_font = False
   [[clang]]
     background_color = "#ffffff"
-    background_image = None
     cursor_color = "#aaaaaa"
     font = Hack for Powerline 11
     foreground_color = "#292929"
