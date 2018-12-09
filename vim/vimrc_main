@@ -75,6 +75,9 @@ endif
 set wildchar=<Tab> wildmenu wildmode=full
 nnoremap <leader>y :call Yapf()<cr>
 
+map <F1> <Esc>
+imap <F1> <Esc>
+
 map <leader>m :Make<CR>
 map <leader>n :Copen<CR>
 " Ag search needs silver-searcher
