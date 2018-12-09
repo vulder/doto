@@ -1,0 +1,127 @@
+-- vim: ts=2 sw=2 noet ai syntax=lua
+
+conky.config = {
+	background = true,
+	use_xft = true,
+	font = 'monospace:pixelsize=11',
+	xftalpha = 0.8,
+	update_interval = 5.0,
+	total_run_times = 0,
+	own_window = true,
+	own_window_type = 'override',
+	own_window_transparent = true,
+	own_window_hints = 'undecorated', 'below', 'sticky', 'skip_taskbar', 'skip_pager', 
+	double_buffer = true,
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = true,
+	stippled_borders = 0,
+	border_margin = 4,
+	border_width = 0,
+	default_color = 'cyan',
+	default_shade_color = 'black',
+	default_outline_color = 'white',
+	alignment = 'top_middle',
+	gap_x = -1550,
+	gap_y = 100,
+	no_buffers = true,
+	cpu_avg_samples = 2,
+	net_avg_samples = 2,
+	override_utf8_locale = true,
+	maximum_width = 550,
+	lua_load = '~/.conky_scripts.lua'
+
+}
+
+-- leet chars: ┤┤└└┴┴┐┐││┘┘┌┌├├┬┬┼┼┴┴── ││ ▽▼△▲▵▴▾▿
+-- other colors
+-- 20C20E
+-- ${alignr}${color cyan}[${color} ${battery_time}${battery_short BAT0} ${color cyan}]${color} battery -─┘    │  
+
+conky.text = [[
+ ${alignr}${offset -60}${voffset -10}${font DejaVu Sans:pixelsize=30}${color}${nodename}${font} 
+ ${alignr}${offset -91}▲   
+ ${alignr}${offset 7}└─────────────┐   
+ ${alignr} │  
+ ${alignr} ┌────┤  
+ ${alignr}${color cyan}${color cyan}[${color}${color} ${exec uname -r | cut -c 1-14} ${color cyan}]${color}  kernel -─┤    │  
+ ${alignr}${color cyan}[${color} $machine ${color cyan}]${color}    arch -─┤    │  
+ ${alignr}${color cyan}[${color} $uptime ${color cyan}]${color}  uptime -─┘    │  
+ ${alignr}│  
+ ${alignr}system -${color cyan}─┤${color}  
+ ${alignr}cpu -─┤    │  
+ ${alignr}used -─┤    │    │  
+ ${alignr}${color 20C20E}[${lua_parse pad ${cpu cpu1}}%]${color} CPU 1 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu2}}%]${color} CPU 2 ${color 20C20E}[${lua_parse pad ${cpu cpu3}}%]${color} CPU 3 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu4}}%]${color} CPU 4 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${lua_parse pad ${cpu cpu5}}%]${color} CPU 5 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu6}}%]${color} CPU 6 ${color 20C20E}[${lua_parse pad ${cpu cpu7}}%]${color} CPU 7 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu8}}%]${color} CPU 8 -─┘    │    │    │  
+ ${alignr}${color 20C20E}[${lua_parse pad ${cpu cpu9}}%]${color} CPU 9 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu10}}%]${color} CPU10 ${color 20C20E}[${lua_parse pad ${cpu cpu11}}%]${color} CPU11 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu12}}%]${color} CPU12 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${lua_parse pad ${cpu cpu13}}%]${color} CPU13 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu14}}%]${color} CPU14 ${color 20C20E}[${lua_parse pad ${cpu cpu15}}%]${color} CPU15 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu16}}%]${color} CPU16 -─┘    │    │    │  
+ ${alignr}${color 20C20E}[${lua_parse pad ${cpu cpu17}}%]${color} CPU17 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu18}}%]${color} CPU18 ${color 20C20E}[${lua_parse pad ${cpu cpu19}}%]${color} CPU19 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu20}}%]${color} CPU20 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${lua_parse pad ${cpu cpu21}}%]${color} CPU21 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu22}}%]${color} CPU22 ${color 20C20E}[${lua_parse pad ${cpu cpu23}}%]${color} CPU23 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu24}}%]${color} CPU24 -─┘    │    │    │  
+ ${alignr}${color 20C20E}[${lua_parse pad ${cpu cpu25}}%]${color} CPU25 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu26}}%]${color} CPU26 ${color 20C20E}[${lua_parse pad ${cpu cpu27}}%]${color} CPU27 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu28}}%]${color} CPU28 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${lua_parse pad ${cpu cpu29}}%]${color} CPU29 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu30}}%]${color} CPU30 ${color 20C20E}[${lua_parse pad ${cpu cpu31}}%]${color} CPU31 ${color 20C20E}[${color}${color 20C20E}${lua_parse pad ${cpu cpu32}}%]${color} CPU32 -─┘    │    │    │  
+ ${alignr}freq -─┤    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 1}mhz ${color 20C20E}]${color} cpu 1 ${color 20C20E}[${color} ${freq 17}mhz ${color 20C20E}]${color} cpu17 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 2}mhz ${color 20C20E}]${color} cpu 2 ${color 20C20E}[${color} ${freq 18}mhz ${color 20C20E}]${color} cpu18 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 3}mhz ${color 20C20E}]${color} cpu 3 ${color 20C20E}[${color} ${freq 19}mhz ${color 20C20E}]${color} cpu19 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 4}mhz ${color 20C20E}]${color} cpu 4 ${color 20C20E}[${color} ${freq 20}mhz ${color 20C20E}]${color} cpu20 -─┘    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 5}mhz ${color 20C20E}]${color} cpu 5 ${color 20C20E}[${color} ${freq 21}mhz ${color 20C20E}]${color} cpu21 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 6}mhz ${color 20C20E}]${color} cpu 6 ${color 20C20E}[${color} ${freq 22}mhz ${color 20C20E}]${color} cpu22 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 7}mhz ${color 20C20E}]${color} cpu 7 ${color 20C20E}[${color} ${freq 23}mhz ${color 20C20E}]${color} cpu23 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 8}mhz ${color 20C20E}]${color} cpu 8 ${color 20C20E}[${color} ${freq 24}mhz ${color 20C20E}]${color} cpu24 -─┘    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 9}mhz ${color 20C20E}]${color} cpu 9 ${color 20C20E}[${color} ${freq 25}mhz ${color 20C20E}]${color} cpu25 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 10}mhz ${color 20C20E}]${color} cpu10 ${color 20C20E}[${color} ${freq 26}mhz ${color 20C20E}]${color} cpu26 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 11}mhz ${color 20C20E}]${color} cpu11 ${color 20C20E}[${color} ${freq 27}mhz ${color 20C20E}]${color} cpu27 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 12}mhz ${color 20C20E}]${color} cpu12 ${color 20C20E}[${color} ${freq 28}mhz ${color 20C20E}]${color} cpu28 -─┘    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 13}mhz ${color 20C20E}]${color} cpu13 ${color 20C20E}[${color} ${freq 29}mhz ${color 20C20E}]${color} cpu29 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 14}mhz ${color 20C20E}]${color} cpu14 ${color 20C20E}[${color} ${freq 30}mhz ${color 20C20E}]${color} cpu30 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 15}mhz ${color 20C20E}]${color} cpu15 ${color 20C20E}[${color} ${freq 31}mhz ${color 20C20E}]${color} cpu31 -─┤    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${freq 16}mhz ${color 20C20E}]${color} cpu16 ${color 20C20E}[${color} ${freq 32}mhz ${color 20C20E}]${color} cpu32 -─┘    │    │    │  
+ ${alignr}${color 20C20E}[${color} $loadavg ${color 20C20E}]${color} load -─┤    │    │  
+ ${alignr}${color 20C20E}[${color} ${top name 1}  ${top cpu 1} ${color 20C20E}]${color} -─┤    │    │  
+ ${alignr}${color 20C20E}[${color} ${top name 2}  ${top cpu 2} ${color 20C20E}]${color} -─┤    │    │  
+ ${alignr}${color 20C20E}[${color} ${top name 3}  ${top cpu 3} ${color 20C20E}]${color} -─┤    │    │  
+ ${alignr}${color 20C20E}[${color} ${top name 4}  ${top cpu 4} ${color 20C20E}]${color} -─┤    │    │  
+ ${alignr}${color 20C20E}[${color} ${top name 5}  ${top cpu 5} ${color 20C20E}]${color} -─┘    │    │  
+ ${alignr}processes -─┤    │  
+ ${alignr}${color cyan}[${color} $processes ${color cyan}]${color}   total -─┤    │    │  
+ ${alignr}${color cyan}[${color} $running_processes ${color cyan}]${color} running -─┘    │    │  
+ ${alignr}temperature -─┘    │  
+ ${alignr}${color cyan}[${color} ${exec sensors | grep -m 1 temp1 | cut -c 16-17} ${color cyan}]${color} tmp1 -─┘         │  
+#${alignr}${color cyan}[${color} ${if_match ${exec sensors | grep -m 1 temp1 | awk '{print $2}' | cut -c 2-3}>=65}${color 20C20E}${exec sensors | grep -m 1 temp1 | awk '{print $2}' | cut -c 2-3}${else}${color cyan}${exec sensors | grep -m 1 temp1 | awk '{print $2}' | cut -c 2-3}${endif}${color}${color} ${color cyan}]${color} tmp1 -─┘         │  
+ ${alignr}│  
+ ${alignr}resources -─┤  
+ ${alignr}${color cyan}[${color} $diskio_read ${color cyan}]${color}  read -─┤    │  
+ ${alignr}${color cyan}[${color} $diskio_write ${color cyan}]${color} write -─┤    │  
+ ${alignr}ram -─┤    │  
+ ${alignr}${color cyan}[${color} $memperc% ${color cyan}]${color} used -─┤    │    │  
+ ${alignr}${color cyan}[${color} $mem/$memmax ${color cyan}]${color} -─┘    │    │    │  
+ ${alignr}${color 20C20E}[${color} ${top_mem name 1}  ${top_mem mem 1} ${color 20C20E}]${color} -─┤    │    │  
+ ${alignr}${color 20C20E}[${color} ${top_mem name 2}  ${top_mem mem 2} ${color 20C20E}]${color} -─┤    │    │  
+ ${alignr}${color 20C20E}[${color} ${top_mem name 3}  ${top_mem mem 3} ${color 20C20E}]${color} -─┤    │    │  
+ ${alignr}${color 20C20E}[${color} ${top_mem name 4}  ${top_mem mem 4} ${color 20C20E}]${color} -─┤    │    │  
+ ${alignr}${color 20C20E}[${color} ${top_mem name 5}  ${top_mem mem 5} ${color 20C20E}]${color} -─┘    │    │  
+ ${alignr}${color cyan}[${color} $swapperc% - $swap/$swapmax ${color cyan}]${color} swap -─┤    │  
+ ${alignr}${color cyan}[${color} ${swapbar 5,120} ${color cyan}]${color} -─┘    │    │  
+ ${alignr}${color cyan}[${color} ${fs_used /}/${fs_size /} ${color cyan}]${color} root -─┤    │  
+ ${alignr}${color cyan}[${color} ${fs_bar 5,120 /} ${color cyan}]${color} -─┘    │    │  
+ ${alignr}${color cyan}[${color} ${fs_used /home}/${fs_size /home} ${color cyan}]${color} home -─┤    │  
+ ${alignr}${color cyan}[${color} ${fs_bar 5,120 /home/vulder/} ${color cyan}]${color} -─┘    │    │  
+#${alignr}${color cyan}[${color} ${fs_used /usr/local}/${fs_size /usr/local} ${color cyan}]${color} local -─┘    │  
+#${alignr}${color cyan}[${color} ${fs_bar 5,120 /home/Container/} ${color cyan}]${color} -─┘         │  
+ ${alignr}│  
+ ${alignr}net -─┘  
+ ${alignr}${color cyan}[${color} ${tcp_portmon 1 65535 count} ${color cyan}]${color} connections -─┤       
+ ${alignr}${color cyan}[${color} ${tcp_portmon 1 32767 count} ${color cyan}]${color} in / locale -─┤       
+ ${alignr}${color cyan}[${color} ${tcp_portmon 32768 61000 count} ${color cyan}]${color} out / remote -─┤       
+ ${alignr}${color}  enp8s0 -─┤       
+ ${alignr}${color cyan}[${color} ${upspeed enp8s0} k/s ${color cyan}]${color}   up -─┤    │       
+ ${alignr}${color cyan}${color} ${upspeedgraph enp8s0 8,120 20C20E 20C20E} ${color cyan}${color} -─┘    │    │       
+ ${alignr}${color cyan}[${color} ${downspeed enp8s0} k/s ${color cyan}]${color} down -─┘    │       
+ ${alignr} ${color cyan}${color} ${downspeedgraph enp8s0 8,120 20C20E 20C20E} ${color cyan}${color} -─┘         │       
+ ${alignr}${color} wlp5s0 -─┘       
+ ${alignr}${color cyan}[${color} ${upspeed wlp5s0} k/s ${color cyan}]${color}   up -─┤            
+ ${alignr}${color cyan}${color} ${upspeedgraph wlp5s0 8,120 20C20E 20C20E} ${color cyan}${color} -─┘    │            
+ ${alignr}${color cyan}[${color} ${downspeed wlp5s0} k/s ${color cyan}]${color} down -─┘            
+ ${alignr} ${color cyan}${color} ${downspeedgraph wlp5s0 8,120 20C20E 20C20E} ${color cyan}${color} -─┘                 
+]]
