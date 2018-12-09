@@ -1,16 +1,17 @@
-
 --[[
-                           
- Vertex Awesome WM theme   
- github.com/copycat-killer 
-                           
+
+     Vertex Awesome WM theme
+     github.com/lcpz
+
 --]]
 
-local gears        = require("gears")
-local lain         = require("lain")
-local awful        = require("awful")
-local wibox        = require("wibox")
-local math, string, tonumber, type, os = math, string, tonumber, type, os
+local gears = require("gears")
+local lain  = require("lain")
+local awful = require("awful")
+local wibox = require("wibox")
+
+local math, string, tag, tonumber, type, os = math, string, tag, tonumber, type, os
+local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.default_dir                               = require("awful.util").get_themes_dir() .. "default"
@@ -21,6 +22,7 @@ theme.taglist_font                              = "FontAwesome 17"
 theme.fg_normal                                 = "#FFFFFF"
 theme.fg_focus                                  = "#6A95EB"
 theme.bg_focus                                  = "#303030"
+theme.bg_focus2                                 = "#3762B8"
 theme.bg_normal                                 = "#242424"
 theme.fg_urgent                                 = "#CC9393"
 theme.bg_urgent                                 = "#006B8E"
@@ -32,8 +34,8 @@ theme.tooltip_border_width                      = theme.border_width
 theme.menu_height                               = 24
 theme.menu_width                                = 140
 theme.awesome_icon                              = theme.icon_dir .. "/awesome.png"
-theme.taglist_squares_sel                       = theme.icon_dir .. "/square_sel.png"
-theme.taglist_squares_unsel                     = theme.icon_dir .. "/square_unsel.png"
+theme.taglist_squares_sel                       = gears.surface.load_from_shape(3, 30, gears.shape.rectangle, theme.fg_focus)
+theme.taglist_squares_unsel                     = gears.surface.load_from_shape(3, 30, gears.shape.rectangle, theme.bg_focus2)
 theme.panelbg                                   = theme.icon_dir .. "/panel.png"
 theme.bat000charging                            = theme.icon_dir .. "/bat-000-charging.png"
 theme.bat000                                    = theme.icon_dir .. "/bat-000.png"
@@ -103,7 +105,7 @@ theme.titlebar_maximized_button_normal_active   = theme.default_dir.."/titlebar/
 theme.titlebar_maximized_button_focus_active    = theme.default_dir.."/titlebar/maximized_focus_active.png"
 
 -- http://fontawesome.io/cheatsheet
-awful.util.tagnames = { " ", " ", " ", " ", " ", " ", " ", " ", " " }
+awful.util.tagnames = { "", "", "", "", "", "", "", "" }
 
 local markup = lain.util.markup
 
@@ -111,7 +113,7 @@ local markup = lain.util.markup
 --os.setlocale(os.getenv("LANG")) -- to localize the clock
 local mytextclock = wibox.widget.textclock(markup("#FFFFFF", "%a %d %b, %H:%M"))
 mytextclock.font = theme.font
-lain.widget.calendar({
+theme.cal = lain.widget.cal({
     attach_to = { mytextclock },
     notification_preset = {
         fg = "#FFFFFF",
@@ -157,7 +159,7 @@ local bat = lain.widget.bat({
         end
 
         baticon:set_image(theme[index])
-        battooltip:set_markup(string.format("\n%s%%, %s", bat_now.perc, bat_now.time))
+        battooltip:set_markup(string.format("\n%s%%, %s", perc, bat_now.time))
     end
 })
 
@@ -183,7 +185,7 @@ theme.mpd = lain.widget.mpd({
 -- ALSA volume
 local volicon = wibox.widget.imagebox()
 theme.volume = lain.widget.alsabar({
-    togglechannel = "IEC958,3",
+    --togglechannel = "IEC958,3",
     notification_preset = { font = "Monospace 12", fg = theme.fg_normal },
     settings = function()
         local index, perc = "", tonumber(volume_now.level) or 0
@@ -205,30 +207,30 @@ theme.volume = lain.widget.alsabar({
         volicon:set_image(theme[index])
     end
 })
-volicon:buttons(awful.util.table.join (
+volicon:buttons(my_table.join (
           awful.button({}, 1, function()
-            awful.spawn.with_shell(string.format("%s -e alsamixer", awful.util.terminal))
+            awful.spawn(string.format("%s -e alsamixer", awful.util.terminal))
           end),
           awful.button({}, 2, function()
-            awful.spawn(string.format("%s set %s 100%%", theme.volume.cmd, theme.volume.channel))
+            os.execute(string.format("%s set %s 100%%", theme.volume.cmd, theme.volume.channel))
             theme.volume.notify()
           end),
           awful.button({}, 3, function()
-            awful.spawn(string.format("%s set %s toggle", theme.volume.cmd, theme.volume.togglechannel or theme.volume.channel))
+            os.execute(string.format("%s set %s toggle", theme.volume.cmd, theme.volume.togglechannel or theme.volume.channel))
             theme.volume.notify()
           end),
           awful.button({}, 4, function()
-            awful.spawn(string.format("%s set %s 1%%+", theme.volume.cmd, theme.volume.channel))
+            os.execute(string.format("%s set %s 1%%+", theme.volume.cmd, theme.volume.channel))
             theme.volume.notify()
           end),
           awful.button({}, 5, function()
-            awful.spawn(string.format("%s set %s 1%%-", theme.volume.cmd, theme.volume.channel))
+            os.execute(string.format("%s set %s 1%%-", theme.volume.cmd, theme.volume.channel))
             theme.volume.notify()
           end)
 ))
 
 -- Wifi carrier and signal strength
-local wificon = wibox.widget.imagebox()
+local wificon = wibox.widget.imagebox(theme.wifidisc)
 local wifitooltip = awful.tooltip({
     objects = { wificon },
     margin_leftright = 15,
@@ -240,17 +242,18 @@ wifitooltip.timeout = 0
 wifitooltip:set_shape(function(cr, width, height)
     gears.shape.infobubble(cr, width, height, corner_radius, arrow_size, width - 120)
 end)
-local mywifisig = lain.widget.watch({
-    cmd = { awful.util.shell, "-c", "awk 'NR==3 {printf(\"%d-%.0f\\n\",$2, $3*10/7)}' /proc/net/wireless; iw dev wlan0 link" },
-    settings = function()
-        local carrier, perc = output:match("(%d)-(%d+)")
-        local tiptext = output:gsub("(%d)-(%d+)", ""):gsub("%s+$", "")
+local mywifisig = awful.widget.watch(
+    { awful.util.shell, "-c", "awk 'NR==3 {printf(\"%d-%.0f\\n\",$2, $3*10/7)}' /proc/net/wireless; iw dev wlan0 link" },
+    2,
+    function(widget, stdout)
+        local carrier, perc = stdout:match("(%d)-(%d+)")
+        local tiptext = stdout:gsub("(%d)-(%d+)", ""):gsub("%s+$", "")
+        perc = tonumber(perc)
 
-        if carrier == "1" then
+        if carrier == "1" or not perc then
             wificon:set_image(theme.wifidisc)
             wifitooltip:set_markup("No carrier")
         else
-            perc = tonumber(perc)
             if perc <= 5 then
                 wificon:set_image(theme.wifinone)
             elseif perc <= 25 then
@@ -265,7 +268,7 @@ local mywifisig = lain.widget.watch({
             wifitooltip:set_markup(tiptext)
         end
     end
-})
+)
 wificon:connect_signal("button::press", function() awful.spawn(string.format("%s -e wavemon", awful.util.terminal)) end)
 
 -- Weather
@@ -306,7 +309,7 @@ local barcolor = gears.color({
     type  = "linear",
     from  = { 0, 46 },
     to    = { 46, 46 },
-    stops = { {0, theme.bg_focus}, {0.9, "#457be7"} }
+    stops = { {0, theme.bg_focus}, {0.9, theme.bg_focus2} }
 })
 
 local barcolor2 = gears.color({
@@ -316,86 +319,19 @@ local barcolor2 = gears.color({
     stops = { {0, "#323232"}, {1, theme.bg_normal} }
 })
 
-function theme.at_screen_connect(s)
-    -- Quake application
-    s.quake = lain.util.quake({ app = awful.util.terminal, border = theme.border_width })
+local dockshape = function(cr, width, height)
+    gears.shape.partially_rounded_rect(cr, width, height, false, true, true, false, 6)
+end
 
-    -- If wallpaper is a function, call it with the screen
-    if type(wallpaper) == "function" then
-        theme.wallpaper = theme.wallpaper(s)
-    end
-    gears.wallpaper.maximized(theme.wallpaper, s, true)
-
-    -- Tags
-    awful.tag(awful.util.tagnames, s, awful.layout.layouts)
-
-    -- Create a promptbox for each screen
-    s.mypromptbox = awful.widget.prompt()
-    s.mypromptbox.bg = "#00000000"
-
-    -- Create an imagebox widget which will contains an icon indicating which layout we're using.
-    -- We need one layoutbox per screen.
-    s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
-                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
-    s.layoutb = wibox.container.margin(s.mylayoutbox, 8, 11, 3, 3)
-
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, {
-        font = theme.taglist_font,
-        shape = gears.shape.rectangle,
-        spacing = 10,
-        square_unsel = theme.square_unsel,
-        bg_focus = barcolor
-    }, nil, wibox.layout.fixed.vertical())
-
-    -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.focused, awful.util.tasklist_buttons, { bg_focus = "#00000000" })
-
-    -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 25, bg = gears.color.create_png_pattern(theme.panelbg) })
-
-    -- Add widgets to the wibox
-    s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            s.mypromptbox,
-            tspace1,
-            wibox.container.constraint(s.mytasklist, "exact", s.workarea.width/2.6),
-        },
-        { -- Middle widgets
-            layout = wibox.layout.flex.horizontal,
-            space,
-            mytextclock,
-        },
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            wibox.container.constraint(wibox.widget { nil, nil, theme.mpd.widget, layout = wibox.layout.align.horizontal }, "exact", s.workarea.width/3),
-            rspace0,
-            theme.weather.icon,
-            theme.weather.widget,
-            rspace1,
-            wificon,
-            rspace0,
-            volicon,
-            rspace2,
-            baticon,
-            rspace3,
-            wibox.widget.systray(),
-        },
-    }
-
+function theme.vertical_wibox(s)
     -- Create the vertical wibox
-    local dockheight = (40 *  s.workarea.height)/100
-    local dockshape = function(cr, width, height)
-        gears.shape.partially_rounded_rect(cr, width, height, false, true, true, false, 6)
-    end
+    s.dockheight = (35 *  s.workarea.height)/100
 
-    s.myleftwibox = wibox({ screen = s, x=0, y=s.workarea.height/2 - dockheight/2, width = 6, height = dockheight, fg = theme.fg_normal, bg = barcolor2, ontop = true, visible = true, type = "dock" })
+    s.myleftwibox = wibox({ screen = s, x=0, y=s.workarea.height/2 - s.dockheight/2, width = 6, height = s.dockheight, fg = theme.fg_normal, bg = barcolor2, ontop = true, visible = true, type = "dock" })
+
+    if s.index > 1 and s.myleftwibox.y == 0 then
+        s.myleftwibox.y = screen[1].myleftwibox.y
+    end
 
     -- Add widgets to the vertical wibox
     s.myleftwibox:setup {
@@ -413,13 +349,17 @@ function theme.at_screen_connect(s)
     -- Add toggling functionalities
     s.docktimer = gears.timer{ timeout = 2 }
     s.docktimer:connect_signal("timeout", function()
-        s.myleftwibox.width = 6
+        local s = awful.screen.focused()
+        s.myleftwibox.width = 9
         s.layoutb.visible = false
         mylauncher.visible = false
-        s.docktimer:stop()
+        if s.docktimer.started then
+            s.docktimer:stop()
+        end
     end)
     tag.connect_signal("property::selected", function(t)
-        s.myleftwibox.width = 46
+        local s = t.screen or awful.screen.focused()
+        s.myleftwibox.width = 38
         s.layoutb.visible = true
         mylauncher.visible = true
         gears.surface.apply_shape_bounding(s.myleftwibox, dockshape)
@@ -429,17 +369,99 @@ function theme.at_screen_connect(s)
     end)
 
     s.myleftwibox:connect_signal("mouse::leave", function()
-        s.myleftwibox.width = 6
+        local s = awful.screen.focused()
+        s.myleftwibox.width = 9
         s.layoutb.visible = false
         mylauncher.visible = false
     end)
 
     s.myleftwibox:connect_signal("mouse::enter", function()
-        s.myleftwibox.width = 46
+        local s = awful.screen.focused()
+        s.myleftwibox.width = 38
         s.layoutb.visible = true
         mylauncher.visible = true
         gears.surface.apply_shape_bounding(s.myleftwibox, dockshape)
     end)
+end
+
+
+function theme.at_screen_connect(s)
+    -- Quake application
+    s.quake = lain.util.quake({ app = awful.util.terminal, border = theme.border_width })
+
+    -- If wallpaper is a function, call it with the screen
+    local wallpaper = theme.wallpaper
+    if type(wallpaper) == "function" then
+        wallpaper = wallpaper(s)
+    end
+    gears.wallpaper.maximized(wallpaper, s, true)
+
+    -- Tags
+    awful.tag(awful.util.tagnames, s, awful.layout.layouts)
+
+    -- Create a promptbox for each screen
+    s.mypromptbox = awful.widget.prompt()
+    s.mypromptbox.bg = "#00000000"
+
+    -- Create an imagebox widget which will contains an icon indicating which layout we're using.
+    -- We need one layoutbox per screen.
+    s.mylayoutbox = awful.widget.layoutbox(s)
+    s.mylayoutbox:buttons(my_table.join(
+                           awful.button({}, 1, function () awful.layout.inc( 1) end),
+                           awful.button({}, 2, function () awful.layout.set( awful.layout.layouts[1] ) end),
+                           awful.button({}, 3, function () awful.layout.inc(-1) end),
+                           awful.button({}, 4, function () awful.layout.inc( 1) end),
+                           awful.button({}, 5, function () awful.layout.inc(-1) end)))
+    s.layoutb = wibox.container.margin(s.mylayoutbox, 8, 11, 3, 3)
+
+    -- Create a taglist widget
+    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, {
+        font = theme.taglist_font,
+        shape = gears.shape.rectangle,
+        spacing = 10,
+        square_unsel = theme.square_unsel,
+        bg_focus = barcolor
+    }, nil, wibox.layout.fixed.vertical())
+
+    -- Create a tasklist widget
+    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.focused, awful.util.tasklist_buttons, { bg_focus = "#00000000" })
+
+    -- Create the wibox
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = 25, bg = gears.color.create_png_pattern(theme.panelbg) })
+
+    local wiboxlayout = wibox.layout.align.horizontal()
+    wiboxlayout.expand = "none"
+    -- Add widgets to the wibox
+    s.mywibox:setup {
+        layout = wiboxlayout,
+        { -- Left widgets
+            layout = wibox.layout.fixed.horizontal,
+            s.mypromptbox,
+            tspace1,
+            s.mytasklist,
+        },
+        { -- Middle widgets
+            layout = wibox.layout.fixed.horizontal,
+            mytextclock,
+        },
+        { -- Right widgets
+            layout = wibox.layout.fixed.horizontal,
+            wibox.widget { nil, nil, theme.mpd.widget, layout = wibox.layout.align.horizontal },
+            rspace0,
+            theme.weather.icon,
+            theme.weather.widget,
+            rspace1,
+            wificon,
+            rspace0,
+            volicon,
+            rspace2,
+            baticon,
+            rspace3,
+            wibox.widget.systray(),
+        },
+    }
+
+    gears.timer.delayed_call(theme.vertical_wibox, s)
 end
 
 return theme

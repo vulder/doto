@@ -1,16 +1,17 @@
-
 --[[
-                                    
-     Blackburn Awesome WM theme 3.0 
-     github.com/copycat-killer      
-                                    
+
+     Blackburn Awesome WM theme 3.0
+     github.com/lcpz
+
 --]]
 
-local gears   = require("gears")
-local lain    = require("lain")
-local awful   = require("awful")
-local wibox   = require("wibox")
-local os      = { getenv = os.getenv }
+local gears = require("gears")
+local lain  = require("lain")
+local awful = require("awful")
+local wibox = require("wibox")
+
+local os = os
+local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/blackburn"
@@ -81,17 +82,18 @@ local mytextclock = wibox.widget.textclock(" %H:%M ")
 mytextclock.font = theme.font
 
 -- Calendar
-lain.widget.calendar({
+theme.cal = lain.widget.cal({
     attach_to = { mytextclock },
     notification_preset = {
         font = "Misc Tamsyn 11",
         fg   = theme.fg_normal,
         bg   = theme.bg_normal
-}})
+    }
+})
 
---[[ Mail IMAP check
--- commented because it needs to be set before use
-local mail = lain.widget.imap({
+-- Mail IMAP check
+--[[ commented because it needs to be set before use
+theme.mail = lain.widget.imap({
     timeout  = 180,
     server   = "server",
     mail     = "mail",
@@ -131,22 +133,22 @@ theme.mpd = lain.widget.mpd({
 })
 
 -- /home fs
+--[[ commented because it needs Gio/Glib >= 2.54
 theme.fs = lain.widget.fs({
-    partition = "/home",
-    options = "--exclude-type=tmpfs",
     notification_preset = { fg = white, bg = theme.bg_normal, font = "Misc Tamsyn 10.5" },
     settings  = function()
         fs_header = ""
         fs_p      = ""
 
-        if tonumber(fs_now.used) >= 90 then
+        if fs_now["/home"].percentage >= 90 then
             fs_header = " Hdd "
-            fs_p      = fs_now.used
+            fs_p      = fs_now["/home"].percentage
         end
 
         widget:set_markup(markup.font(theme.font, markup(gray, fs_header) .. fs_p))
     end
 })
+--]]
 
 -- Battery
 local bat = lain.widget.bat({
@@ -209,10 +211,11 @@ function theme.at_screen_connect(s)
     s.quake = lain.util.quake({ app = awful.util.terminal })
 
     -- If wallpaper is a function, call it with the screen
+    local wallpaper = theme.wallpaper
     if type(wallpaper) == "function" then
-        theme.wallpaper = theme.wallpaper(s)
+        wallpaper = wallpaper(s)
     end
-    gears.wallpaper.maximized(theme.wallpaper, s, true)
+    gears.wallpaper.maximized(wallpaper, s, true)
 
     -- Tags
     awful.tag(awful.util.tagnames, s, awful.layout.layouts)
@@ -222,11 +225,13 @@ function theme.at_screen_connect(s)
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
-                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+    s.mylayoutbox:buttons(my_table.join(
+                           awful.button({}, 1, function () awful.layout.inc( 1) end),
+                           awful.button({}, 2, function () awful.layout.set( awful.layout.layouts[1] ) end),
+                           awful.button({}, 3, function () awful.layout.inc(-1) end),
+                           awful.button({}, 4, function () awful.layout.inc( 1) end),
+                           awful.button({}, 5, function () awful.layout.inc(-1) end)))
+
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
 
@@ -255,10 +260,10 @@ function theme.at_screen_connect(s)
             wibox.widget.systray(),
             first,
             theme.mpd.widget,
-            --mail.widget,
+            --theme.mail.widget,
             theme.weather.icon,
             theme.weather.widget,
-            theme.fs.widget,
+            --theme.fs.widget,
             bat,
             theme.volume.widget,
             mytextclock,

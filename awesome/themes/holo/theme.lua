@@ -1,17 +1,17 @@
-
 --[[
-                               
-     Holo Awesome WM theme 3.0 
-     github.com/copycat-killer 
-                               
+
+     Holo Awesome WM theme 3.0
+     github.com/lcpz
+
 --]]
 
-local gears  = require("gears")
-local lain   = require("lain")
-local awful  = require("awful")
-local wibox  = require("wibox")
-local string = string
-local os     = { getenv = os.getenv }
+local gears = require("gears")
+local lain  = require("lain")
+local awful = require("awful")
+local wibox = require("wibox")
+
+local string, os = string, os
+local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.default_dir                               = require("awful.util").get_themes_dir() .. "default"
@@ -111,7 +111,7 @@ local mytextcalendar = wibox.widget.textclock(markup.fontfg(theme.font, "#FFFFFF
 local calendar_icon = wibox.widget.imagebox(theme.calendar)
 local calbg = wibox.container.background(mytextcalendar, theme.bg_focus, gears.shape.rectangle)
 local calendarwidget = wibox.container.margin(calbg, 0, 0, 5, 5)
-lain.widget.calendar({
+theme.cal = lain.widget.cal({
     attach_to = { mytextclock, mytextcalendar },
     notification_preset = {
         fg = "#FFFFFF",
@@ -121,9 +121,9 @@ lain.widget.calendar({
     }
 })
 
---[[ Mail IMAP check
--- commented because it needs to be set before use
-local mail = lain.widget.imap({
+-- Mail IMAP check
+--[[ commented because it needs to be set before use
+theme.mail = lain.widget.imap({
     timeout  = 180,
     server   = "server",
     mail     = "mail",
@@ -175,32 +175,31 @@ theme.mpd = lain.widget.mpd({
 local musicbg = wibox.container.background(theme.mpd.widget, theme.bg_focus, gears.shape.rectangle)
 local musicwidget = wibox.container.margin(musicbg, 0, 0, 5, 5)
 
-musicwidget:buttons(awful.util.table.join(awful.button({ }, 1,
+musicwidget:buttons(my_table.join(awful.button({ }, 1,
 function () awful.spawn(theme.musicplr) end)))
-prev_icon:buttons(awful.util.table.join(awful.button({}, 1,
+prev_icon:buttons(my_table.join(awful.button({}, 1,
 function ()
-    awful.spawn.with_shell("mpc prev")
-    mpd.update()
+    os.execute("mpc prev")
+    theme.mpd.update()
 end)))
-next_icon:buttons(awful.util.table.join(awful.button({}, 1,
+next_icon:buttons(my_table.join(awful.button({}, 1,
 function ()
-    awful.spawn.with_shell("mpc next")
-    mpd.update()
+    os.execute("mpc next")
+    theme.mpd.update()
 end)))
-stop_icon:buttons(awful.util.table.join(awful.button({}, 1,
+stop_icon:buttons(my_table.join(awful.button({}, 1,
 function ()
     play_pause_icon:set_image(theme.play)
-    awful.spawn.with_shell("mpc stop")
-    mpd.update()
+    os.execute("mpc stop")
+    theme.mpd.update()
 end)))
-play_pause_icon:buttons(awful.util.table.join(awful.button({}, 1,
+play_pause_icon:buttons(my_table.join(awful.button({}, 1,
 function ()
-    awful.spawn.with_shell("mpc toggle")
-    mpd.update()
+    os.execute("mpc toggle")
+    theme.mpd.update()
 end)))
 
 -- Battery
---[[
 local bat = lain.widget.bat({
     settings = function()
         bat_header = " Bat "
@@ -211,13 +210,13 @@ local bat = lain.widget.bat({
         widget:set_markup(markup.font(theme.font, markup(blue, bat_header) .. bat_p))
     end
 })
---]]
---
---  fs
+
+-- / fs
+--[[ commented because it needs Gio/Glib >= 2.54
 theme.fs = lain.widget.fs({
-    options = "--exclude-type=tmpfs",
-    notification_preset = { bg = theme.bg_normal, font = "Monospace 9, " },
+    notification_preset = { bg = theme.bg_normal, font = "Monospace 9" },
 })
+--]]
 
 -- ALSA volume bar
 theme.volume = lain.widget.alsabar({
@@ -290,10 +289,11 @@ function theme.at_screen_connect(s)
     s.quake = lain.util.quake({ app = awful.util.terminal })
 
     -- If wallpaper is a function, call it with the screen
+    local wallpaper = theme.wallpaper
     if type(wallpaper) == "function" then
-        theme.wallpaper = theme.wallpaper(s)
+        wallpaper = wallpaper(s)
     end
-    gears.wallpaper.maximized(theme.wallpaper, s, true)
+    gears.wallpaper.maximized(wallpaper, s, true)
 
     -- Tags
     awful.tag(awful.util.tagnames, s, awful.layout.layouts)
@@ -303,11 +303,12 @@ function theme.at_screen_connect(s)
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
-                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+    s.mylayoutbox:buttons(my_table.join(
+                           awful.button({}, 1, function () awful.layout.inc( 1) end),
+                           awful.button({}, 2, function () awful.layout.set( awful.layout.layouts[1] ) end),
+                           awful.button({}, 3, function () awful.layout.inc(-1) end),
+                           awful.button({}, 4, function () awful.layout.inc( 1) end),
+                           awful.button({}, 5, function () awful.layout.inc(-1) end)))
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, { bg_focus = barcolor })
 
@@ -336,7 +337,7 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
-            --mail.widget,
+            --theme.mail.widget,
             --bat.widget,
             spr_right,
             musicwidget,

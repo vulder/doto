@@ -1,16 +1,17 @@
-
 --[[
-                                  
-     Rainbow Awesome WM theme 2.0 
-     github.com/copycat-killer    
-                                  
+
+     Rainbow Awesome WM theme 2.0
+     github.com/lcpz
+
 --]]
 
 local gears = require("gears")
 local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
-local os    = { getenv = os.getenv }
+
+local os = os
+local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.default_dir                               = require("awful.util").get_themes_dir() .. "default"
@@ -91,7 +92,7 @@ local mytextclock = wibox.widget.textclock(markup(white, " %H:%M "))
 mytextclock.font = theme.font
 
 -- Calendar
-lain.widget.calendar({
+theme.cal = lain.widget.cal({
     attach_to = { mytextclock },
     notification_preset = {
         font = "Misc Tamsyn 11",
@@ -100,9 +101,9 @@ lain.widget.calendar({
     }
 })
 
---[[ Mail IMAP check
--- commented because it needs to be set before use
-local mail = lain.widget.imap({
+-- Mail IMAP check
+--[[ commented because it needs to be set before use
+theme.mail = lain.widget.imap({
     timeout  = 180,
     server   = "server",
     mail     = "mail",
@@ -121,7 +122,7 @@ local mail = lain.widget.imap({
         widget:set_markup(markup.font(theme.font, markup(gray, mail) .. markup(white, count)))
     end
 })
-]]
+--]]
 
 -- MPD
 theme.mpd = lain.widget.mpd({
@@ -144,22 +145,21 @@ theme.mpd = lain.widget.mpd({
 })
 
 -- /home fs
+--[[ commented because it needs Gio/Glib >= 2.54
 theme.fs = lain.widget.fs({
-    partition = "/home",
-    options = "--exclude-type=tmpfs",
     notification_preset = { fg = white, bg = theme.bg_normal, font = "Misc Tamsyn 10.5" },
     settings  = function()
-        hdd = ""
-        p   = ""
+        local fs_header, fs_p = "", ""
 
-        if tonumber(fs_now.used) >= 90 then
-            hdd = " Hdd "
-            p   = fs_now.used .. " "
+        if fs_now["/home"].percentage >= 90 then
+            fs_header = " Hdd "
+            fs_p      = fs_now["/home"].percentage
         end
 
-        widget:set_markup(markup.font(theme.font, markup(gray, hdd) .. markup(white, p)))
+        widget:set_markup(markup.font(theme.font, markup(gray, fs_header) .. markup(white, fs_p)))
     end
 })
+--]]
 
 -- ALSA volume bar
 theme.volume = lain.widget.alsabar({
@@ -168,24 +168,24 @@ theme.volume = lain.widget.alsabar({
 })
 theme.volume.tooltip.wibox.fg = theme.fg_focus
 theme.volume.tooltip.wibox.font = theme.font
-theme.volume.bar:buttons(awful.util.table.join (
+theme.volume.bar:buttons(my_table.join (
           awful.button({}, 1, function()
-            awful.spawn.with_shell(string.format("%s -e alsamixer", terminal))
+            awful.spawn(string.format("%s -e alsamixer", terminal))
           end),
           awful.button({}, 2, function()
-            awful.spawn(string.format("%s set %s 100%%", theme.volume.cmd, theme.volume.channel))
+            os.execute(string.format("%s set %s 100%%", theme.volume.cmd, theme.volume.channel))
             theme.volume.update()
           end),
           awful.button({}, 3, function()
-            awful.spawn(string.format("%s set %s toggle", theme.volume.cmd, theme.volume.togglechannel or theme.volume.channel))
+            os.execute(string.format("%s set %s toggle", theme.volume.cmd, theme.volume.togglechannel or theme.volume.channel))
             theme.volume.update()
           end),
           awful.button({}, 4, function()
-            awful.spawn(string.format("%s set %s 1%%+", theme.volume.cmd, theme.volume.channel))
+            os.execute(string.format("%s set %s 1%%+", theme.volume.cmd, theme.volume.channel))
             theme.volume.update()
           end),
           awful.button({}, 5, function()
-            awful.spawn(string.format("%s set %s 1%%-", theme.volume.cmd, theme.volume.channel))
+            os.execute(string.format("%s set %s 1%%-", theme.volume.cmd, theme.volume.channel))
             theme.volume.update()
           end)
 ))
@@ -213,10 +213,11 @@ function theme.at_screen_connect(s)
     s.quake = lain.util.quake({ app = awful.util.terminal })
 
     -- If wallpaper is a function, call it with the screen
+    local wallpaper = theme.wallpaper
     if type(wallpaper) == "function" then
-        theme.wallpaper = theme.wallpaper(s)
+        wallpaper = wallpaper(s)
     end
-    gears.wallpaper.maximized(theme.wallpaper, s, true)
+    gears.wallpaper.maximized(wallpaper, s, true)
 
     -- Tags
     awful.tag(awful.util.tagnames, s, awful.layout.layouts)
@@ -228,8 +229,9 @@ function theme.at_screen_connect(s)
     s.mytxtlayoutbox = wibox.widget.textbox(theme["layout_txt_" .. awful.layout.getname(awful.layout.get(s))])
     awful.tag.attached_connect_signal(s, "property::selected", function () update_txt_layoutbox(s) end)
     awful.tag.attached_connect_signal(s, "property::layout", function () update_txt_layoutbox(s) end)
-    s.mytxtlayoutbox:buttons(awful.util.table.join(
+    s.mytxtlayoutbox:buttons(my_table.join(
                            awful.button({}, 1, function() awful.layout.inc(1) end),
+                           awful.button({}, 2, function () awful.layout.set( awful.layout.layouts[1] ) end),
                            awful.button({}, 3, function() awful.layout.inc(-1) end),
                            awful.button({}, 4, function() awful.layout.inc(1) end),
                            awful.button({}, 5, function() awful.layout.inc(-1) end)))
@@ -262,8 +264,8 @@ function theme.at_screen_connect(s)
             wibox.widget.systray(),
             spr,
             theme.mpd.widget,
-            --mail.widget,
-            theme.fs.widget,
+            --theme.mail.widget,
+            --theme.fs.widget,
             volumewidget,
             mytextclock,
         },
