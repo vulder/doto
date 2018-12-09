@@ -4,10 +4,10 @@ import ycm_core
 
 flags = [
     '-std=c++17',
+    '-stdlib=libc++',
     '-Wall',
     '-I.',
     '-I/usr/include/c++/v1/',
-    '-I/usr/local/include/',
     '-I/usr/include',
     # '-lstdc++',
 ]
