@@ -62,6 +62,7 @@ run_once({"redshift -l manual"})
 run_once({"seafile-applet"})
 run_once({"conky", " -c /home/vulder/.conkyrc"})
 -- run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
+run_once({"unclutter -root"})
 
 -- This function implements the XDG autostart specification
 --[[
