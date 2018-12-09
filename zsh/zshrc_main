@@ -469,6 +469,7 @@ function vim_sf() {
   fi
 }
 #alias vim=vim_sf
+alias mux=tmuxinator
 
 #HISTFILE=/root/.zsh-histfile
 HISTFILE=/home/vulder/.zsh-histfile
@@ -673,5 +674,8 @@ if [[ ! "$PATH" == */home/vulder/.local/bin* ]]; then
 fi
 if [[ ! "$PATH" == */home/vulder/bin* ]]; then
   export PATH="/home/vulder/bin:$PATH"
+fi
+if [[ ! "$PATH" == */home/vulder/git/depot_tools* ]]; then
+  export PATH="$PATH:/home/vulder/git/depot_tools"
 fi
 source ~/.tmuxinator/tmuxinator.zsh
