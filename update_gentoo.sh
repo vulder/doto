@@ -23,12 +23,12 @@ then
 
   clang++ --version; clang_old++ --version
 
-  read -r -p "Install new compiler? [y/N] " response
-  response=${response,,} # tolower
-  if [[ "$response" =~ ^(yes|y)$ ]]
-  then
-    echo Updating clang
-    cp -r /usr/lib/llvm/7/* /usr/lib/llvm/7_old/
-  fi
+  #read -r -p "Install new compiler? [y/N] " response
+  #response=${response,,} # tolower
+  #if [[ "$response" =~ ^(yes|y)$ ]]
+  #then
+  #  echo Updating clang
+  #  cp -r /usr/lib/llvm/8/* /usr/lib/llvm/8_old/
+  #fi
 fi
 
