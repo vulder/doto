@@ -170,7 +170,7 @@ theme.mpd = lain.widget.mpd({
 local memicon = wibox.widget.imagebox(theme.widget_mem)
 local mem = lain.widget.mem({
     settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. mem_now.used .. "MB "))
+        widget:set_markup(markup.font(theme.font, "" .. string.format("%6s MB ", mem_now.used)))
     end
 })
 
@@ -178,7 +178,7 @@ local mem = lain.widget.mem({
 local cpuicon = wibox.widget.imagebox(theme.widget_cpu)
 local cpu = lain.widget.cpu({
     settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. cpu_now.usage .. "% "))
+        widget:set_markup(markup.font(theme.font, " " .. string.format("%4s", cpu_now.usage) .. "% "))
     end
 })
 
@@ -246,9 +246,9 @@ local neticon = wibox.widget.imagebox(theme.widget_net)
 local net = lain.widget.net({
     settings = function()
         widget:set_markup(markup.font(theme.font,
-                          markup("#7AC82E", " " .. net_now.received)
+                          markup("#7AC82E", "" .. string.format("%7s", net_now.received))
                           .. " " ..
-                          markup("#46A8C3", " " .. net_now.sent .. " ")))
+                          markup("#46A8C3", "" .. string.format("%7s", net_now.sent))))
     end
 })
 
@@ -306,37 +306,37 @@ function theme.at_screen_connect(s)
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
             spr,
-            arrl_ld,
+            -- arrl_ld,
             wibox.container.background(mpdicon, theme.bg_focus),
             wibox.container.background(theme.mpd.widget, theme.bg_focus),
-            arrl_dl,
+            -- arrl_dl,
             volicon,
             theme.volume.widget,
-            arrl_ld,
-            wibox.container.background(mailicon, theme.bg_focus),
+            -- arrl_ld,
+            -- wibox.container.background(mailicon, theme.bg_focus),
             --wibox.container.background(theme.mail.widget, theme.bg_focus),
-            arrl_dl,
+            -- arrl_dl,
             memicon,
             mem.widget,
-            arrl_ld,
+            -- arrl_ld,
             wibox.container.background(cpuicon, theme.bg_focus),
             wibox.container.background(cpu.widget, theme.bg_focus),
-            arrl_dl,
+            -- arrl_dl,
             tempicon,
             temp.widget,
-            arrl_ld,
+            -- arrl_ld,
             wibox.container.background(fsicon, theme.bg_focus),
-            --wibox.container.background(theme.fs.widget, theme.bg_focus),
-            arrl_dl,
+            -- wibox.container.background(theme.fs.widget, theme.bg_focus),
+            -- arrl_dl,
             baticon,
             bat.widget,
-            arrl_ld,
+            -- arrl_ld,
             wibox.container.background(neticon, theme.bg_focus),
             wibox.container.background(net.widget, theme.bg_focus),
-            arrl_dl,
+            -- arrl_dl,
             clock,
             spr,
-            arrl_ld,
+            -- arrl_ld,
             wibox.container.background(s.mylayoutbox, theme.bg_focus),
         },
     }
