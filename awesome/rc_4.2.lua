@@ -253,6 +253,8 @@ globalkeys = my_table.join(
     -- X screen locker
     awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
+    awful.key({ modkey, "Shift" }, "l", function() os.execute("/usr/local/bin/lockpad.sh") end,
+              {description = "lock touchpad", group = "hotkeys"}),
 
     -- Hotkeys
     awful.key({ modkey, "Control" }, "h",      hotkeys_popup.show_help,
