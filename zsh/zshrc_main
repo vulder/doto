@@ -519,7 +519,7 @@ function prompt_ip {
 }
 
 #RPROMPT='%{$fg_lgray%}[%*]%{$reset_color%}'
-RPROMPT='%{$fg_lgray%}[$(prompt_ip)]%{$reset_color%}'
+#RPROMPT='%{$fg_lgray%}[$(prompt_ip)]%{$reset_color%}'
 
 TIMEFMT="
 Time: $fg[red]%E$reset_color (%P)"
