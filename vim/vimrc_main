@@ -149,7 +149,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'eagletmt/neco-ghc'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'LaTeX-Box-Team/LaTeX-Box'
+"Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'rhysd/committia.vim'
 Plug 'cohama/lexima.vim'
 Plug 'junegunn/goyo.vim'
@@ -162,6 +162,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'jeaye/color_coded', { 'do': 'mkdir build; cd build && rm -f CMakeCache.txt && cmake .. && make install'},
 Plug 'nickhutchinson/vim-cmake-syntax'
+Plug 'lervag/vimtex'
 
 call plug#end()
 
@@ -173,6 +174,7 @@ nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
 nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
 nnoremap <leader>i :YcmCompleter GoToImplementation <CR>
 
+" let g:ycm_use_clangd = "Never"
 let g:ycm_always_populate_location_list = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
@@ -320,10 +322,10 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-" -> LaTeX-Box
-let g:LatexBox_latexmk_async=1
-let g:LatexBox_latexmk_options="-shell-escape"
-let g:LatexBox_show_warnings=0
+"" -> LaTeX-Box
+"let g:LatexBox_latexmk_async=1
+"let g:LatexBox_latexmk_options="-shell-escape"
+"let g:LatexBox_show_warnings=0
 
 " -> committia.vim
 " -> lexima.vim
@@ -343,6 +345,12 @@ let g:zv_file_types = {
 " -> vim-devicons
 " -> rdnetto/YCM-Generator
 " -> jeaye/color_coded
+" -> lervag/vimtex
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
 
 " * Color settings
 set t_Co=256
@@ -366,6 +374,11 @@ colorscheme jellybeans
 let g:rehash256 = 1
 autocmd BufNew *.go colorscheme molokai
 autocmd BufNew *.py if g:colors_name != 'molokai' | colorscheme molokai | endif
+
+autocmd FileType tex,text,markdown setlocal spell
+autocmd FileType tex,text,markdown set spelllang=en_us
+autocmd FileType tex,text,markdown inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
 
 " highlight ColorColumn ctermbg=DarkMagenta
 call matchadd('ColorColumn', '\%81v', 100)
