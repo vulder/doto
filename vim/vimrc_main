@@ -165,6 +165,7 @@ Plug 'lervag/vimtex',
 Plug 'google/vim-maktaba',
 Plug 'google/vim-codefmt',
 Plug 'google/vim-glaive',
+Plug 'google/vim-syncopate',
 
 call plug#end()
 
@@ -356,11 +357,14 @@ let g:vimtex_quickfix_mode=0
 set conceallevel=1
 let g:tex_conceal='abdmg'
 
-" -> google/vim-maktaba
-" -> google/vim-codefmt
-map <leader>c :FormatCode<CR>
+" -> vim-maktaba
+" -> vim-codefmt
+nnoremap <silent> <leader>c :FormatCode<CR>
+vnoremap <silent> <leader>c :FormatLines<CR>
 
-" -> google/vim-glaive
+" -> vim-glaive
+" -> vim-syncopate
+Glaive syncopate change_colorscheme=0 browser=google-chrome-unstable
 
 " * Color settings
 set t_Co=256
