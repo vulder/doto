@@ -3,6 +3,10 @@
   title_font = Hack for Powerline 9
   title_use_system_font = False
 [keybindings]
+  broadcast_all = <Primary><Alt><Super>bracketright
+  broadcast_group = <Primary><Alt><Super>bracketleft
+  close_term = None
+  close_window = None
   full_screen = <Primary>Page_Up
   go_down = <Primary>Page_Up
   go_left = <Primary>Page_Up
@@ -25,8 +29,8 @@
     background_darkness = 0.8
     background_type = transparent
     cursor_color = "#aaaaaa"
-    font = Knack Nerd Font Mono 9
-    palette = "#000000:#cd0000:#00cd00:#cdcd00:#3636fd:#cd00cd:#00cdcd:#faebd7:#404040:#ff0000:#00ff00:#ffff00:#7373ff:#ff00ff:#00ffff:#ffffff"
+    font = JetBrains Mono 13
+    palette = "#000000:#cd0000:#00cd00:#cdcd00:#3465a4:#cd00cd:#00cdcd:#faebd7:#404040:#ff0000:#00ff00:#ffff00:#7373ff:#ff00ff:#00ffff:#ffffff"
     scrollbar_position = hidden
     show_titlebar = False
     use_system_font = False
