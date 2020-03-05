@@ -19,11 +19,11 @@ compilation_database_folder = '/home/vulder/.ycm'
 dbName = 'compile_commands.json'
 databases = None
 SOURCE_EXTENSIONS = ['.cpp', '.cxx', '.cc', '.c', '.m', '.mm']
-HEADER_EXTENSIONS = ['.h', '.hxx', '.hpp', '.hh' ]
+HEADER_EXTENSIONS = ['.h', '.hxx', '.hpp', '.hh']
 
 
 def CollectDatabases(name):
-    return [ path for (path, dirs, files) in os.walk(name) if dbName in files ]
+    return [path for (path, dirs, files) in os.walk(name) if dbName in files]
 
 
 def LoadDatabases(dir):
@@ -34,45 +34,45 @@ def LoadDatabases(dir):
 
 
 def IsHeaderFile(filename):
-  extension = os.path.splitext( filename )[ 1 ]
-  return extension in HEADER_EXTENSIONS
+    extension = os.path.splitext(filename)[1]
+    return extension in HEADER_EXTENSIONS
 
 
 def DirectoryOfThisScript():
-  return os.path.dirname(os.path.abspath(__file__))
+    return os.path.dirname(os.path.abspath(__file__))
 
 
 def MakeRelativePathsInFlagsAbsolute(flags, working_directory):
-  if not working_directory:
-    return flags
+    if not working_directory:
+        return flags
 
-  new_flags = []
-  make_next_absolute = False
-  path_flags = [ '-isystem', '-I', '-iquote', '--sysroot=' ]
-  for flag in flags:
-    new_flag = flag
+    new_flags = []
+    make_next_absolute = False
+    path_flags = ['-isystem', '-I', '-iquote', '--sysroot=']
+    for flag in flags:
+        new_flag = flag
 
-    if make_next_absolute:
-      make_next_absolute = False
-      if not flag.startswith( '/' ):
-        new_flag = os.path.join( working_directory, flag )
+        if make_next_absolute:
+            make_next_absolute = False
+            if not flag.startswith('/'):
+                new_flag = os.path.join(working_directory, flag)
 
-    for path_flag in path_flags:
-      if flag == path_flag:
-        make_next_absolute = True
-        break
+        for path_flag in path_flags:
+            if flag == path_flag:
+                make_next_absolute = True
+                break
 
-      if flag.startswith( path_flag ):
-        path = flag[ len( path_flag ): ]
-        new_flag = path_flag + os.path.join( working_directory, path )
-        break
+            if flag.startswith(path_flag):
+                path = flag[len(path_flag):]
+                new_flag = path_flag + os.path.join(working_directory, path)
+                break
 
-    if new_flag:
-      new_flags.append( new_flag )
-  return new_flags
+        if new_flag:
+            new_flags.append(new_flag)
+    return new_flags
 
 
-def GetCompilationInfo (filename):
+def GetCompilationInfo(filename):
     global SOURCE_EXTENSIONS
     global databases
 
@@ -96,27 +96,23 @@ def GetCompilationInfo (filename):
 
     # Find the right db
     for db in databases:
-      cinfo = databases[db].GetCompilationInfoForFile(filename)
-      if cinfo and cinfo.compiler_flags_:
-        return cinfo
+        cinfo = databases[db].GetCompilationInfoForFile(filename)
+        if cinfo and cinfo.compiler_flags_:
+            return cinfo
 
 
-def FlagsForFile( filename ):
+def FlagsForFile(filename):
     final_flags = None
     cinfo = GetCompilationInfo(filename)
 
     # Query the DB
     if cinfo:
         final_flags = MakeRelativePathsInFlagsAbsolute(
-        cinfo.compiler_flags_,
-        cinfo.compiler_working_dir_ )
+            cinfo.compiler_flags_, cinfo.compiler_working_dir_)
 
     # Use default flags
     if not final_flags:
         relative_to = DirectoryOfThisScript()
-        final_flags = MakeRelativePathsInFlagsAbsolute( flags, relative_to )
+        final_flags = MakeRelativePathsInFlagsAbsolute(flags, relative_to)
 
-    return {
-        'flags': final_flags,
-        'do_cache': True
-    }
+    return {'flags': final_flags, 'do_cache': True}

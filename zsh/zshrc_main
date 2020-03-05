@@ -675,6 +675,9 @@ fi
 if [[ ! "$PATH" == */home/vulder/bin* ]]; then
   export PATH="/home/vulder/bin:$PATH"
 fi
+if [[ ! "$PATH" == */home/vulder/scripts* ]]; then
+  export PATH="/home/vulder/scripts:$PATH"
+fi
 if [[ ! "$PATH" == */home/vulder/git/depot_tools* ]]; then
   export PATH="$PATH:/home/vulder/git/depot_tools"
 fi

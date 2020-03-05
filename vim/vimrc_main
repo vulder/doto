@@ -193,6 +193,7 @@ let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_add_preview_to_completeopt=1
 let g:ycm_max_num_candidates=20
 let g:ycm_max_num_identifier_candidates=2
+let g:ycm_clangd_binary_path = '/usr/lib/llvm/11/bin/clangd'
 
 autocmd FileType java let g:EclimCompletionMethod='omnifunc'
 autocmd FileType java set omnifunc=eclim#java#complete#CodeComplete
@@ -215,6 +216,7 @@ if executable('clangd')
     autocmd FileType objcpp setlocal omnifunc=lsp#complete
   augroup end
 endif
+set completeopt=menu,noinsert,noselect
 
 " -> ale
 let g:ale_sign_error = ''
@@ -234,7 +236,8 @@ let g:ale_pattern_options = {
       \}
 
 " ale: c/cpp
-let g:ale_cpp_clang_options = '-std=c++14 -Wall -I''/home/vulder/git/llvm/include'''
+let g:ale_cpp_clang_options = '-std=c++2a -Wall -I''/home/vulder/git/llvm/include'''
+let g:ale_cpp_clangtidy_executable = '/usr/lib/llvm/11/bin/clang-tidy'
 let g:ale_cpp_clangtidy_checks = []
 
 let g:ale_c_build_dir_names = ['build/debug/', 'build/dev/', 'build/dbg/', 'build/']
@@ -350,9 +353,13 @@ let g:zv_file_types = {
 " -> vim-devicons
 " -> rdnetto/YCM-Generator
 " -> jeaye/color_coded
+let g:color_coded_filetypes = ['c', 'cpp', 'cc']
+
 " -> lervag/vimtex
 let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
+" let g:vimtex_view_method='zathura'
+let g:vimtex_view_general_viewer = 'evince'
+let g:vimtex_view_method='general'
 let g:vimtex_quickfix_mode=0
 set conceallevel=1
 let g:tex_conceal='abdmg'
@@ -361,6 +368,18 @@ let g:tex_conceal='abdmg'
 " -> vim-codefmt
 nnoremap <silent> <leader>c :FormatCode<CR>
 vnoremap <silent> <leader>c :FormatLines<CR>
+augroup autoformat_settings
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  " autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType dart AutoFormatBuffer dartfmt
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+  autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType python AutoFormatBuffer yapf
+  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+  autocmd FileType vue AutoFormatBuffer prettier
+augroup END
 
 " -> vim-glaive
 " -> vim-syncopate
