@@ -7,13 +7,13 @@
   broadcast_group = <Primary><Alt><Super>bracketleft
   close_term = None
   close_window = None
-  full_screen = <Primary>Page_Up
-  go_down = <Primary>Page_Up
-  go_left = <Primary>Page_Up
-  go_right = <Primary>Page_Up
-  go_up = <Primary>Page_Up
-  help = <Primary>Page_Up
-  layout_launcher = <Primary>Page_Up
+  full_screen = <Primary><Shift>Page_Up
+  go_down = <Primary><Shift>Page_Up
+  go_left = <Primary><Shift>Page_Up
+  go_right = <Primary><Shift>Page_Up
+  go_up = <Primary><Shift>Page_Up
+  help = <Primary><Shift>Page_Up
+  layout_launcher = <Primary><Shift>Page_Up
 [layouts]
   [[default]]
     [[[child1]]]
