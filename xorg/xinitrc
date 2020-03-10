@@ -1,0 +1,5 @@
+#!/bin/bash
+xrdb --merge "${HOME}/.Xresources"
+setxkbmap -option ctrl:nocaps
+
+exec awesome
