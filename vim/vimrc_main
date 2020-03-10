@@ -177,9 +177,11 @@ call glaive#Install()
 " Bindings for C/C++ DefImp jumps
 nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
 nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
-nnoremap <leader>i :YcmCompleter GoToImplementation <CR>
+nnoremap <leader>i :YcmCompleter GoToDeclaration <CR>
+nnoremap <F2> :YcmCompleter RefactorRename<CR>
 
 " let g:ycm_use_clangd = 0
+let g:ycm_clangd_binary_path = "/usr/lib/llvm/11/bin/clangd"
 let g:ycm_always_populate_location_list = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
@@ -223,6 +225,8 @@ let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
 
 let g:ale_linters = {
+      \ 'h': ['clangtidy'],
+      \ 'hpp': ['clangtidy'],
       \ 'cpp': ['clangtidy'],
       \ }
 
@@ -236,8 +240,8 @@ let g:ale_pattern_options = {
       \}
 
 " ale: c/cpp
-let g:ale_cpp_clang_options = '-std=c++2a -Wall -I''/home/vulder/git/llvm/include'''
 let g:ale_cpp_clangtidy_executable = '/usr/lib/llvm/11/bin/clang-tidy'
+let g:ale_cpp_clang_options = '-std=c++17 -Wall -I''/home/vulder/git/llvm/include'''
 let g:ale_cpp_clangtidy_checks = []
 
 let g:ale_c_build_dir_names = ['build/debug/', 'build/dev/', 'build/dbg/', 'build/']
@@ -370,14 +374,13 @@ nnoremap <silent> <leader>c :FormatCode<CR>
 vnoremap <silent> <leader>c :FormatLines<CR>
 augroup autoformat_settings
   autocmd FileType bzl AutoFormatBuffer buildifier
-  " autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
   autocmd FileType dart AutoFormatBuffer dartfmt
   autocmd FileType go AutoFormatBuffer gofmt
   autocmd FileType gn AutoFormatBuffer gn
   autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
   autocmd FileType java AutoFormatBuffer google-java-format
   autocmd FileType python AutoFormatBuffer yapf
-  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
   autocmd FileType vue AutoFormatBuffer prettier
 augroup END
 
