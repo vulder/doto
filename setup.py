@@ -2,10 +2,10 @@
 """
 Script to auto setup programming environment.
 """
-import imp
+from importlib import util
 import sys
 try:
-    imp.find_module("plumbum")
+    util.find_spec("plumbum")
 except ImportError:
     print("Please install plumbum")
     print("https://plumbum.readthedocs.org/en/latest/")
