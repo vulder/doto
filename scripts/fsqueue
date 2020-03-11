@@ -1,0 +1,2 @@
+#!/bin/bash
+squeue -o "%.25i %10P %45j %9u %3t %.11M %.12l %.5D %.8Q %R"
