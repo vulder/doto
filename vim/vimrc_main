@@ -139,6 +139,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-endwise'
 Plug 'easymotion/vim-easymotion'
 Plug 'davidhalter/jedi-vim', { 'for': 'python'}
+Plug 'thinca/vim-quickrun'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tweekmonster/braceless.vim', { 'for': 'python'}
@@ -273,6 +274,14 @@ let g:EasyMotion_keys = "asdfghjklqwertyuiopzxcvbnm"
 let g:jedi#auto_initialization = 1
 let g:jedi#popup_select_first = 0
 let g:jedi#use_splits_not_buffers = "top"
+nnoremap <F2> :call jedi#rename()<CR>
+
+" -> thinca/vim-quickrun
+let g:quickrun_config = {
+      \'*': {
+      \'outputter/buffer/split': '15'},}
+nnoremap <F10> :QuickRun<CR>
+vnoremap <F10> :QuickRun<CR>
 
 " -> fzf
 " -> fzf.vim
