@@ -88,7 +88,8 @@ inoremap <F9> <C-O>za
 nnoremap <F9> za
 vnoremap <F9> zf
 
-nmap <leader>b :!tmux send-keys -t vara-debug:4.1 C-p C-j <CR><CR>
+nmap <leader>r :!tmux send-keys -t {last} C-p C-j <CR><CR>
+nmap <leader>R :!tmux send-keys -t {last}. C-p C-j <CR><CR>
 
 nmap <leader>/ :!trans :en ''<left>
 
