@@ -99,6 +99,8 @@ nmap <leader>/ :!trans :en ''<left>
 nnoremap <silent> n n:call HLNext(0.2)<cR>
 nnoremap <silent> N N:call HLNext(0.2)<cR>
 
+let cppstd = 'c++20'
+
 function! HLNext (blinktime)
     highlight WhiteOnRed ctermfg=White ctermbg=Red
     let [bufnum, lnum, col, off] = getpos('.')
@@ -234,16 +236,16 @@ let g:ale_linters = {
 
 let g:ale_pattern_options = {
       \ '\.h$': {
-      \   'ale_cpp_clangtidy_options': '-x c++ -std=c++17 -I/home/vulder/git/llvm/include/ -I/home/vulder/git/llvm/build/debug/include/ -I/home/vulder/git/llvm/tools/clang/include/ -I/home/vulder/git/llvm/tools/VaRA/include/ -I/home/vulder/git/benchtest/code/build/googlebenchmark-src/include -I/home/vulder/git/llvm/tools/VaRA/lib/libTracing/',
+      \   'ale_cpp_clangtidy_options': '-x c++ -std=' . cppstd . ' -I/home/vulder/git/llvm/include/ -I/home/vulder/git/llvm/build/debug/include/ -I/home/vulder/git/llvm/tools/clang/include/ -I/home/vulder/git/llvm/tools/VaRA/include/ -I/home/vulder/git/benchtest/code/build/googlebenchmark-src/include -I/home/vulder/git/llvm/tools/VaRA/lib/libTracing/ -I/home/vulder/git/ProgrammingFun/Cpp/extern/abseil-cpp/ -I/home/vulder/git/llvm/tools/phasar/include/ -I/home/vulder/git/llvm/tools/phasar/external/json/include/',
       \   },
       \ '\.cpp$': {
-      \   'ale_cpp_clangtidy_options': '-std=c++17 -I/home/vulder/git/llvm/include/ -I/home/vulder/git/llvm/build/debug/include/ -I/home/vulder/git/llvm/tools/clang/include/ -I/home/vulder/git/llvm/tools/VaRA/include/ -I/home/vulder/git/benchtest/code/build/googlebenchmark-src/include',
+      \   'ale_cpp_clangtidy_options': '-std=' . cppstd . ' -I/home/vulder/git/llvm/include/ -I/home/vulder/git/llvm/build/debug/include/ -I/home/vulder/git/llvm/tools/clang/include/ -I/home/vulder/git/llvm/tools/VaRA/include/ -I/home/vulder/git/benchtest/code/build/googlebenchmark-src/include -I/home/vulder/git/ProgrammingFun/Cpp/extern/abseil-cpp/ -I/home/vulder/git/llvm/tools/phasar/include/',
       \   }
       \}
 
 " ale: c/cpp
 let g:ale_cpp_clangtidy_executable = '/usr/lib/llvm/11/bin/clang-tidy'
-let g:ale_cpp_clang_options = '-std=c++17 -Wall -I''/home/vulder/git/llvm/include'''
+let g:ale_cpp_clang_options = '-std=' . cppstd . ' -Wall -I''/home/vulder/git/llvm/include'''
 let g:ale_cpp_clangtidy_checks = []
 
 let g:ale_c_build_dir_names = ['build/debug/', 'build/dev/', 'build/dbg/', 'build/']
