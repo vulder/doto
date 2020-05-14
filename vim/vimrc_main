@@ -88,8 +88,8 @@ inoremap <F9> <C-O>za
 nnoremap <F9> za
 vnoremap <F9> zf
 
-nmap <leader>r :!tmux send-keys -t {last} C-p C-j <CR><CR>
-nmap <leader>R :!tmux send-keys -t {last}. C-p C-j <CR><CR>
+nnoremap <leader>r :!tmux send-keys -t {last} C-p C-j <CR><CR>
+nnoremap <leader>R :!tmux send-keys -t {last}. C-p C-j <CR><CR>
 
 nmap <leader>/ :!trans :en ''<left>
 
