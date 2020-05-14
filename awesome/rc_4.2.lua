@@ -94,7 +94,7 @@ local themes = {
 local chosen_theme = themes[7]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
-local terminal     = "terminator --geometry=958x529"
+local terminal     = "alacritty"
 local terminal_args = "-x tmux -2 new-session -A -s drop"
 local editor       = os.getenv("EDITOR") or "vim"
 local browser      = "google-chrome-unstable"
