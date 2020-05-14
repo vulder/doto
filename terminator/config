@@ -1,19 +1,37 @@
 [global_config]
   borderless = True
-  title_font = Hack for Powerline 9
   title_use_system_font = False
+  title_font = Hack for Powerline 9
 [keybindings]
-  broadcast_all = <Primary><Alt><Super>bracketright
-  broadcast_group = <Primary><Alt><Super>bracketleft
-  close_term = None
-  close_window = None
-  full_screen = <Primary><Shift>Page_Up
+  go_up = <Primary><Shift>Page_Up
   go_down = <Primary><Shift>Page_Up
   go_left = <Primary><Shift>Page_Up
   go_right = <Primary><Shift>Page_Up
-  go_up = <Primary><Shift>Page_Up
-  help = <Primary><Shift>Page_Up
+  close_term = None
+  close_window = None
+  full_screen = <Primary><Shift>Page_Up
+  broadcast_group = <Primary><Alt><Super>bracketleft
+  broadcast_all = <Primary><Alt><Super>bracketright
   layout_launcher = <Primary><Shift>Page_Up
+  help = <Primary><Shift>Page_Up
+[profiles]
+  [[default]]
+    background_darkness = 0.8
+    background_type = transparent
+    cursor_color = "#aaaaaa"
+    font = JetBrains Mono 13
+    show_titlebar = False
+    scrollbar_position = hidden
+    palette = "#000000:#cd0000:#00cd00:#cdcd00:#3465a4:#cd00cd:#00cdcd:#faebd7:#404040:#ff0000:#00ff00:#ffff00:#7373ff:#ff00ff:#00ffff:#ffffff"
+    use_system_font = False
+  [[clang]]
+    background_color = "#ffffff"
+    cursor_color = "#aaaaaa"
+    font = Hack for Powerline 11
+    foreground_color = "#292929"
+    show_titlebar = False
+    palette = "#000000:#ff0000:#008c00:#919100:#0000cd:#cd00cd:#00b0b0:#faebd7:#404040:#ff0000:#129112:#ffff00:#0000ff:#bf00bf:#00cccc:#ffffff"
+    use_system_font = False
 [layouts]
   [[default]]
     [[[child1]]]
@@ -24,21 +42,3 @@
       parent = ""
       type = Window
 [plugins]
-[profiles]
-  [[default]]
-    background_darkness = 0.8
-    background_type = transparent
-    cursor_color = "#aaaaaa"
-    font = JetBrains Mono 13
-    palette = "#000000:#cd0000:#00cd00:#cdcd00:#3465a4:#cd00cd:#00cdcd:#faebd7:#404040:#ff0000:#00ff00:#ffff00:#7373ff:#ff00ff:#00ffff:#ffffff"
-    scrollbar_position = hidden
-    show_titlebar = False
-    use_system_font = False
-  [[clang]]
-    background_color = "#ffffff"
-    cursor_color = "#aaaaaa"
-    font = Hack for Powerline 11
-    foreground_color = "#292929"
-    palette = "#000000:#ff0000:#008c00:#919100:#0000cd:#cd00cd:#00b0b0:#faebd7:#404040:#ff0000:#129112:#ffff00:#0000ff:#bf00bf:#00cccc:#ffffff"
-    show_titlebar = False
-    use_system_font = False
