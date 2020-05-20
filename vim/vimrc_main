@@ -183,6 +183,7 @@ nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
 nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
 nnoremap <leader>i :YcmCompleter GoToDeclaration <CR>
 nnoremap <F2> :YcmCompleter RefactorRename 
+nmap <leader>h <plug>(YCMHover)
 
 " let g:ycm_use_clangd = 0
 let g:ycm_clangd_binary_path = "/usr/lib/llvm/11/bin/clangd"
