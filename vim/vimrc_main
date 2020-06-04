@@ -278,7 +278,8 @@ let g:EasyMotion_keys = "asdfghjklqwertyuiopzxcvbnm"
 let g:jedi#auto_initialization = 1
 let g:jedi#popup_select_first = 0
 let g:jedi#use_splits_not_buffers = "top"
-nnoremap <F2> :call jedi#rename()<CR>
+let g:jedi#rename_command = "<F2>"
+" nnoremap <F2> :call jedi#rename()<CR>
 
 " -> thinca/vim-quickrun
 let g:quickrun_config = {
