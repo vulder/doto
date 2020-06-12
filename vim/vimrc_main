@@ -279,6 +279,8 @@ let g:jedi#auto_initialization = 1
 let g:jedi#popup_select_first = 0
 let g:jedi#use_splits_not_buffers = "top"
 let g:jedi#rename_command = "<F2>"
+let g:jedi#completions_enabled = 0
+let g:jedi#show_call_signatures = "0"
 " nnoremap <F2> :call jedi#rename()<CR>
 
 " -> thinca/vim-quickrun
