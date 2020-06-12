@@ -681,7 +681,7 @@ fi
 if [[ ! "$PATH" == */home/vulder/git/depot_tools* ]]; then
   export PATH="$PATH:/home/vulder/git/depot_tools"
 fi
-export GOPATH="/home/vulder/source/go/"
+export GOPATH="/home/vulder/source/go"
 export PATH="$PATH:/home/vulder/source/go/bin"
 
 source ~/.tmuxinator/tmuxinator.zsh
