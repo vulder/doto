@@ -266,6 +266,9 @@ nmap <silent> <leader>ed <Plug>(ale_next_wrap)
 " ale: ansible
 " pip install ansible-lint
 "
+" ale: cmake
+" pip install cmakelang
+"
 " ale: text
 " pip install proselint
 
