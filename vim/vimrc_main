@@ -61,7 +61,11 @@ augroup filetype
   au! BufRead,BufNewFile *.ram     set filetype=ram
 augroup END
 
-source /home/vulder/git/doto/vim/vimrc_default
+augroup filetype
+  au! BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
+augroup END
+
+source /home/sattlerf/git/doto/vim/vimrc_default
 " Load System dependent part of vimrc
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "barber" || hostname == "debussy"
@@ -166,6 +170,7 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'jeaye/color_coded', { 'do': 'mkdir build; cd build && rm -f CMakeCache.txt && cmake .. && make install'},
 Plug 'nickhutchinson/vim-cmake-syntax',
 Plug 'lervag/vimtex',
+Plug 'Ron89/thesaurus_query.vim',
 Plug 'google/vim-maktaba',
 Plug 'google/vim-codefmt',
 Plug 'google/vim-glaive',
@@ -200,7 +205,6 @@ let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_add_preview_to_completeopt=1
 let g:ycm_max_num_candidates=20
 let g:ycm_max_num_identifier_candidates=2
-let g:ycm_clangd_binary_path = '/usr/lib/llvm/11/bin/clangd'
 
 autocmd FileType java let g:EclimCompletionMethod='omnifunc'
 autocmd FileType java set omnifunc=eclim#java#complete#CodeComplete
@@ -258,6 +262,12 @@ let g:ale_python_pylint_executable = 'python3'
 let g:ale_python_pylint_options = '-m pylint'
 nmap <silent> <leader>eu <Plug>(ale_previous_wrap)
 nmap <silent> <leader>ed <Plug>(ale_next_wrap)
+
+" ale: ansible
+" pip install ansible-lint
+"
+" ale: text
+" pip install proselint
 
 " -> vim-fugitive
 " -> vim-airline
@@ -383,6 +393,12 @@ let g:vimtex_quickfix_mode=0
 set conceallevel=1
 let g:tex_conceal='abdmg'
 
+" -> Ron89/thesaurus_query.vim
+let g:tq_enabled_backends=["datamuse_com","openoffice_en"]
+" Download with:
+" https://www.openoffice.org/lingucomponent/MyThes-1.zip
+let g:tq_openoffice_en_file="~/git/doto/vim/thesaurus/MyThes-1.0/th_en_US_new"
+
 " -> vim-maktaba
 " -> vim-codefmt
 nnoremap <silent> <leader>c :FormatCode<CR>
@@ -430,6 +446,8 @@ autocmd FileType tex,text,markdown setlocal spell
 autocmd FileType tex,text,markdown set spelllang=en_us
 autocmd FileType tex,text,markdown inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
+" Alternative words -> <C-X><C-T>
+" set thesaurus+=/home/sattlerf/git/doto/vim/thesaurus/thesaurii.txt
 
 " highlight ColorColumn ctermbg=DarkMagenta
 call matchadd('ColorColumn', '\%81v', 100)
