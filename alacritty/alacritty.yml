@@ -19,6 +19,9 @@ window:
     columns: 90
     lines: 30
 
+shell:
+  program: /bin/zsh
+
 # XTerm's default colors
 colors:
    # Default colors
