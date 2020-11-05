@@ -65,7 +65,7 @@ augroup filetype
   au! BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
 augroup END
 
-source /home/sattlerf/git/doto/vim/vimrc_default
+source /home/vulder/git/doto/vim/vimrc_default
 " Load System dependent part of vimrc
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "barber" || hostname == "debussy"
@@ -239,18 +239,18 @@ let g:ale_linters = {
       \ 'cpp': ['clangtidy'],
       \ }
 
-let g:ale_pattern_options = {
-      \ '\.h$': {
-      \   'ale_cpp_clangtidy_options': '-x c++ -std=' . cppstd . ' -I/home/vulder/git/llvm/include/ -I/home/vulder/git/llvm/build/debug/include/ -I/home/vulder/git/llvm/tools/clang/include/ -I/home/vulder/git/llvm/tools/VaRA/include/ -I/home/vulder/git/benchtest/code/build/googlebenchmark-src/include -I/home/vulder/git/llvm/tools/VaRA/lib/libTracing/ -I/home/vulder/git/ProgrammingFun/Cpp/extern/abseil-cpp/ -I/home/vulder/git/llvm/tools/phasar/include/ -I/home/vulder/git/llvm/tools/phasar/external/json/include/',
-      \   },
-      \ '\.cpp$': {
-      \   'ale_cpp_clangtidy_options': '-std=' . cppstd . ' -I/home/vulder/git/llvm/include/ -I/home/vulder/git/llvm/build/debug/include/ -I/home/vulder/git/llvm/tools/clang/include/ -I/home/vulder/git/llvm/tools/VaRA/include/ -I/home/vulder/git/benchtest/code/build/googlebenchmark-src/include -I/home/vulder/git/ProgrammingFun/Cpp/extern/abseil-cpp/ -I/home/vulder/git/llvm/tools/phasar/include/',
-      \   }
-      \}
+ let g:ale_pattern_options = {
+       \ '\.h$': {
+       \   'ale_cpp_clangtidy_extra_options': '-std=' . cppstd . ' -I/home/vulder/git/vara-llvm-project/llvm/include/ -I/home/vulder/git/vara-llvm-project/llvm/dbg/include/ -I/home/vulder/git/vara-llvm-project/clang/include/ -I/home/vulder/git/vara-llvm-project/vara/include/ -I/home/vulder/git/benchtest/code/build/googlebenchmark-src/include -I/home/vulder/git/vara-llvm-project/vara/lib/libTracing/ -I/home/vulder/git/ProgrammingFun/Cpp/extern/abseil-cpp/ -I/home/vulder/git/vara-llvm-project/phasar/include/ -I/home/vulder/git/vara-llvm-project/phasar/external/json/include/ -I/home/vulder/git/vara-feature/include/',
+       \   },
+       \ '\.cpp$': {
+       \   'ale_cpp_clangtidy_extra_options': '-std=' . cppstd . ' -I/home/vulder/git/vara-llvm-project/llvm/include/ -I/home/vulder/git/vara-llvm-project/llvm/build/dev/include/ -I/home/vulder/git/vara-llvm-project/clang/include/ -I/home/vulder/git/vara-llvm-project/vara/include/ -I/home/vulder/git/benchtest/code/build/googlebenchmark-src/include -I/home/vulder/git/ProgrammingFun/Cpp/extern/abseil-cpp/ -I/home/vulder/git/vara-llvm-project/phasar/include/',
+       \   }
+       \}
 
 " ale: c/cpp
 let g:ale_cpp_clangtidy_executable = '/usr/lib/llvm/11/bin/clang-tidy'
-let g:ale_cpp_clang_options = '-std=' . cppstd . ' -Wall -I''/home/vulder/git/llvm/include'''
+let g:ale_cpp_clang_options = '-std=' . cppstd . ' -Wall -I''/home/vulder/git/vara-llvm-project/llvm/include/'''
 let g:ale_cpp_clangtidy_checks = []
 
 let g:ale_c_build_dir_names = ['build/debug/', 'build/dev/', 'build/dbg/', 'build/']
@@ -299,6 +299,7 @@ let g:jedi#show_call_signatures = "0"
 let g:quickrun_config = {
       \'*': {
       \'outputter/buffer/split': '15'},}
+let g:quickrun_config['cpp'] = {'command': 'clang++', 'exec' : ['%c -std='. cppstd .' %s -lm -o %s.out', '%s.out']}
 nnoremap <F10> :QuickRun<CR>
 vnoremap <F10> :QuickRun<CR>
 
