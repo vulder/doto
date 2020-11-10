@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+script=$(readlink -f $0)
+script_folder=$(dirname $script)
 
 eix-sync
 
@@ -11,7 +14,7 @@ read -r -p "Update zsh plugins? [y/N] " response
 response=${response,,} # tolower
 if [[ "$response" =~ ^(yes|y)$ ]]
 then
-  zgen update
+  su vulder -c "$script_folder/update_zgen.sh"
 fi
 
 read -r -p "Update 9999? [y/N] " response
