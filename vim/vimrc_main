@@ -136,7 +136,7 @@ command! GetHigh call SynStack()
 " Plugin loading
 call plug#begin('~/.vim/plugged')
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --go-completer'}
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --ts-completer --go-completer --rust-completer'}
 Plug 'prabirshrestha/async.vim'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-fugitive'
