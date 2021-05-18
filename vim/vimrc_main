@@ -25,6 +25,7 @@ set nohlsearch
 set number
 set tags+=./.tags
 set splitbelow
+set noswapfile
 
 " Ignore files with type *.x
 set wildignore+=build,*.a,*.so,*.o,*.obj,.git
