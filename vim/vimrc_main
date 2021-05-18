@@ -168,7 +168,7 @@ Plug 'fatih/molokai',
 Plug 'KabbAmine/zeavim.vim',
 Plug 'ryanoasis/vim-devicons'
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-Plug 'jeaye/color_coded', { 'do': 'mkdir build; cd build && rm -f CMakeCache.txt && cmake .. && make install'},
+" Plug 'jeaye/color_coded', { 'do': 'mkdir build; cd build && rm -f CMakeCache.txt && cmake .. && make install'},
 Plug 'nickhutchinson/vim-cmake-syntax',
 Plug 'lervag/vimtex',
 Plug 'Ron89/thesaurus_query.vim',
