@@ -190,6 +190,7 @@ nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
 nnoremap <leader>i :YcmCompleter GoToDeclaration <CR>
 nnoremap <F2> :YcmCompleter RefactorRename 
 nmap <leader>h <plug>(YCMHover)
+nnoremap <leader>re :YcmCompleter GoToReferences<CR> 
 
 " let g:ycm_use_clangd = 0
 let g:ycm_clangd_binary_path = "/usr/lib/llvm/11/bin/clangd"
@@ -207,10 +208,10 @@ let g:ycm_add_preview_to_completeopt=1
 let g:ycm_max_num_candidates=20
 let g:ycm_max_num_identifier_candidates=2
 
-autocmd FileType java let g:EclimCompletionMethod='omnifunc'
-autocmd FileType java set omnifunc=eclim#java#complete#CodeComplete
-autocmd FileType java nnoremap <leader>b :ProjectBuild<CR>
-autocmd FileType java nnoremap <leader>r :ProjectRun<CR>
+" autocmd FileType java let g:EclimCompletionMethod='omnifunc'
+" autocmd FileType java set omnifunc=eclim#java#complete#CodeComplete
+" autocmd FileType java nnoremap <leader>b :ProjectBuild<CR>
+" autocmd FileType java nnoremap <leader>r :ProjectRun<CR>
 
 " -> async.vim
 " -> vim-lsp
