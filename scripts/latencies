@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# github.com/chubin/late.nz
+# github.com/colin-scott/interactive_latencies
+curl cheat.sh/latency
