@@ -1,0 +1,5 @@
+#!/bin/bash
+
+project=$1
+
+less -R /var/tmp/portage/$project/temp/build.log
