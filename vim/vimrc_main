@@ -193,7 +193,8 @@ nmap <leader>h <plug>(YCMHover)
 nnoremap <leader>re :YcmCompleter GoToReferences<CR> 
 
 " let g:ycm_use_clangd = 0
-let g:ycm_clangd_binary_path = "/usr/lib/llvm/11/bin/clangd"
+let g:ycm_clangd_binary_path = "/usr/lib/llvm/14/bin/clangd"
+" let g:ycm_clangd_args = ['-std=c++20']
 let g:ycm_always_populate_location_list = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
