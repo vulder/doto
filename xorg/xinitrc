@@ -2,4 +2,5 @@
 xrdb --merge "${HOME}/.Xresources"
 setxkbmap -option ctrl:nocaps
 
-exec awesome
+# exec awesome
+exec dbus-launch --exit-with-session awesome
