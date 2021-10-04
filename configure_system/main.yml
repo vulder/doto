@@ -10,6 +10,12 @@
         dest: ~/scripts
         owner: "{{ user }}"
         state: link
+# Deploy copied configs
+    - name: "Deploy redshift config"
+      copy:
+        src: "{{ repo }}/redshift/redshift.conf"
+        dest: ~/.config/redshift.conf
+        mode: 0644
     - name: Print external configuration values
       debug:
         msg: AOSF {{ ansible_os_family }}
