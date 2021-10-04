@@ -1,0 +1,4 @@
+---
+- name: "Debian hello"
+  debug:
+    msg: Hello debian

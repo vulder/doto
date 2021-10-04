@@ -1,0 +1,4 @@
+---
+- name: "Gentoo hello"
+  debug:
+    msg: Hello gentoo

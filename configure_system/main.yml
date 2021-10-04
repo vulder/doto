@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Print external configuration values
+      debug:
+        msg: user = {{ user }}, repo = {{ repo }}
+    - name: "Link scripts"
+      file:
+        src: "{{ repo }}/scripts"
+        dest: ~/scripts
+        owner: "{{ user }}"
+        state: link
+    - name: Print external configuration values
+      debug:
+        msg: AOSF {{ ansible_os_family }}
+
+# Handle OS specific tasks
+    - include_tasks: gentoo.yml
+      when: ansible_os_family == "Gentoo"
+    - include_tasks: debian.yml
+      when: ansible_os_family == "Debian"
