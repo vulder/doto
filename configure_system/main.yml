@@ -10,14 +10,26 @@
       debug:
         msg: Running on {{ inventory_hostname }}
 # Deploy all config links
-    - name: "Link scripts folder"
+    - name: Linking scripts folder
       file:
         src: "{{ repo }}/scripts"
         dest: ~/scripts
         owner: "{{ user }}"
         state: link
+    - name: Linking vim folder
+      file:
+        src: "{{ repo }}/vim/vim_dir"
+        dest: ~/.vim
+        owner: "{{ user }}"
+        state: link
+    - name: Linking alacritty config
+      file:
+        src: "{{ repo }}/alacritty/alacritty.yml"
+        dest: ~/.alacritty.yml
+        owner: "{{ user }}"
+        state: link
 # Deploy copied configs
-    - name: "Deploy redshift config"
+    - name: Deploying redshift config
       copy:
         src: "{{ repo }}/redshift/redshift.conf"
         dest: ~/.config/redshift.conf
