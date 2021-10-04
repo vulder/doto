@@ -2,3 +2,10 @@
 - name: "Gentoo hello"
   debug:
     msg: Hello gentoo
+- name: "Install required packages"
+  portage:
+    package:
+      - app-editors/vim
+      - app-vim/vimtex
+    state: present
+  become: yes
