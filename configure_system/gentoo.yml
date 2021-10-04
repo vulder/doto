@@ -1,11 +1,21 @@
 ---
-- name: "Gentoo hello"
-  debug:
-    msg: Hello gentoo
-- name: "Install required packages"
+- name: "Install required gentoo packages"
   portage:
     package:
+      # vim
       - app-editors/vim
-      - app-vim/vimtex
+      # tmux
+      - app-misc/tmux
+      # zsh
+      - app-shells/gentoo-zsh-completions
+      - app-shells/zsh
+      - app-shells/zsh-completions
+      # git
+      - dev-vcs/tig
+      - dev-util/git-delta
+      # Extra tools
+      - sys-apps/bat
+      - sys-apps/the_silver_searcher
+      - sys-apps/exa
     state: present
   become: yes
