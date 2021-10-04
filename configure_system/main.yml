@@ -34,6 +34,12 @@
         src: "{{ repo }}/redshift/redshift.conf"
         dest: ~/.config/redshift.conf
         mode: 0644
+    - name: Deploying vim config
+      template:
+        src: "{{ repo }}/vim/vimrc.j2"
+        dest: ~/.vimrc
+      vars:
+        llvm_version: 14
     - name: Print external configuration values
       debug:
         msg: AOSF {{ ansible_os_family }}
