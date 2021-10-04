@@ -17,4 +17,4 @@
       # - sys-apps/exa TODO: fix by manual install
       - fzf
     state: present
-
+  become: yes
