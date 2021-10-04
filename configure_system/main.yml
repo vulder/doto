@@ -49,6 +49,12 @@
       template:
         src: "{{ repo }}/zsh/zshrc_main"
         dest: ~/.zshrc
+    - name: Setting up zgen repository
+      git:
+        repo: "https://github.com/tarjoilija/zgen.git"
+        dest: ~/.zgen
+        depth: 1
+        accept_hostkey: yes
 
 # Handle OS specific tasks
     - include_tasks: gentoo.yml
