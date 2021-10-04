@@ -68,7 +68,7 @@ augroup filetype
   au! BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
 augroup END
 
-source /home/{{ user }}/git/doto/vim/vimrc_default
+source {{ repo }}/vim/vimrc_default
 " Load System dependent part of vimrc
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "barber" || hostname == "debussy"
