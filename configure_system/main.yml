@@ -45,6 +45,10 @@
     - name: Print external configuration values
       debug:
         msg: AOSF {{ ansible_os_family }}
+    - name: Deploying zsh config
+      template:
+        src: "{{ repo }}/zsh/zshrc_main"
+        dest: ~/.zshrc
 
 # Handle OS specific tasks
     - include_tasks: gentoo.yml
