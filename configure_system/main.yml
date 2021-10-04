@@ -40,6 +40,8 @@
         dest: ~/.vimrc
       vars:
         llvm_version: 14
+    - name: Installing vim plugins
+      command: vi -c 'PlugInstall | qa'
     - name: Print external configuration values
       debug:
         msg: AOSF {{ ansible_os_family }}
