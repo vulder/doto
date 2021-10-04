@@ -1,5 +1,5 @@
 ---
-- name: "Install required gentoo packages"
+- name: Install required gentoo packages
   portage:
     package:
       # vim
@@ -17,5 +17,8 @@
       - sys-apps/bat
       - sys-apps/the_silver_searcher
       - sys-apps/exa
+      # - app-shells/fzf
+      # command dependencies
+      - dev-python/pip
     state: present
   become: yes

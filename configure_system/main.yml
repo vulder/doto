@@ -56,6 +56,13 @@
         dest: ~/.zgen
         depth: 1
         accept_hostkey: yes
+
+# Handle OS specific tasks
+    - include_tasks: gentoo.yml
+      when: ansible_os_family == "Gentoo"
+    - include_tasks: debian.yml
+      when: ansible_os_family == "Debian"  # TODO: needs also ubuntu
+
 # Self install tools
     - name: Create folder doto source folder
       file:
@@ -90,9 +97,3 @@
       pip:
         name: git+git://github.com/powerline/powerline
         extra_args: --user
-
-# Handle OS specific tasks
-    - include_tasks: gentoo.yml
-      when: ansible_os_family == "Gentoo"
-    - include_tasks: debian.yml
-      when: ansible_os_family == "Debian"  # TODO: needs also ubuntu
