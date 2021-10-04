@@ -42,6 +42,7 @@
         llvm_version: 14
     - name: Installing vim plugins
       command: vi -c 'PlugInstall | qa'
+      # TODO: figure out how to not mark this changed
     - name: Print external configuration values
       debug:
         msg: AOSF {{ ansible_os_family }}
@@ -55,6 +56,24 @@
         dest: ~/.zgen
         depth: 1
         accept_hostkey: yes
+# Self install tools
+    - name: Create folder doto source folder
+      file:
+        path: ~/.doto_src
+        state: directory
+    - name: Setting up fasd repository
+      git:
+        repo: "https://github.com/clvv/fasd.git"
+        dest: ~/.doto_src/fasd
+        depth: 1
+        accept_hostkey: yes
+    - name: Build and install fasd
+      make:
+        chdir: ~/.doto_src/fasd
+        target: install
+      # TODO: figure out how to not mark this changed
+        params:
+          PREFIX: /home/{{ user }}/
 
 # Handle OS specific tasks
     - include_tasks: gentoo.yml
