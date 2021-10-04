@@ -1,7 +1,4 @@
 ---
-- name: "Debian hello"
-  debug:
-    msg: Hello debian
 - name: Install required debian packages
   apt:
     name:
