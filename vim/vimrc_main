@@ -68,16 +68,6 @@ augroup filetype
   au! BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
 augroup END
 
-source {{ repo }}/vim/vimrc_default
-" Load System dependent part of vimrc
-let hostname = substitute(system('hostname'), '\n', '', '')
-if hostname == "barber" || hostname == "debussy"
-  source /home/sattlerf/git/doto/vim/vimrc_barber
-elseif hostname == "jotunheim"
-  source /home/{{ user }}/git/doto/vim/vimrc_jotunheim
-else
-endif
-
 " * General key bindings
 set wildchar=<Tab> wildmenu wildmode=full
 nnoremap <leader>y :call Yapf()<cr>
