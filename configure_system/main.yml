@@ -36,7 +36,7 @@
         mode: 0644
     - name: Deploying vim config
       template:
-        src: "{{ repo }}/vim/vimrc.j2"
+        src: "{{ repo }}/vim/vimrc_main"
         dest: ~/.vimrc
       vars:
         llvm_version: 14
