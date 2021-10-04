@@ -28,6 +28,14 @@
         dest: ~/.alacritty.yml
         owner: "{{ user }}"
         state: link
+    - name: Linking fonts
+      file:
+        src: "{{ repo }}/fonts"
+        dest: ~/.fonts
+        owner: "{{ user }}"
+        state: link
+    - name: Configure fonts
+      command: fc-cache -fv
 # Deploy copied configs
     - name: Deploying redshift config
       copy:
