@@ -51,9 +51,6 @@
     - name: Installing vim plugins
       command: vi -c 'PlugInstall | qa'
       # TODO: figure out how to not mark this changed
-    - name: Print external configuration values
-      debug:
-        msg: AOSF {{ ansible_os_family }}
     - name: Deploying zsh config
       template:
         src: "{{ repo }}/zsh/zshrc_main"
@@ -64,6 +61,17 @@
         dest: ~/.zgen
         depth: 1
         accept_hostkey: yes
+    - name: Deploying tmux config
+      template:
+        src: "{{ repo }}/tmux/tmux_main.conf"
+        dest: ~/.tmux.conf
+    - name: Linking tmux folder
+      file:
+        src: "{{ repo }}/tmux/tmux_folder"
+        dest: ~/.tmux
+        owner: "{{ user }}"
+        state: link
+
 
 # Handle OS specific tasks
     - include_tasks: gentoo.yml
