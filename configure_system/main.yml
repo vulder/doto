@@ -4,7 +4,11 @@
     - name: Print external configuration values
       debug:
         msg: user = {{ user }}, repo = {{ repo }}
-    - name: "Link scripts"
+    - name: Show current hostname
+      debug:
+        msg: Running on {{ inventory_hostname }}
+# Deploy all config links
+    - name: "Link scripts folder"
       file:
         src: "{{ repo }}/scripts"
         dest: ~/scripts
