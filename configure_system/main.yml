@@ -80,6 +80,16 @@
       # TODO: figure out how to not mark this changed
         params:
           PREFIX: /home/{{ user }}/
+    - name: Setting up powerline repository
+      git:
+        repo: "https://github.com/powerline/powerline.git"
+        dest: ~/.doto_src/powerline
+        depth: 1
+        accept_hostkey: yes
+    - name: Installing powerline
+      pip:
+        name: git+git://github.com/powerline/powerline
+        extra_args: --user
 
 # Handle OS specific tasks
     - include_tasks: gentoo.yml
