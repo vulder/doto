@@ -4,6 +4,8 @@
     - name: Print external configuration values
       debug:
         msg: user = {{ user }}, repo = {{ repo }}
+        # TODO: how to handle optional configurations? like awesome + xinitrc?
+        # TODO: how to handle BIG template files like zsh/vimrc?
     - name: Show current hostname
       debug:
         msg: Running on {{ inventory_hostname }}

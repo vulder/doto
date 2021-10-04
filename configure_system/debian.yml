@@ -2,3 +2,22 @@
 - name: "Debian hello"
   debug:
     msg: Hello debian
+- name: Install required debian packages
+  apt:
+    name:
+      # vim
+      - vim-gtk
+      # tmux
+      - tmux
+      # zsh
+      - zsh
+      # git
+      - tig
+      # - dev-util/git-delta # fix by manual install
+      # Extra tools
+      - bat
+      - silversearcher-ag
+      # - sys-apps/exa TODO: fix by manual install
+      - fzf
+    state: present
+
