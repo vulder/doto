@@ -14,5 +14,6 @@ pushd $REPO
 git submodule update --init --recursive
 popd
 
-ansible-playbook configure_system/main.yml --ask-become-pass \
+ansible-playbook configure_system/main.yml \
+  --ask-become-pass \
   --extra-vars "{ 'user':$USER , 'repo':$REPO}"
