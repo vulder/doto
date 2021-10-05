@@ -36,6 +36,12 @@
         state: link
     - name: Configure fonts
       command: fc-cache -fv
+    - name: Linking powerline config
+      file:
+        src: "{{ repo }}/powerline"
+        dest: ~/.config/powerline
+        owner: "{{ user }}"
+        state: link
 # Deploy copied configs
     - name: Deploying redshift config
       copy:
