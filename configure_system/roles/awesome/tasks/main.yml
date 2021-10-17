@@ -33,6 +33,6 @@
     dest: ~/.xinitrc
     owner: "{{ user }}"
     state: link
-  when: "'xinit' in group_names" # TODO: move to host_vars
+  when: needs_xinit|bool == true
 
 # TODO: missing awesome install
