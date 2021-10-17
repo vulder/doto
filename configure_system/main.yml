@@ -1,121 +1,26 @@
 ---
-- hosts: localhost
+# This playbook setup all doto specific programs and configuration files
+
+- name: Create defaults
+  hosts: all
   tasks:
-    - name: Print external configuration values
-      debug:
-        msg: user = {{ user }}, repo = {{ repo }}
-        # TODO: how to handle optional configurations? like awesome + xinitrc?
-        # TODO: how to handle BIG template files like zsh/vimrc?
-    - name: Show current hostname
-      debug:
-        msg: Running on {{ inventory_hostname }}
-# Deploy all config links
-    - name: Linking scripts folder
-      file:
-        src: "{{ repo }}/scripts"
-        dest: ~/scripts
-        owner: "{{ user }}"
-        state: link
-    - name: Linking vim folder
-      file:
-        src: "{{ repo }}/vim/vim_dir"
-        dest: ~/.vim
-        owner: "{{ user }}"
-        state: link
-    - name: Linking alacritty config
-      file:
-        src: "{{ repo }}/alacritty/alacritty.yml"
-        dest: ~/.alacritty.yml
-        owner: "{{ user }}"
-        state: link
-    - name: Linking fonts
-      file:
-        src: "{{ repo }}/fonts"
-        dest: ~/.fonts
-        owner: "{{ user }}"
-        state: link
-    - name: Configure fonts
-      command: fc-cache -fv
-    - name: Linking powerline config
-      file:
-        src: "{{ repo }}/powerline"
-        dest: ~/.config/powerline
-        owner: "{{ user }}"
-        state: link
-# Deploy copied configs
-    - name: Deploying redshift config
-      copy:
-        src: "{{ repo }}/redshift/redshift.conf"
-        dest: ~/.config/redshift.conf
-        mode: 0644
-    - name: Deploying vim config
-      template:
-        src: "{{ repo }}/vim/vimrc_main"
-        dest: ~/.vimrc
-      vars:
-        llvm_version: 14
-    - name: Installing vim plugins
-      command: vi -c 'PlugInstall | qa'
-      # TODO: figure out how to not mark this changed
-    - name: Deploying zsh config
-      template:
-        src: "{{ repo }}/zsh/zshrc_main"
-        dest: ~/.zshrc
-    - name: Setting up zgen repository
-      git:
-        repo: "https://github.com/tarjoilija/zgen.git"
-        dest: ~/.zgen
-        depth: 1
-        accept_hostkey: yes
-    - name: Deploying tmux config
-      template:
-        src: "{{ repo }}/tmux/tmux_main.conf"
-        dest: ~/.tmux.conf
-    - name: Linking tmux folder
-      file:
-        src: "{{ repo }}/tmux/tmux_folder"
-        dest: ~/.tmux
-        owner: "{{ user }}"
-        state: link
-
-
-# Handle OS specific tasks
-    - include_tasks: gentoo.yml
-      when: ansible_os_family == "Gentoo"
-    - include_tasks: debian.yml
-      when: ansible_os_family == "Debian"  # TODO: needs also ubuntu
-
-# Self install tools
     - name: Create folder doto source folder
       file:
         path: ~/.doto_src
         state: directory
-    - name: Setting up enhancd repository
-      git:
-        repo: "https://github.com/b4b4r07/enhancd.git"
-        dest: ~/.doto_src/enhancd
-        depth: 1
-        accept_hostkey: yes
-    - name: Setting up fasd repository
-      git:
-        repo: "https://github.com/clvv/fasd.git"
-        dest: ~/.doto_src/fasd
-        depth: 1
-        accept_hostkey: yes
-    - name: Build and install fasd
-      make:
-        chdir: ~/.doto_src/fasd
-        target: install
-      # TODO: figure out how to not mark this changed
-        params:
-          PREFIX: /home/{{ user }}/
-    - name: Setting up powerline repository
-      git:
-        repo: "https://github.com/powerline/powerline.git"
-        dest: ~/.doto_src/powerline
-        depth: 1
-        accept_hostkey: yes
-    - name: Installing powerline
-      pip:
-        name: git+git://github.com/powerline/powerline
-        extra_args: --user
+- name: Configure terminal setup
+  hosts: terminal
+  roles:
+    - terminal_common
+    - zsh
+    - vim
+    - tmux
+
+- name: Desktop utilities
+  hosts: desktop_utilities
+  roles:
+    - desktop_utilities
+
+- name: Configure awesome as window manager
+  hosts: awesome_wm
+

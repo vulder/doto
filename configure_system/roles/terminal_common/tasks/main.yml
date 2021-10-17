@@ -1,0 +1,40 @@
+---
+- name: Linking scripts folder
+  file:
+    src: "{{ repo }}/scripts"
+    dest: ~/scripts
+    owner: "{{ user }}"
+    state: link
+- name: Linking alacritty config
+  file:
+    src: "{{ repo }}/alacritty/alacritty.yml"
+    dest: ~/.alacritty.yml
+    owner: "{{ user }}"
+    state: link
+- name: Linking fonts
+  file:
+    src: "{{ repo }}/fonts"
+    dest: ~/.fonts
+    owner: "{{ user }}"
+    state: link
+- name: Configure fonts
+  command: fc-cache -fv
+- name: Setting up enhancd repository
+  git:
+    repo: "https://github.com/b4b4r07/enhancd.git"
+    dest: ~/.doto_src/enhancd
+    depth: 1
+    accept_hostkey: yes
+- name: Setting up fasd repository
+  git:
+    repo: "https://github.com/clvv/fasd.git"
+    dest: ~/.doto_src/fasd
+    depth: 1
+    accept_hostkey: yes
+- name: Build and install fasd
+  make:
+    chdir: ~/.doto_src/fasd
+    target: install
+  # TODO: figure out how to not mark this changed
+    params:
+      PREFIX: /home/{{ user }}/

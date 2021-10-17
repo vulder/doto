@@ -1,0 +1,27 @@
+---
+- name: Deploying tmux config
+  template:
+    src: "{{ repo }}/tmux/tmux_main.conf"
+    dest: ~/.tmux.conf
+- name: Linking tmux folder
+  file:
+    src: "{{ repo }}/tmux/tmux_folder"
+    dest: ~/.tmux
+    owner: "{{ user }}"
+    state: link
+- name: Linking powerline config
+  file:
+    src: "{{ repo }}/powerline"
+    dest: ~/.config/powerline
+    owner: "{{ user }}"
+    state: link
+- name: Setting up powerline repository
+  git:
+    repo: "https://github.com/powerline/powerline.git"
+    dest: ~/.doto_src/powerline
+    depth: 1
+    accept_hostkey: yes
+- name: Installing powerline
+  pip:
+    name: git+git://github.com/powerline/powerline
+    extra_args: --user
