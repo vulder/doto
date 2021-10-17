@@ -23,4 +23,6 @@
 
 - name: Configure awesome as window manager
   hosts: awesome_wm
+  roles:
+    - awesome
 

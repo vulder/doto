@@ -9,6 +9,9 @@ full_setup
 [awesome_wm:children]
 full_setup
 
+[xinit]
+hermodr
+
 [desktop_utilities]
 [desktop_utilities:children]
 awesome_wm
