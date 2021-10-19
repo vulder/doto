@@ -31,13 +31,14 @@
     dest: ~/.doto_src/fasd
     depth: 1
     accept_hostkey: yes
+  register: fasd_git_result
 - name: Build and install fasd
   make:
     chdir: ~/.doto_src/fasd
     target: install
-  # TODO: figure out how to not mark this changed
     params:
       PREFIX: /home/{{ user }}/
+  when: fasd_git_result.after != fasd_git_result.before
 # Installation
 - name: Install terminal dependencies gentoo
   portage:
