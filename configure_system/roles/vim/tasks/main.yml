@@ -1,19 +1,4 @@
 ---
-- name: Linking vim folder
-  file:
-    src: "{{ repo }}/vim/vim_dir"
-    dest: ~/.vim
-    owner: "{{ user }}"
-    state: link
-- name: Deploying vim config
-  template:
-    src: "{{ repo }}/vim/vimrc_main"
-    dest: ~/.vimrc
-  vars:
-    llvm_version: 14
-- name: Installing vim plugins
-  command: vi -c 'PlugInstall | qa'
-  changed_when: false
 # Installation
 - name: Install vim gentoo
   portage:
@@ -29,3 +14,19 @@
     state: present
   when: ansible_os_family == "Debian"
   become: yes
+# Configuration
+- name: Linking vim folder
+  file:
+    src: "{{ repo }}/vim/vim_dir"
+    dest: ~/.vim
+    owner: "{{ user }}"
+    state: link
+- name: Deploying vim config
+  template:
+    src: "{{ repo }}/vim/vimrc_main"
+    dest: ~/.vimrc
+  vars:
+    llvm_version: 14
+- name: Installing vim plugins
+  command: vi -c 'PlugInstall | qa'
+  changed_when: false
