@@ -9,3 +9,24 @@
     dest: ~/.zgen
     depth: 1
     accept_hostkey: yes
+# Installation
+- name: Install zsh gentoo
+  portage:
+    package:
+      - app-shells/gentoo-zsh-completions
+      - app-shells/zsh
+      - app-shells/zsh-completions
+      - sys-apps/the_silver_searcher
+      # - app-shells/fzf
+    state: present
+  when: ansible_os_family == "Gentoo"
+  become: yes
+- name: Install zsh debian
+  apt:
+    name:
+      - zsh
+      - silversearcher-ag
+      - fzf
+    state: present
+  when: ansible_os_family == "Debian"
+  become: yes

@@ -34,5 +34,19 @@
     owner: "{{ user }}"
     state: link
   when: needs_xinit|bool == true
-
-# TODO: missing awesome install
+# Installation
+- name: Install terminal dependencies gentoo
+  portage:
+    package:
+      - x11-wm/awesome
+    state: present
+  when: ansible_os_family == "Gentoo"
+  become: yes
+- name: Install terminal dependencies debian
+  apt:
+    name:
+      - awesome
+      - awesome-extra
+    state: present
+  when: ansible_os_family == "Debian"
+  become: yes

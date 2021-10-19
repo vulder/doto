@@ -38,3 +38,26 @@
   # TODO: figure out how to not mark this changed
     params:
       PREFIX: /home/{{ user }}/
+# Installation
+- name: Install terminal dependencies gentoo
+  portage:
+    package:
+      - dev-vcs/tig
+      - dev-util/git-delta
+      - sys-apps/bat
+      - sys-apps/exa
+      - dev-python/pip
+    state: present
+  when: ansible_os_family == "Gentoo"
+  become: yes
+- name: Install terminal dependencies debian
+  apt:
+    name:
+      - tig
+      # - dev-util/git-delta # fix by manual install
+      # - sys-apps/exa TODO: fix by manual install
+      - bat
+      - python3-pip
+    state: present
+  when: ansible_os_family == "Debian"
+  become: yes

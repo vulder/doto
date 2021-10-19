@@ -25,3 +25,18 @@
   pip:
     name: git+git://github.com/powerline/powerline
     extra_args: --user
+# Installation
+- name: Install tmux gentoo
+  portage:
+    package:
+      - app-misc/tmux
+    state: present
+  when: ansible_os_family == "Gentoo"
+  become: yes
+- name: Install tmux debian
+  apt:
+    name:
+      - tmux
+    state: present
+  when: ansible_os_family == "Debian"
+  become: yes
