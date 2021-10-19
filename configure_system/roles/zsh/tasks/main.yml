@@ -17,7 +17,7 @@
       - app-shells/zsh
       - app-shells/zsh-completions
       - sys-apps/the_silver_searcher
-      # - app-shells/fzf
+      - app-shells/fzf
     state: present
   when: ansible_os_family == "Gentoo"
   become: yes
