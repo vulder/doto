@@ -17,8 +17,8 @@
     dest: ~/.fonts
     owner: "{{ user }}"
     state: link
-- name: Configure fonts
-  command: fc-cache -fv
+  notify:
+    - update font-cache
 - name: Setting up enhancd repository
   git:
     repo: "https://github.com/b4b4r07/enhancd.git"

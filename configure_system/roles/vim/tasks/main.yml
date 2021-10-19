@@ -13,7 +13,7 @@
     llvm_version: 14
 - name: Installing vim plugins
   command: vi -c 'PlugInstall | qa'
-  # TODO: figure out how to not mark this changed
+  changed_when: false
 # Installation
 - name: Install vim gentoo
   portage:
