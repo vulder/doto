@@ -28,5 +28,7 @@
   vars:
     llvm_version: 14
 - name: Installing vim plugins
-  command: vi -c 'PlugInstall | qa'
+  command: vim +PlugInstall +qall
+  args:
+    stdin: "\n\n"
   changed_when: false
