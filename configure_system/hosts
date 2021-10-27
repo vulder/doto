@@ -1,0 +1,15 @@
+[full_setup]
+hermodr
+
+[terminal]
+[terminal:children]
+full_setup
+
+[awesome_wm]
+[awesome_wm:children]
+full_setup
+
+[desktop_utilities]
+[desktop_utilities:children]
+awesome_wm
+full_setup

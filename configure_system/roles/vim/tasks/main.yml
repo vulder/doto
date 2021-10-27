@@ -1,0 +1,34 @@
+---
+# Installation
+- name: Install vim gentoo
+  portage:
+    package:
+      - app-editors/vim
+    state: present
+  when: ansible_os_family == "Gentoo"
+  become: yes
+- name: Install vim debian
+  apt:
+    name:
+      - vim-gtk
+    state: present
+  when: ansible_os_family == "Debian"
+  become: yes
+# Configuration
+- name: Linking vim folder
+  file:
+    src: "{{ repo }}/vim/vim_dir"
+    dest: ~/.vim
+    owner: "{{ user }}"
+    state: link
+- name: Deploying vim config
+  template:
+    src: "{{ repo }}/vim/vimrc_main"
+    dest: ~/.vimrc
+  vars:
+    llvm_version: 14
+- name: Installing vim plugins
+  command: vim +PlugInstall +qall
+  args:
+    stdin: "\n\n"
+  changed_when: false

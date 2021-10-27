@@ -1,0 +1,28 @@
+---
+# This playbook setup all doto specific programs and configuration files
+
+- name: Create defaults
+  hosts: all
+  tasks:
+    - name: Create folder doto source folder
+      file:
+        path: ~/.doto_src
+        state: directory
+- name: Configure terminal setup
+  hosts: terminal
+  roles:
+    - terminal_common
+    - zsh
+    - vim
+    - tmux
+
+- name: Desktop utilities
+  hosts: desktop_utilities
+  roles:
+    - desktop_utilities
+
+- name: Configure awesome as window manager
+  hosts: awesome_wm
+  roles:
+    - awesome
+

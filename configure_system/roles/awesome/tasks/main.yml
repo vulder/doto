@@ -1,0 +1,52 @@
+---
+- name: Create awesome config folder
+  file:
+    path: ~/.config/awesome
+    state: directory
+- name: Link freedesktop
+  file:
+    src: "{{ repo }}/awesome/freedesktop/freedesktop"
+    dest: ~/.config/awesome/freedesktop
+    owner: "{{ user }}"
+    state: link
+- name: Link lain
+  file:
+    src: "{{ repo }}/awesome/freedesktop/lain"
+    dest: ~/.config/awesome/lain
+    owner: "{{ user }}"
+    state: link
+- name: Link themes
+  file:
+    src: "{{ repo }}/awesome/themes"
+    dest: ~/.config/awesome/themes
+    owner: "{{ user }}"
+    state: link
+- name: Link awesome config
+  file:
+    src: "{{ repo }}/awesome/rc_4.2.lua"
+    dest: ~/.config/awesome/rc.lua
+    owner: "{{ user }}"
+    state: link
+- name: Setup xinitrc
+  file:
+    src: "{{ repo }}/xorg/xinitrc"
+    dest: ~/.xinitrc
+    owner: "{{ user }}"
+    state: link
+  when: needs_xinit|bool == true
+# Installation
+- name: Install terminal dependencies gentoo
+  portage:
+    package:
+      - x11-wm/awesome
+    state: present
+  when: ansible_os_family == "Gentoo"
+  become: yes
+- name: Install terminal dependencies debian
+  apt:
+    name:
+      - awesome
+      - awesome-extra
+    state: present
+  when: ansible_os_family == "Debian"
+  become: yes

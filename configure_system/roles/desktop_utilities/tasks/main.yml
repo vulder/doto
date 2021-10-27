@@ -1,0 +1,6 @@
+---
+- name: Deploying redshift config
+  copy:
+    src: "{{ repo }}/redshift/redshift.conf"
+    dest: ~/.config/redshift.conf
+    mode: 0644
