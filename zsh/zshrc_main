@@ -478,8 +478,8 @@ alias mux=tmuxinator
 
 #HISTFILE=/root/.zsh-histfile
 HISTFILE=/home/{{ user }}/.zsh-histfile
-HISTSIZE=5000
-SAVEHIST=5000
+HISTSIZE=50000
+SAVEHIST=50000
 
 fg_lgray=$FG[245]	# grey
 # fg_oA=$FG[227]	# yellow
