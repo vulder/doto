@@ -43,8 +43,6 @@
 - name: Install terminal dependencies gentoo
   portage:
     package:
-      - dev-vcs/tig
-      - dev-util/git-delta
       - sys-apps/bat
       - sys-apps/exa
       - dev-python/pip
@@ -54,8 +52,6 @@
 - name: Install terminal dependencies debian
   apt:
     name:
-      - tig
-      # - dev-util/git-delta # fix by manual install
       # - sys-apps/exa TODO: fix by manual install
       - bat
       - python3-pip

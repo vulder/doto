@@ -8,13 +8,15 @@
       file:
         path: ~/.doto_src
         state: directory
+
 - name: Configure terminal setup
   hosts: terminal
   roles:
+    - git
     - terminal_common
-    - zsh
-    - vim
     - tmux
+    - vim
+    - zsh
 
 - name: Desktop utilities
   hosts: desktop_utilities

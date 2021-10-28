@@ -1,0 +1,30 @@
+---
+- name: Deploying git config
+  template:
+    src: "{{ repo }}/git/gitconfig"
+    dest: ~/.gitconfig
+- name: Linking gitignore
+  file:
+    src: "{{ repo }}/git/gitignore"
+    dest: ~/.gitignore
+    owner: "{{ user }}"
+    state: link
+# Installation
+- name: Install terminal dependencies gentoo
+  portage:
+    package:
+      - dev-vcs/git
+      - dev-vcs/tig
+      - dev-util/git-delta
+    state: present
+  when: ansible_os_family == "Gentoo"
+  become: yes
+- name: Install terminal dependencies debian
+  apt:
+    name:
+      - git
+      - tig
+      # - dev-util/git-delta # fix by manual install
+    state: present
+  when: ansible_os_family == "Debian"
+  become: yes
