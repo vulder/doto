@@ -1,5 +1,6 @@
 [full_setup]
 hermodr
+fenrir
 
 [terminal]
 [terminal:children]
