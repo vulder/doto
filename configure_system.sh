@@ -19,6 +19,7 @@ ansible-playbook -i "configure_system/hosts" \
   --limit="${HOST}" \
   --ask-become-pass \
   --extra-vars "{ 'user':$USER , 'repo':$REPO }" \
-  configure_system/main.yml
+  configure_system/main.yml \
+  $@
 
 popd

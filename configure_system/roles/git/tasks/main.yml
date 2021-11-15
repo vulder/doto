@@ -19,6 +19,8 @@
     state: present
   when: ansible_os_family == "Gentoo"
   become: yes
+  tags:
+    - install
 - name: Install terminal dependencies debian
   apt:
     name:
@@ -28,3 +30,5 @@
     state: present
   when: ansible_os_family == "Debian"
   become: yes
+  tags:
+    - install
