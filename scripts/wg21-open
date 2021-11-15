@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+xdg-open http://wg21.link/$1
