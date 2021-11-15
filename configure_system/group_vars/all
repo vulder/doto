@@ -2,3 +2,4 @@
 needs_xinit: false
 full_name: None
 email: None
+alacritty_font_size: 8

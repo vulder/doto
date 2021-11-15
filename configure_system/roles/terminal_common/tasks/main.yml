@@ -5,12 +5,10 @@
     dest: ~/scripts
     owner: "{{ user }}"
     state: link
-- name: Linking alacritty config
-  file:
+- name: Deploying alacritty config
+  template:
     src: "{{ repo }}/alacritty/alacritty.yml"
     dest: ~/.alacritty.yml
-    owner: "{{ user }}"
-    state: link
 - name: Linking fonts
   file:
     src: "{{ repo }}/fonts"
