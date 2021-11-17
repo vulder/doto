@@ -44,6 +44,7 @@
       - sys-apps/bat
       - sys-apps/exa
       - dev-python/pip
+      - x11-terms/alacritty
     state: present
   when: ansible_os_family == "Gentoo"
   become: yes
