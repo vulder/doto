@@ -185,7 +185,11 @@ nmap <leader>h <plug>(YCMHover)
 nnoremap <leader>re :YcmCompleter GoToReferences<CR> 
 
 " let g:ycm_use_clangd = 0
+{% if ansible_os_family == "Gentoo" %}
 let g:ycm_clangd_binary_path = "/usr/lib/llvm/{{ llvm_version }}/bin/clangd"
+{% else %}
+let g:ycm_clangd_binary_path = "/usr/bin/clangd"
+{% endif %}
 " let g:ycm_clangd_args = ['-std=c++20']
 let g:ycm_always_populate_location_list = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -244,7 +248,11 @@ let g:ale_linters = {
        \}
 
 " ale: c/cpp
+{% if ansible_os_family == "Gentoo" %}
 let g:ale_cpp_clangtidy_executable = '/usr/lib/llvm/{{ llvm_version }}/bin/clang-tidy'
+{% else %}
+let g:ale_cpp_clangtidy_executable = '/usr/bin/clang-tidy'
+{% endif %}
 let g:ale_cpp_clang_options = '-std=' . cppstd . ' -Wall -I''/home/{{ user }}/git/vara-llvm-project/llvm/include/'''
 let g:ale_cpp_clangtidy_checks = []
 
