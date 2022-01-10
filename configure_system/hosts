@@ -3,6 +3,7 @@ hermodr
 fenrir
 
 [terminal]
+augustiner
 [terminal:children]
 full_setup
 
@@ -11,6 +12,7 @@ full_setup
 full_setup
 
 [desktop_utilities]
+augustiner
 [desktop_utilities:children]
 awesome_wm
 full_setup
