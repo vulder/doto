@@ -153,7 +153,6 @@ if ! zgen saved; then
 	zgen oh-my-zsh plugins/rsync
 	# zgen oh-my-zsh plugins/ruby
 	zgen oh-my-zsh plugins/rust
-	zgen oh-my-zsh plugins/rustup
 	# zgen oh-my-zsh plugins/rvm
 	# zgen oh-my-zsh plugins/safe-paste
 	# zgen oh-my-zsh plugins/sbt
