@@ -9,6 +9,7 @@
 		"window:current":		{"fg": "gray4","bg": "brightestorange", "attrs": []},
 		"window_name":			{"fg": "black",		"bg": "brightestorange", "attrs": ["bold"]},
 		"session":				{"fg": "black",		"bg": "gray1",   "attrs": ["bold"]},
-		"session:prefix":		{"fg": "gray90",	"bg": "brightorange", "attrs": ["bold"]}
+		"session:prefix":		{"fg": "gray90",	"bg": "brightorange", "attrs": ["bold"]},
+		"background:divider":		{"fg": "gray4",		"bg": "gray0",    "attrs": []}
 	}
 }
