@@ -374,6 +374,8 @@ au Syntax * RainbowParenthesesLoadBraces
 " -> committia.vim
 " -> lexima.vim
 " -> goyo.vim
+let g:goyo_width='40%-10%'
+let g:goyo_height='80%'
 let $GOPATH = "/home/{{ user }}/go/:/home/{{ user }}/git/GoDeeper/"
 
 " -> coverage-highlight.vim
