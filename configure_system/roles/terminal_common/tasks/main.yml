@@ -5,6 +5,16 @@
     dest: ~/scripts
     owner: "{{ user }}"
     state: link
+- name: Create htop config folder
+  file:
+    path: ~/.config/htop
+    state: directory
+- name: Link htop config
+  file:
+    src: "{{ repo }}/htop/htoprc"
+    dest: ~/.config/htop/htoprc
+    owner: "{{ user }}"
+    state: link
 - name: Deploying alacritty config
   template:
     src: "{{ repo }}/alacritty/alacritty.yml"
@@ -45,6 +55,7 @@
       - sys-apps/exa
       - dev-python/pip
       - x11-terms/alacritty
+      - sys-process/htop
     state: present
   when: ansible_os_family == "Gentoo"
   become: yes
@@ -56,6 +67,7 @@
       # - sys-apps/exa TODO: fix by manual install
       - bat
       - python3-pip
+      - htop
     state: present
   when: ansible_os_family == "Debian"
   become: yes
