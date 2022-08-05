@@ -4,7 +4,9 @@ URxvt.foreground: white
 URxvt.background: black
 URxvt.secondaryScroll: true
 !URxvt.font: xft:Terminus (TTF):pixelsize=16
-URxvt.font: xft:Hack for Powerline:pixelsize=12
+!URxvt.font: xft:Hack for Powerline:pixelsize=13
+!URxvt.font: xft:Hack for Powerline:style=Regular:pixelsize=16
+URxvt.font: xft:Roboto Mono for Powerline:style=Regular:pixelsize=13
 !URxvt.font: xft:Knack Regular Nerd Font Complete.ttf:pixelsize=10
 URxvt.perl-ext-common: default,matcher
 URxvt.urlLauncher: /usr/bin/chromium
@@ -17,7 +19,7 @@ URxvt.tabbed.tab-fg: 0
 URxvt.tabbed.tab-bg: 1
 URxvt.tabbed.secondaryScroll: true
 !URxvt.tabbed.font: xft:SourceCodePro for Powerline:pixelsize=16
-URxvt.tabbed.font: xft:Hack for Powerline:pixelsize=14
+URxvt.tabbed.font: xft:Hack for Powerline:pixelsize=12
 URxvt*inheritPixmap: true 
 URxvt*shading: 10
 
@@ -28,6 +30,6 @@ URxvt*color12: #0066FF
 URxvt*color13: #ff33cc
 
 !xterm*faceName: Knack Regular Nerd Font Complete.ttf
-xterm*faceName: Hack for Powerline:pixelsize=10
-xterm*background: black
-xterm*foreground: lightgray
+!xterm*faceName: Hack for Powerline:pixelsize=10
+!xterm*background: black
+!xterm*foreground: lightgray
