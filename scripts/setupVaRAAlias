@@ -1,0 +1,5 @@
+#!/bin/bash
+
+alias vopt=~/vara-root/tools_src/vara-llvm-project/build/dev/bin/opt
+alias vlang=~/vara-root/tools_src/vara-llvm-project/build/dev/bin/clang
+alias vlang++=~/vara-root/tools_src/vara-llvm-project/build/dev/bin/clang++
