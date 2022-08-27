@@ -128,7 +128,8 @@ command! GetHigh call SynStack()
 " Plugin loading
 call plug#begin('~/.vim/plugged')
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --ts-completer --go-completer --rust-completer'}
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --ts-completer --go-completer --rust-completer'}
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'prabirshrestha/async.vim'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-fugitive'
@@ -168,6 +169,7 @@ Plug 'google/vim-maktaba',
 Plug 'google/vim-codefmt',
 Plug 'google/vim-glaive',
 Plug 'google/vim-syncopate',
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 
@@ -177,57 +179,123 @@ call glaive#Install()
 
 " -> YouCompleteMe
 " Bindings for C/C++ DefImp jumps
-nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
-nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
-nnoremap <leader>i :YcmCompleter GoToDeclaration <CR>
-nnoremap <F2> :YcmCompleter RefactorRename 
-nmap <leader>h <plug>(YCMHover)
-nnoremap <leader>re :YcmCompleter GoToReferences<CR> 
-
+" nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
+" nnoremap <leader>d :YcmCompleter GoToDefinition <CR>
+" nnoremap <leader>i :YcmCompleter GoToDeclaration <CR>
+" nnoremap <F2> :YcmCompleter RefactorRename 
+" nmap <leader>h <plug>(YCMHover)
+" nnoremap <leader>re :YcmCompleter GoToReferences<CR> 
 " let g:ycm_use_clangd = 0
-{% if ansible_os_family == "Gentoo" %}
-let g:ycm_clangd_binary_path = "/usr/lib/llvm/{{ llvm_version }}/bin/clangd"
-{% else %}
-let g:ycm_clangd_binary_path = "/usr/bin/clangd"
-{% endif %}
-" let g:ycm_clangd_args = ['-std=c++20']
-let g:ycm_always_populate_location_list = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_confirm_extra_conf=0
-let g:ycm_min_num_of_chars_for_completion = 1
-let g:ycm_semantic_triggers = {
-      \   'haskell' : ['.'],
-      \ 'cpp' : ['->', '.', '::', 're![a-zA-Z]+'],
-      \ }
-let g:ycm_seed_identifiers_with_syntax=1
-let g:ycm_add_preview_to_completeopt=1
-let g:ycm_max_num_candidates=20
-let g:ycm_max_num_identifier_candidates=2
+" let g:ycm_clangd_binary_path = "/usr/lib/llvm/14/bin/clangd"
+" " let g:ycm_clangd_args = ['-std=c++20']
+" let g:ycm_always_populate_location_list = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_collect_identifiers_from_tags_files = 1
+" let g:ycm_confirm_extra_conf=0
+" let g:ycm_min_num_of_chars_for_completion = 1
+" let g:ycm_semantic_triggers = {
+"       \   'haskell' : ['.'],
+"       \ 'cpp' : ['->', '.', '::', 're![a-zA-Z]+'],
+"       \ }
+" let g:ycm_seed_identifiers_with_syntax=1
+" let g:ycm_add_preview_to_completeopt=1
+" let g:ycm_max_num_candidates=20
+" let g:ycm_max_num_identifier_candidates=2
 
 " autocmd FileType java let g:EclimCompletionMethod='omnifunc'
 " autocmd FileType java set omnifunc=eclim#java#complete#CodeComplete
 " autocmd FileType java nnoremap <leader>b :ProjectBuild<CR>
 " autocmd FileType java nnoremap <leader>r :ProjectRun<CR>
 
-" -> async.vim
-" -> vim-lsp
-if executable('clangd')
-  augroup lsp_clangd
-    autocmd!
-    autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'clangd',
-          \ 'cmd': {server_info->['clangd']},
-          \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-          \ })
-    autocmd FileType c setlocal omnifunc=lsp#complete
-    autocmd FileType cpp setlocal omnifunc=lsp#complete
-    autocmd FileType objc setlocal omnifunc=lsp#complete
-    autocmd FileType objcpp setlocal omnifunc=lsp#complete
-  augroup end
-endif
-set completeopt=menu,noinsert,noselect
+" -> neoclide/coc.nvim
+set cmdheight=2
+set shortmess+=c
 
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+" nmap <silent> gd <Plug>(coc-definition)
+nnoremap <leader>d <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+nnoremap <leader>i <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+nnoremap <leader>re <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <leader>h :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <F2> <Plug>(coc-rename)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+" -> async.vim
 " -> ale
 let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
@@ -293,8 +361,8 @@ let g:EasyMotion_keys = "asdfghjklqwertyuiopzxcvbnm"
 " -> jedi-vim
 let g:jedi#auto_initialization = 1
 let g:jedi#popup_select_first = 0
-let g:jedi#use_splits_not_buffers = "top"
-let g:jedi#rename_command = "<F2>"
+" let g:jedi#use_splits_not_buffers = "top"
+" let g:jedi#rename_command = "<F2>"
 let g:jedi#completions_enabled = 0
 let g:jedi#show_call_signatures = "0"
 
@@ -422,6 +490,7 @@ augroup autoformat_settings
   autocmd FileType java AutoFormatBuffer google-java-format
   autocmd FileType python AutoFormatBuffer yapf
   autocmd FileType vue AutoFormatBuffer prettier
+  autocmd FileType rs AutoFormatBuffer rustfmt
 augroup END
 
 " -> vim-glaive
@@ -448,8 +517,8 @@ colorscheme jellybeans
 
 
 let g:rehash256 = 1
-autocmd BufNew *.go colorscheme molokai
-autocmd BufNew *.py if g:colors_name != 'molokai' | colorscheme molokai | endif
+" autocmd BufNew *.go colorscheme molokai
+" autocmd BufNew *.py if g:colors_name != 'molokai' | colorscheme molokai | endif
 
 autocmd FileType tex,text,markdown setlocal spell
 autocmd FileType tex,text,markdown set spelllang=en_us
