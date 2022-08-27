@@ -1,0 +1,18 @@
+{
+    "rust-client.rlsPath": "/usr/lib/rust/1.60.0/bin/rls",
+    "rust-analyzer.rustfmt.rangeFormatting.enable": true,
+    "rust-analyzer.rustfmt.extraArgs": ["--edition", "2021"],
+    "languageserver": {
+        "clangd": {
+            "command": "clangd",
+            "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
+            "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
+        },
+        "arduino": {
+            "command": "/home/vulder/source/arduino-language-server/arduino-language-server",
+            "rootPatterns": ["*.ino"],
+            "filetypes": ["arduino"],
+            "args": ["-cli", "/home/vulder/bin/arduino-cli", "-clangd", "/usr/lib/llvm/11/bin/clangd", "-cli-config", "/home/vulder/.arduino15/arduino-cli.yaml", "-fqbn", "esp8266:esp8266:generic"]
+        }
+    }
+}
