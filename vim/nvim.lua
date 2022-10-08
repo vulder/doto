@@ -1,11 +1,14 @@
 require'nvim-treesitter.configs'.setup {
-  highlight = {
-    ensure_installed = {"c", "cpp", "lua", "rust", "go", "bash"},
-    sync_install = false,
-    auto_install = true,
+  ensure_installed = { 
+    "c", "cpp", "lua", "rust", "go", "bash", "llvm",
+    "latex", "cmake", "bibtex", "json"
+  },
+  sync_install = false,
+  auto_install = true,
 
+  highlight = {
     enable = true,
 
-    disable = { "python" },
+    disable = { "python", "yaml", "html" },
   }
 }
