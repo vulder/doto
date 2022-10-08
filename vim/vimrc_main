@@ -171,6 +171,12 @@ Plug 'google/vim-glaive',
 Plug 'google/vim-syncopate',
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 
+" NVIM specific plugins
+if has('nvim')
+  Plug 'nvim-treesitter/nvim-treesitter'
+  Plug 'nvim-treesitter/nvim-treesitter-context'
+endif
+
 call plug#end()
 
 call glaive#Install()
@@ -499,6 +505,11 @@ augroup END
 " -> vim-syncopate
 Glaive syncopate change_colorscheme=0 browser=google-chrome-unstable
 
+" -> nvim-treesitter
+
+" ------------------------------------------------------------------------------
+" v----------------------------more config options ----------------------------v
+
 " * Color settings
 set t_Co=256
 
@@ -573,3 +584,8 @@ augroup END
 augroup filetype
  au! BufRead,BufNewFile *.rst     set filetype=rest
 augroup END
+
+" Load NVIM specific lua config
+if has('nvim')
+  luafile ~/.nvim.lua
+endif

@@ -15,5 +15,8 @@
             "filetypes": ["arduino"],
             "args": ["-cli", "/home/vulder/bin/arduino-cli", "-clangd", "/usr/lib/llvm/11/bin/clangd", "-cli-config", "/home/vulder/.arduino15/arduino-cli.yaml", "-fqbn", "esp8266:esp8266:generic"]
         }
+    },
+    "diagnostic-languageserver.filetypes": {
+        "python": ["pylint", "mypy"]
     }
 }

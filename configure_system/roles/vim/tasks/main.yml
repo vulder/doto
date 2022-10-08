@@ -25,6 +25,12 @@
     dest: ~/.vim
     owner: "{{ user }}"
     state: link
+- name: Linking nvim config
+  file:
+    src: "{{ repo }}/vim/nvim.lua"
+    dest: ~/.nvim.lua
+    owner: "{{ user }}"
+    state: link
 - name: Deploying vim config
   template:
     src: "{{ repo }}/vim/vimrc_main"
