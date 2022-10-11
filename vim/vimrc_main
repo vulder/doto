@@ -108,7 +108,8 @@ function! Redir(cmd) abort
 endfunction
 
 function! InferSpellLang()
-  return substitute(&spelllang, ',', '+', '')
+  let langs = substitute(&spelllang, ',', '+', '')
+  return substitute(langs, '_us', '', '')
 endfunction
 
 if has('nvim')
