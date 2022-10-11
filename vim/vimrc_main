@@ -98,10 +98,21 @@ vnoremap <F9> zf
 nnoremap <leader>r :w<CR>:!tmux send-keys -t {last} C-p C-j <CR><CR>
 nnoremap <leader>R :w<CR>:!tmux send-keys -t {last}. C-p C-j <CR><CR>
 
+tnoremap <ESC> <C-\><C-n>
+
+function! Redir(cmd) abort
+    tabnew
+    setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
+    exec "terminal " . a:cmd
+    normal i
+endfunction
+
 if has('nvim')
   nmap <leader>/ :term trans :en ''<left>
+  vnoremap <leader>/ y<ESC>:call Redir("trans :en '<C-R>"'")<CR>
 else
   nmap <leader>/ :!trans :en ''<left>
+  vnoremap <leader>/ y<ESC>:!trans :en '<C-R>"'<CR>
 endif
 
 " * General extra modifications
