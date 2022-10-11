@@ -107,12 +107,16 @@ function! Redir(cmd) abort
     normal i
 endfunction
 
+function! InferSpellLang()
+  return substitute(&spelllang, ',', '+', '')
+endfunction
+
 if has('nvim')
   nmap <leader>/ :term trans :en ''<left>
-  vnoremap <leader>/ y<ESC>:call Redir("trans :en '<C-R>"'")<CR>
+  vnoremap <leader>/ y<ESC>:call Redir("trans " . InferSpellLang() . ":en '<C-R>"'")<CR>
 else
   nmap <leader>/ :!trans :en ''<left>
-  vnoremap <leader>/ y<ESC>:!trans :en '<C-R>"'<CR>
+  vnoremap <leader>/ y<ESC>:!trans de+en:en '<C-R>"'<CR>
 endif
 
 " * General extra modifications
