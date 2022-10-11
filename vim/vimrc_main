@@ -88,7 +88,11 @@ vnoremap <F9> zf
 nnoremap <leader>r :w<CR>:!tmux send-keys -t {last} C-p C-j <CR><CR>
 nnoremap <leader>R :w<CR>:!tmux send-keys -t {last}. C-p C-j <CR><CR>
 
-nmap <leader>/ :!trans :en ''<left>
+if has('nvim')
+  nmap <leader>/ :term trans :en ''<left>
+else
+  nmap <leader>/ :!trans :en ''<left>
+endif
 
 " * General extra modifications
 
