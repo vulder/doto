@@ -4,6 +4,7 @@
   portage:
     package:
       - app-editors/vim
+      - app-i18n/translate-shell
     state: present
   when: ansible_os_family == "Gentoo"
   become: yes
@@ -13,6 +14,7 @@
   apt:
     name:
       - vim-gtk
+      - translate-shell
     state: present
   when: ansible_os_family == "Debian"
   become: yes
