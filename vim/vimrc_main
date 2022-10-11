@@ -74,6 +74,17 @@ set wildchar=<Tab> wildmenu wildmode=full
 map <F1> <Esc>
 imap <F1> <Esc>
 
+function! Refresh ()
+  GitGutter
+  if &filetype == "python"
+    Semshi highlight
+  endif
+  return ""
+endfunction
+
+map <silent><expr> <F5> Refresh()
+imap <silent><expr> <F5> Refresh()
+
 map <leader>m :Make<CR>
 map <leader>n :Copen<CR>
 " Ag search needs silver-searcher
