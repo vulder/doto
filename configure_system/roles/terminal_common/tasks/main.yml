@@ -40,13 +40,6 @@
     depth: 1
     accept_hostkey: yes
   register: fasd_git_result
-- name: Build and install fasd
-  make:
-    chdir: ~/.doto_src/fasd
-    target: install
-    params:
-      PREFIX: /home/{{ user }}/
-  when: fasd_git_result.after != fasd_git_result.before
 # Installation
 - name: Install terminal dependencies gentoo
   portage:
@@ -68,8 +61,17 @@
       - bat
       - python3-pip
       - htop
+      - build-essential
     state: present
   when: ansible_os_family == "Debian"
   become: yes
   tags:
     - install
+# Configure packages with install dependencies
+- name: Build and install fasd
+  make:
+    chdir: ~/.doto_src/fasd
+    target: install
+    params:
+      PREFIX: /home/{{ user }}/
+  when: fasd_git_result.after != fasd_git_result.before
