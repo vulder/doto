@@ -414,7 +414,9 @@ vnoremap <F10> :QuickRun<CR>
 
 " -> fzf
 " -> fzf.vim
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -f -g ""'
 nmap <c-p> :FZF<CR>
+nmap <leader>g :GFiles<CR>
 nmap <leader>l :Buffers<CR>
 
 " Insert mode completion
