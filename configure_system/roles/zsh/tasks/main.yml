@@ -28,7 +28,6 @@
     name:
       - zsh
       - silversearcher-ag
-      - fzf
     state: present
   when: ansible_os_family == "Debian"
   become: yes
