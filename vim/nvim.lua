@@ -10,5 +10,7 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
 
     disable = { "python", "yaml", "html" },
+
+    additional_vim_regex_highlighting = { 'latex' },
   }
 }
