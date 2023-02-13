@@ -39,6 +39,11 @@
     dest: ~/.vimrc
   vars:
     llvm_version: 14
+- name: Link generated vim config
+  file:
+    src: "~/.vimrc"
+    dest: "{{ repo }}/vim/vim_dir/init.vim" # included in .gitignore, because path of source depends on system
+    state: link
 - name: Installing vim plugins
   command: vim +PlugInstall +qall
   args:
