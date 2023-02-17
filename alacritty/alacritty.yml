@@ -12,7 +12,7 @@ font:
   italic:
     family: JetBrains Mono
 
-  size: {{ alacritty_font_size }}
+  size: {{alacritty_font_size}}
 
 window:
   dimensions:
@@ -24,29 +24,29 @@ shell:
 
 # XTerm's default colors
 colors:
-   # Default colors
-   primary:
-     background: '#000000'
-     foreground: '#aaaaaa'
+  # Default colors
+  primary:
+    background: '#000000'
+    foreground: '#aaaaaa'
 
-   # Normal colors
-   normal:
-     black:   '#000000'
-     red:     '#cd0000'
-     green:   '#00cd00'
-     yellow:  '#cdcd00'
-     blue:    '#3465A4'
-     magenta: '#cd00cd'
-     cyan:    '#00cdcd'
-     white:   '#e5e5e5'
+  # Normal colors
+  normal:
+    black: '#000000'
+    red: '#cd0000'
+    green: '#00cd00'
+    yellow: '#cdcd00'
+    blue: '#3465A4'
+    magenta: '#cd00cd'
+    cyan: '#00cdcd'
+    white: '#e5e5e5'
 
-   # Bright colors
-   bright:
-     black:   '#333333'
-     red:     '#ff0000'
-     green:   '#00ff00'
-     yellow:  '#ffff00'
-     blue:    '#5c5cff'
-     magenta: '#ff00ff'
-     cyan:    '#00ffff'
-     white:   '#ffffff'
+  # Bright colors
+  bright:
+    black: '#333333'
+    red: '#ff0000'
+    green: '#00ff00'
+    yellow: '#ffff00'
+    blue: '#5c5cff'
+    magenta: '#ff00ff'
+    cyan: '#00ffff'
+    white: '#ffffff'
