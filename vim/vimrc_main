@@ -284,7 +284,16 @@ endif
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-let g:coc_global_extensions = ['coc-jedi', 'coc-ltex', 'coc-diagnostic']
+let g:coc_global_extensions = [
+      \ 'coc-jedi',
+      \ 'coc-ltex',
+      \ 'coc-diagnostic',
+      \ 'coc-spell-checker',
+      \ 'coc-texlab',
+      \ 'coc-pyright',
+      \ 'coc-json',
+      \ 'coc-cmake'
+    \ ]
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
