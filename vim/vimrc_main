@@ -564,9 +564,8 @@ let g:rehash256 = 1
 " autocmd BufNew *.go colorscheme molokai
 " autocmd BufNew *.py if g:colors_name != 'molokai' | colorscheme molokai | endif
 
-autocmd FileType tex,text,markdown setlocal spell
-autocmd FileType tex,text,markdown set spelllang=en_us
-autocmd FileType tex,text,markdown inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+autocmd FileType text,markdown setlocal spell
+autocmd FileType text,markdown set spelllang=en_us
 
 " Alternative words -> <C-X><C-T>
 " set thesaurus+=/home/sattlerf/git/doto/vim/thesaurus/thesaurii.txt
