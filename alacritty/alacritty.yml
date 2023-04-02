@@ -22,6 +22,9 @@ window:
 shell:
   program: /bin/zsh
 
+key_bindings:
+  - {key: P, mods: Control|Shift, action: PasteSelection}
+
 # XTerm's default colors
 colors:
   # Default colors
