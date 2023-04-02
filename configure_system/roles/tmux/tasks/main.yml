@@ -24,7 +24,7 @@
 - name: Installing powerline
   pip:
     name: git+https://github.com/powerline/powerline
-    extra_args: --user
+    extra_args: --user --break-system-packages
 # Installation
 - name: Install tmux gentoo
   portage:
