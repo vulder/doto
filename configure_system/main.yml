@@ -27,4 +27,3 @@
   hosts: awesome_wm
   roles:
     - awesome
-
