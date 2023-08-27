@@ -197,7 +197,8 @@ Plug 'google/vim-maktaba',
 Plug 'google/vim-codefmt',
 Plug 'google/vim-glaive',
 Plug 'google/vim-syncopate',
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' },
+Plug 'christoomey/vim-tmux-navigator'
 
 " NVIM specific plugins
 if has('nvim')
@@ -292,7 +293,8 @@ let g:coc_global_extensions = [
       \ 'coc-texlab',
       \ 'coc-pyright',
       \ 'coc-json',
-      \ 'coc-cmake'
+      \ 'coc-cmake',
+      \ 'coc-yank'
     \ ]
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -546,6 +548,12 @@ augroup END
 Glaive syncopate change_colorscheme=0 browser=google-chrome-unstable
 
 " -> nvim-treesitter
+
+" -> christoomey/vim-tmux-navigator
+let g:tmux_navigator_disable_when_zoomed = 1
+" restore resizing
+nmap <C-Left> <Plug>DWMShrinkMaster
+nmap <C-Right> <Plug>DWMGrowMaster
 
 " ------------------------------------------------------------------------------
 " v----------------------------more config options ----------------------------v
