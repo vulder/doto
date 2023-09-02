@@ -652,6 +652,9 @@ function tmux_attach() {
 	if [[ -n "$session" ]]; then tmux att -t $session
 	fi
 }
+
+bindkey '^u' clear-screen
+
 autoload -U compinit
 # compinit
 # compinit -u
