@@ -45,7 +45,7 @@
   portage:
     package:
       - sys-apps/bat
-      - sys-apps/exa
+      - sys-apps/eza
       - dev-python/pip
       - x11-terms/alacritty
       - sys-process/htop
