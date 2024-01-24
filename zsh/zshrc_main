@@ -88,9 +88,9 @@ if ! zgen saved; then
 	# zgen oh-my-zsh plugins/grunt
 	# zgen oh-my-zsh plugins/heroku
 	zgen oh-my-zsh plugins/history
-	zgen oh-my-zsh plugins/history-substring-search
+	# zgen oh-my-zsh plugins/history-substring-search
 	# zgen oh-my-zsh plugins/httpie
-	zgen oh-my-zsh plugins/iwhois
+	# zgen oh-my-zsh plugins/iwhois
 	# zgen oh-my-zsh plugins/jake-node
 	# zgen oh-my-zsh plugins/jhbuild
 	# zgen oh-my-zsh plugins/jira
@@ -222,8 +222,8 @@ if ! zgen saved; then
 	zgen load psprint/zsh-navigation-tools
 	
 	zgen load zsh-users/zsh-syntax-highlighting
-	zgen load trapd00r/zsh-syntax-highlighting-filetypes
-	zgen oh-my-zsh plugins/zsh-syntax-highlighting
+	# zgen load trapd00r/zsh-syntax-highlighting-filetypes
+	# zgen oh-my-zsh plugins/zsh-syntax-highlighting
 	
 	zgen load zsh-users/zsh-history-substring-search
 	# zgen load unixorn/zsh-starter-kit	# login
