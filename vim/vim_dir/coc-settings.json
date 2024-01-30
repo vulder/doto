@@ -3,12 +3,8 @@
     "rust-client.rlsPath": "/usr/lib/rust/1.60.0/bin/rls",
     "rust-analyzer.rustfmt.rangeFormatting.enable": true,
     "rust-analyzer.rustfmt.extraArgs": ["--edition", "2021"],
+    "clangd.arguments": ["--function-arg-placeholders=false", "--header-insertion=iwyu", "--completion-style=detailed", "--clang-tidy"],
     "languageserver": {
-        "clangd": {
-            "command": "clangd",
-            "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
-            "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
-        },
         "arduino": {
             "command": "/home/vulder/source/arduino-language-server/arduino-language-server",
             "rootPatterns": ["*.ino"],
