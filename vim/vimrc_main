@@ -425,7 +425,8 @@ vnoremap <F10> :QuickRun<CR>
 " -> fzf
 " -> fzf.vim
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -f -g ""'
-nmap <c-p> :Files<CR>
+" nmap <c-p> :Files<CR>
+nmap <leader>p :Files<CR>
 nmap <leader>g :GFiles<CR>
 nmap <leader>l :Buffers<CR>
 
