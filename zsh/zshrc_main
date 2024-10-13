@@ -509,13 +509,16 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}⚡"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 
+ZSH_THEME_VIRTUALENV_PREFIX="%{$fg[blue]%}("
+ZSH_THEME_VIRTUALENV_SUFFIX=")%{$reset_color%} "
+
 function prompt_char {
 	if [ $UID -eq 0 ]; then echo "%{$fg[red]%}#%{$reset_color%}"; else echo "%{$fg_lineStart%}>%{$reset_color%}"; fi
 }
 
 PROMPT='
 %(?,,%{$fg[red]%}$? %{$reset_color%})%{$fg_user%}%n%{$fg_at%}@%{$fg_host%}%m%{$reset_color%}: %{$fg_oA%}%~%{$reset_color%}$(git_prompt_info)
-$(prompt_char) '
+$(virtualenv_prompt_info)$(prompt_char) '
 #%_
 
 function prompt_ip {
