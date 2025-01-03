@@ -26,7 +26,7 @@ foreground = "#aaaaaa"
 TERM = "xterm-256color"
 
 [font]
-size = 8
+size = {{alacritty_font_size}}
 
 [font.bold]
 family = "JetBrains Mono"
@@ -43,9 +43,11 @@ action = "PasteSelection"
 key = "P"
 mods = "Control|Shift"
 
-[shell]
+[terminal.shell]
 program = "/bin/zsh"
 
 [window.dimensions]
 columns = 90
 lines = 30
+
+[terminal]

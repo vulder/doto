@@ -17,8 +17,8 @@
     state: link
 - name: Deploying alacritty config
   template:
-    src: "{{ repo }}/alacritty/alacritty.yml"
-    dest: ~/.alacritty.yml
+    src: "{{ repo }}/alacritty/alacritty.toml"
+    dest: ~/.alacritty.toml
 - name: Linking fonts
   file:
     src: "{{ repo }}/fonts"
