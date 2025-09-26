@@ -444,9 +444,10 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 autocmd FileType python :BracelessEnable +highlight +indent
 
 " -> vim-gitgutter
-nnoremap <leader>gp :GitGutterPreviewHunk<CR>
-nnoremap <leader>gr :GitGutterRevertHunk<CR>
-nnoremap <leader>gs :GitGutterStageHunk<CR>
+nnoremap <silent><nowait> <leader>gp :GitGutterPreviewHunk<CR>
+nnoremap <silent><nowait> <leader>gr :GitGutterRevertHunk<CR>
+nnoremap <silent><nowait> <leader>gs :GitGutterStageHunk<CR>
+nnoremap <silent><nowait> <leader>go :Git<CR>
 
 " -> vim-multiple-cursors
 " -> ultisnips
