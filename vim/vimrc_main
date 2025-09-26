@@ -296,8 +296,9 @@ let g:coc_global_extensions = [
       \ 'coc-cmake',
       \ 'coc-yank'
     \ ]
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent><nowait> [g <Plug>(coc-diagnostic-prev)
+nnoremap <silent><nowait> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent><nowait> <leader>ee :CocDiagnostics<CR>
 
 " GoTo code navigation.
 " nmap <silent> gd <Plug>(coc-definition)
