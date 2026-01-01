@@ -704,5 +704,6 @@ if [[ ! "$PATH" == */home/{{ user }}/git/depot_tools* ]]; then
 fi
 export GOPATH="/home/{{ user }}/source/go"
 export PATH="$PATH:/home/{{ user }}/source/go/bin"
+export MANPAGER='vi +Man!'
 
 source ~/.tmuxinator/tmuxinator.zsh
