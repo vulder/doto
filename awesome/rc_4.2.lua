@@ -60,7 +60,7 @@ run_once({"nm-applet"})
 -- run_once("wmname LG3D")
 run_once({"redshift -l manual"})
 run_once({"seafile-applet"})
-run_once({"conky", " -c /home/vulder/.conkyrc"})
+-- run_once({"conky", " -c /home/vulder/.conkyrc"})
 -- run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
 run_once({"unclutter -root"})
 
@@ -97,7 +97,8 @@ local altkey       = "Mod1"
 local terminal     = "alacritty"
 local terminal_args = "-x tmux -2 new-session -A -s drop"
 local editor       = os.getenv("EDITOR") or "vim"
-local browser      = "google-chrome-unstable"
+-- local browser      = "google-chrome-unstable"
+local browser      = "firefox"
 local guieditor    = "gvim"
 local scrlocker    = "i3lock -c 094C75"
 local soundGui     = "pavucontrol"
