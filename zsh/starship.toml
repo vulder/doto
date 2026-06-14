@@ -4,7 +4,7 @@ scan_timeout = 10
 command_timeout = 50
 
 format = """
-$username$hostname:$directory$git_branch$git_status$cmd_duration
+$status$username$hostname:$directory$git_branch$git_status$cmd_duration
 $python$character"""
 
 [username]
@@ -57,4 +57,9 @@ format = " ([⏱️  $duration ]($style))"
 
 [character]
 success_symbol = "[>](bold 237)"
-error_symbol = "[>](bold red)"
+error_symbol = "[>](bold 237)"
+
+[status]
+disabled = false
+format = '[$status]($style) '
+style = 'bold red'
