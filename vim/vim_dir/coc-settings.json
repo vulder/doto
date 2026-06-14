@@ -1,9 +1,22 @@
 {
     "suggest.noselect": true,
+
     "rust-client.rlsPath": "/usr/lib/rust/1.60.0/bin/rls",
     "rust-analyzer.rustfmt.rangeFormatting.enable": true,
     "rust-analyzer.rustfmt.extraArgs": ["--edition", "2021"],
-    "clangd.arguments": ["--function-arg-placeholders=false", "--header-insertion=iwyu", "--completion-style=detailed", "--clang-tidy"],
+    "rust-analyzer.check.command": "clippy",
+    "rust-analyzer.cargo.buildScripts.enable": true,
+    "rust-analyzer.procMacro.enable": true,
+    "rust-analyzer.diagnostics.enable": true,
+
+    "clangd.arguments": [
+        "--function-arg-placeholders=false",
+        "--header-insertion=iwyu",
+        "--completion-style=detailed",
+        "--clang-tidy",
+        "--malloc-trim",
+        "--background-index"
+    ],
     "languageserver": {
         "arduino": {
             "command": "/home/vulder/source/arduino-language-server/arduino-language-server",
