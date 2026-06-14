@@ -17,6 +17,11 @@
         "--malloc-trim",
         "--background-index"
     ],
+
+    "python.analysis.typeCheckingMode": "strict",
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.useLibraryCodeForTypes": true,
+
     "languageserver": {
         "arduino": {
             "command": "/home/vulder/source/arduino-language-server/arduino-language-server",

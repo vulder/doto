@@ -7,12 +7,8 @@
 "             of them may change VIM behavior that you depend on.
 "
 
-" It's VIM, not VI
-set nocompatible
-
 " * General configurations
 set cursorline
-set encoding=utf-8
 set hidden
 set incsearch
 set laststatus=2
@@ -46,7 +42,6 @@ set expandtab
 set tabstop=2
 " Add and delete spaces in increments of `shiftwidth' for tabs
 set smarttab
-set backspace=indent,eol,start
 
 " Enable file type detection
 filetype on
@@ -67,8 +62,7 @@ augroup SystemArchitectureAutocmds
   autocmd FileType go setlocal listchars=tab:▸\ 
 
   " LLVM definitions
-  autocmd BufRead,BufNewFile *Makefile* setlocal filetype=make
-  autocmd FileType make setlocal noexpandtab
+  autocmd BufRead,BufNewFile *Makefile* setlocal filetype=make noexpandtab
   autocmd BufRead,BufNewFile *.ll       setlocal filetype=llvm
   autocmd BufRead,BufNewFile *.td       setlocal filetype=tablegen
   autocmd BufRead,BufNewFile *.rst      setlocal filetype=rest
@@ -80,7 +74,7 @@ augroup SystemArchitectureAutocmds
 
   " C/C++ Indentation Style Guidelines (LLVM Aligned)
   autocmd FileType c,cpp setlocal cindent cinoptions=:0,g0,(0,Ws,l1
-  autocmd FileType *      set nocindent smartindent
+  autocmd FileType python set nocindent smartindent
 augroup END
 
 " * General key bindings
@@ -187,6 +181,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tweekmonster/braceless.vim', { 'for': 'python'}
 Plug 'airblade/vim-gitgutter'
+" TODO: checkout alternative (e.g., mg979/vim-visual-multi)
 Plug 'terryma/vim-multiple-cursors'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -289,7 +284,6 @@ endif
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 let g:coc_global_extensions = [
-      \ 'coc-jedi',
       \ 'coc-ltex',
       \ 'coc-diagnostic',
       \ 'coc-spell-checker',
