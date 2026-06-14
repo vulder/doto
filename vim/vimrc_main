@@ -7,14 +7,10 @@
 "             of them may change VIM behavior that you depend on.
 "
 
-" nvim fix for leaking symbols
-set guicursor=
-
 " It's VIM, not VI
 set nocompatible
 
 " * General configurations
-set backspace=indent,eol,start
 set cursorline
 set encoding=utf-8
 set hidden
@@ -25,12 +21,23 @@ set listchars=trail:.
 set mouse=a
 set nohlsearch
 set number
-set tags+=./.tags
 set splitbelow
 set noswapfile
 
+let updatetime=300
+set cmdheight=1
+set shortmess+=c
+
 " Ignore files with type *.x
 set wildignore+=build,*.a,*.so,*.o,*.obj,.git
+
+if has('nvim')
+  " nvim fix for leaking symbols
+  set guicursor=
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 
 " A tab produces a 2-space indentation
 set softtabstop=2
@@ -39,19 +46,13 @@ set expandtab
 set tabstop=2
 " Add and delete spaces in increments of `shiftwidth' for tabs
 set smarttab
-
-" Go specific tab handling
-autocmd FileType go set listchars=tab:▸\ 
+set backspace=indent,eol,start
 
 " Enable file type detection
 filetype on
 " Enable loading the plugin files
 filetype plugin on
-
-" Fixed file type detection
-augroup filetype
-  au! BufRead,BufNewFile *.tex     set filetype=tex
-augroup END
+filetype plugin indent on
 
 " Map leader later used 4 shortcuts
 let mapleader = " "
@@ -59,13 +60,27 @@ let mapleader = " "
 " Highlight syntax in programming languages
 syntax on
 
-" Enable syntax highlighting for ram files. To use, copy
-augroup filetype
-  au! BufRead,BufNewFile *.ram     set filetype=ram
-augroup END
+augroup SystemArchitectureAutocmds
+  autocmd!
 
-augroup filetype
-  au! BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
+  " Go specific tab handling
+  autocmd FileType go setlocal listchars=tab:▸\ 
+
+  " LLVM definitions
+  autocmd BufRead,BufNewFile *Makefile* setlocal filetype=make
+  autocmd FileType make setlocal noexpandtab
+  autocmd BufRead,BufNewFile *.ll       setlocal filetype=llvm
+  autocmd BufRead,BufNewFile *.td       setlocal filetype=tablegen
+  autocmd BufRead,BufNewFile *.rst      setlocal filetype=rest
+
+  " Ansible/YAML/Tex
+  autocmd BufRead,BufNewFile *.tex      setlocal filetype=tex
+  autocmd BufRead,BufNewFile *.ram      setlocal filetype=ram
+  autocmd BufRead,BufNewFile */playbooks/*.yml setlocal filetype=yaml.ansible
+
+  " C/C++ Indentation Style Guidelines (LLVM Aligned)
+  autocmd FileType c,cpp setlocal cindent cinoptions=:0,g0,(0,Ws,l1
+  autocmd FileType *      set nocindent smartindent
 augroup END
 
 " * General key bindings
@@ -243,17 +258,6 @@ call glaive#Install()
 " autocmd FileType java nnoremap <leader>r :ProjectRun<CR>
 
 " -> neoclide/coc.nvim
-set cmdheight=2
-set shortmess+=c
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: There's always complete item selected by default, you may want to enable
@@ -569,7 +573,6 @@ set t_Co=256
 "colorscheme badwolf
 "colorscheme wellsokai
 
-let updatetime=400
 let g:jellybeans_ccextra=1
 colorscheme jellybeans
 "let g:rehash256 = 1
@@ -592,48 +595,6 @@ autocmd FileType text,markdown set spelllang=en_us
 
 " highlight ColorColumn ctermbg=DarkMagenta
 call matchadd('ColorColumn', '\%81v', 100)
-
-" * Optional C/C++ programming helpers
-augroup csrc
-  au!
-  autocmd FileType *      set nocindent smartindent
-  autocmd FileType c,cpp  set cindent
-augroup END
-
-" * LLVM specific options
-
-" Set a few indentation parameters. See the VIM help for cinoptions-values for
-" details.  These aren't absolute rules; they're just an approximation of
-" common style in LLVM source.
-set cinoptions=:0,g0,(0,Ws,l1
-
-" LLVM Makefiles can have names such as Makefile.rules or TEST.nightly.Makefile,
-" so it's important to categorize them as such.
-augroup filetype
-  au! BufRead,BufNewFile *Makefile* set filetype=make
-augroup END
-
-" In Makefiles, don't expand tabs to spaces, since we need the actual tabs
-autocmd FileType make set noexpandtab
-
-" Enable syntax highlighting for LLVM files. To use, copy
-" utils/vim/llvm.vim to ~/.vim/syntax .
-augroup filetype
-  au! BufRead,BufNewFile *.ll     set filetype=llvm
-augroup END
-
-" Enable syntax highlighting for tablegen files. To use, copy
-" utils/vim/tablegen.vim to ~/.vim/syntax .
-augroup filetype
-  au! BufRead,BufNewFile *.td     set filetype=tablegen
-augroup END
-
-" Enable syntax highlighting for reStructuredText files. To use, copy
-" rest.vim (http://www.vim.org/scripts/script.php?script_id=973)
-" to ~/.vim/syntax .
-augroup filetype
- au! BufRead,BufNewFile *.rst     set filetype=rest
-augroup END
 
 " Load NVIM specific lua config
 if has('nvim')
