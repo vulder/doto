@@ -174,7 +174,6 @@ call plug#begin('~/.vim/plugged')
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --ts-completer --go-completer --rust-completer'}
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'prabirshrestha/async.vim'
-Plug 'w0rp/ale'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-dispatch'
@@ -349,53 +348,6 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
 endif
 
 " -> async.vim
-" -> ale
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
-
-let g:ale_linters = {
-      \ 'h': ['clangtidy'],
-      \ 'hpp': ['clangtidy'],
-      \ 'cpp': ['clangtidy'],
-      \ }
-
- let g:ale_pattern_options = {
-       \ '\.h$': {
-       \   'ale_cpp_clangtidy_extra_options': '-std=' . cppstd . ' -I/home/vulder/git/vara-llvm-project/llvm/include/ -I/home/vulder/git/vara-llvm-project/llvm/dbg/include/ -I/home/vulder/git/vara-llvm-project/clang/include/ -I/home/vulder/git/vara-llvm-project/vara/include/ -I/home/vulder/git/benchtest/code/build/googlebenchmark-src/include -I/home/vulder/git/vara-llvm-project/vara/lib/libTracing/ -I/home/vulder/git/ProgrammingFun/Cpp/extern/abseil-cpp/ -I/home/vulder/git/vara-llvm-project/phasar/include/ -I/home/vulder/git/vara-llvm-project/phasar/external/json/include/ -I/home/vulder/git/vara-feature/include/',
-       \   },
-       \ '\.cpp$': {
-       \   'ale_cpp_clangtidy_extra_options': '-std=' . cppstd . ' -I/home/vulder/git/vara-llvm-project/llvm/include/ -I/home/vulder/git/vara-llvm-project/llvm/build/dev/include/ -I/home/vulder/git/vara-llvm-project/clang/include/ -I/home/vulder/git/vara-llvm-project/vara/include/ -I/home/vulder/git/benchtest/code/build/googlebenchmark-src/include -I/home/vulder/git/ProgrammingFun/Cpp/extern/abseil-cpp/ -I/home/vulder/git/vara-llvm-project/phasar/include/',
-       \   }
-       \}
-
-" ale: c/cpp
-{% if ansible_facts['os_family'] == "Gentoo" %}
-let g:ale_cpp_clangtidy_executable = '/usr/lib/llvm/{{ llvm_version }}/bin/clang-tidy'
-{% else %}
-let g:ale_cpp_clangtidy_executable = '/usr/bin/clang-tidy'
-{% endif %}
-let g:ale_cpp_clang_options = '-std=' . cppstd . ' -Wall -I''/home/{{ user }}/git/vara-llvm-project/llvm/include/'''
-let g:ale_cpp_clangtidy_checks = []
-
-let g:ale_c_build_dir_names = ['build/debug/', 'build/dev/', 'build/dbg/', 'build/']
-
-" ale: python
-let g:ale_python_flake8_executable = 'python3'
-let g:ale_python_flake8_options = '-m flake8'
-let g:ale_python_pylint_executable = 'python3'
-let g:ale_python_pylint_options = '-m pylint'
-nmap <silent> <leader>eu <Plug>(ale_previous_wrap)
-nmap <silent> <leader>ed <Plug>(ale_next_wrap)
-
-" ale: ansible
-" pip install ansible-lint
-"
-" ale: cmake
-" pip install cmakelang
-"
-" ale: text
-" pip install proselint
-
 " -> vim-fugitive
 " -> vim-airline
 " Airline display Buffers at top row
@@ -539,15 +491,28 @@ nnoremap <silent> <leader>c :FormatCode<CR>
 vnoremap <silent> <leader>c :FormatLines<CR>
 augroup autoformat_settings
   autocmd FileType bzl AutoFormatBuffer buildifier
-  " autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  " autocmd FileType c,cpp,proto,javascript,typescript,arduino AutoFormatBuffer clang-format
+  autocmd FileType clojure AutoFormatBuffer cljstyle
   autocmd FileType dart AutoFormatBuffer dartfmt
-  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType elixir,eelixir,heex AutoFormatBuffer mixformat
+  autocmd FileType fish AutoFormatBuffer fish_indent
   autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType haskell AutoFormatBuffer ormolu
+  " Alternative for web languages: prettier
   autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
   autocmd FileType java AutoFormatBuffer google-java-format
-  autocmd FileType python AutoFormatBuffer yapf
+  autocmd FileType jsonnet AutoFormatBuffer jsonnetfmt
+  autocmd FileType julia AutoFormatBuffer JuliaFormatter
+  autocmd FileType kotlin AutoFormatBuffer ktfmt
+  autocmd FileType lua AutoFormatBuffer luaformatterfiveone
+  autocmd FileType markdown AutoFormatBuffer prettier
+  autocmd FileType ocaml AutoFormatBuffer ocamlformat
+  autocmd FileType python AutoFormatBuffer ruff
+  autocmd FileType ruby AutoFormatBuffer rubocop
+  autocmd FileType rust AutoFormatBuffer rustfmt
+  autocmd FileType swift AutoFormatBuffer swift-format
   autocmd FileType vue AutoFormatBuffer prettier
-  autocmd FileType rs AutoFormatBuffer rustfmt
 augroup END
 
 " -> vim-glaive
