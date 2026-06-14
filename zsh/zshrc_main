@@ -577,7 +577,7 @@ if which eza > /dev/null; then
   alias ls="eza"
   alias l="eza -lF -h --git" # list, size, type, git
   alias ll="eza -lbF --git" # list, size, type, git
-  alias la="eza -lbhHigUmuSa --time-style=long-iso --git --color-scale" # all list
+  alias la="eza -lbhHigUmuSa --time-style=long-iso --git --color-scale all" # list
 fi
 
 set bell-style none
