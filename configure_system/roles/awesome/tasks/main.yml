@@ -40,8 +40,8 @@
     package:
       - x11-wm/awesome
     state: present
-  when: ansible_os_family == "Gentoo"
-  become: yes
+  when: ansible_facts['os_family'] == "Gentoo"
+  become: true
   tags:
     - install
 - name: Install terminal dependencies debian
@@ -50,7 +50,7 @@
       - awesome
       - awesome-extra
     state: present
-  when: ansible_os_family == "Debian"
-  become: yes
+  when: ansible_facts['os_family'] == "Debian"
+  become: true
   tags:
     - install

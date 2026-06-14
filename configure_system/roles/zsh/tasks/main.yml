@@ -19,8 +19,8 @@
       - sys-apps/the_silver_searcher
       - app-shells/fzf
     state: present
-  when: ansible_os_family == "Gentoo"
-  become: yes
+  when: ansible_facts['os_family'] == "Gentoo"
+  become: true
   tags:
     - install
 - name: Install zsh debian
@@ -29,7 +29,7 @@
       - zsh
       - silversearcher-ag
     state: present
-  when: ansible_os_family == "Debian"
-  become: yes
+  when: ansible_facts['os_family'] == "Debian"
+  become: true
   tags:
     - install

@@ -14,6 +14,7 @@ HOST=`/bin/hostname --short`
 pushd $REPO
 git submodule update --init --recursive
 
+# ANSIBLE_ENABLE_TASK_DEBUGGER=True
 ansible-playbook -i "configure_system/hosts" \
   --connection=local \
   --limit="${HOST}" \

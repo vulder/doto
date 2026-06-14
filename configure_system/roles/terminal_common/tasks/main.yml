@@ -51,7 +51,7 @@
       - x11-terms/alacritty
       - sys-process/htop
     state: present
-  when: ansible_os_family == "Gentoo"
+  when: ansible_facts['os_family'] == "Gentoo"
   become: true
   tags:
     - install
@@ -64,7 +64,7 @@
       - htop
       - build-essential
     state: present
-  when: ansible_os_family == "Debian"
+  when: ansible_facts['os_family'] == "Debian"
   become: true
   tags:
     - install

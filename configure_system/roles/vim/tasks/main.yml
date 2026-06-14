@@ -6,8 +6,8 @@
       - app-editors/vim
       - app-i18n/translate-shell
     state: present
-  when: ansible_os_family == "Gentoo"
-  become: yes
+  when: ansible_facts['os_family'] == "Gentoo"
+  become: true
   tags:
     - install
 - name: Install vim debian
@@ -16,8 +16,8 @@
       - vim-gtk
       - translate-shell
     state: present
-  when: ansible_os_family == "Debian"
-  become: yes
+  when: ansible_facts['os_family'] == "Debian"
+  become: true
   tags:
     - install
 # Configuration

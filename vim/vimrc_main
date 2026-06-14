@@ -365,7 +365,7 @@ let g:ale_linters = {
        \}
 
 " ale: c/cpp
-{% if ansible_os_family == "Gentoo" %}
+{% if ansible_facts['os_family'] == "Gentoo" %}
 let g:ale_cpp_clangtidy_executable = '/usr/lib/llvm/{{ llvm_version }}/bin/clang-tidy'
 {% else %}
 let g:ale_cpp_clangtidy_executable = '/usr/bin/clang-tidy'
