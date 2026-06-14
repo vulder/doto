@@ -216,7 +216,6 @@ if ! zgen saved; then
 	zgen load http://git.code.sf.net/p/zsh/code Completion/Linux/Command 
 	zgen load Vifon/deer
 	zgen load joel-porquet/zsh-dircolors-solarized
-	zgen load zsh-users/zaw
 	zgen load clvv/fasd
 	#zgen load b4b4r07/enhancd
 	zgen load psprint/zsh-navigation-tools
@@ -370,14 +369,7 @@ fpath=(/home/{{ user }}/.zgen/http:/git.code.sf.net/p/zsh/code-master/Completion
 # bindkey "$terminfo[kcuu1]" history-substring-search-up
 # bindkey "$terminfo[kcud1]" history-substring-search-down
 # bindkey '^R' history-incremental-pattern-search-backward
-bindkey '^R' zaw-history
-bindkey '^Q' zaw
 
-# bindkey '^Qf' zaw-open-file
-# bindkey '^Qa' zaw-applications
-# bindkey '^Qc' zaw-commands
-# bindkey '^Qp' zaw-process
-# bindkey '^Qs' zaw-ssh-hosts
 # # autoload -Uz history-beginning-search-menu
 # # zle -N history-beginning-search-menu
 # # bindkey '^X^X' history-beginning-search-menu
@@ -617,44 +609,9 @@ zshGit(){
 	eval "$def";
 	# RPROMPT=''
 }
-# ______________________________________________[zaw]
-function zaw-src-fuzzy() {
-	OLDIFS=$IFS
-	IFS=$'\n'
-	candidates=($(find .))
-	candidates=(${(iou)candidates[@]})
-	IFS=$OLDIFS
-	unset OLDIFS
-	# Define what kind of action can be performed on the selected item
-	# first: accept-line
-	# second: accept-search
-	actions=("zaw-callback-execute" "zaw-callback-append-to-buffer")
-	act_descriptions=("execute" "append to edit buffer")
-}
-zaw-register-src -n fuzzy zaw-src-fuzzy
-
-function fuzzy-start { kill-line; zaw-fuzzy }
-zle -N fuzzy-start
-bindkey '^F' fuzzy-start
 # ----------------------------
 bindkey -M filterselect '^M' accept-search
 # ______________________________________________
-
-function exists { which $1 &> /dev/null }
-# if exists percol; then					# percol, [CTRL+r]
-# 	function percol_select_history() { local tac; exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }; BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER"); CURSOR=$#BUFFER; zle -R -c; }
-# 	zle -N percol_select_history; bindkey '^R' percol_select_history
-# fi
-function tmux_attach() {
-	if [[ $1 == "" ]]; then PERCOL=percol
-	else PERCOL="percol --query $1"
-	fi
-	sessions=$(tmux ls)
-	[ $? -ne 0 ] && return
-	session=$(echo $sessions | eval $PERCOL | cut -d : -f 1)
-	if [[ -n "$session" ]]; then tmux att -t $session
-	fi
-}
 
 bindkey '^u' clear-screen
 
@@ -663,18 +620,44 @@ autoload -U compinit
 # compinit -u
 # compinit -C
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# source /root/.local/lib/python3.4/site-packages/powerline/bindings/zsh/powerline.zsh
-unalias gg
-if [[ ! "$PATH" == */usr/local/p/versions/python* ]]; then
-  export PATH="/usr/local/p/versions/python:$PATH"
+
+# FZF Core Configuration & Engine Opt-in
+if (( $+commands[fzf] )); then
+    # Optimize traversal engine using fd or ripgrep if available
+    if (( $+commands[fd] )); then
+        export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+        export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+    elif (( $+commands[rg] )); then
+        export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    fi
+
+    # High-density UI configuration matching terminal layout
+    export FZF_DEFAULT_OPTS='
+        --height 40%
+        --layout=reverse
+        --border=sharp
+        --inline-info
+        --color=fg:-1,bg:-1,hl:190,fg+:255,bg+:234,hl+:190
+        --color=info:244,prompt:122,pointer:214,marker:160,spinner:141'
+
+    # Refactored asymmetric tmux session attachment pipeline
+    tmux_attach() {
+        local sessions session
+        sessions=$(tmux list-sessions 2>/dev/null)
+        [[ -z "$sessions" ]] && return 1
+
+        session=$(echo "$sessions" | fzf --query="$1" --select-1 --exit-0 | cut -d: -f1)
+        [[ -n "$session" ]] && tmux attach-session -t "$session"
+    }
+    alias ta='tmux_attach'
 fi
 
-if which ruby >/dev/null && which gem >/dev/null; then
-    TMP_PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin"
-    if [[ ! "$PATH" == *$TMP_PATH* ]]; then
-      PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
-    fi
-fi
+
+# source /root/.local/lib/python3.4/site-packages/powerline/bindings/zsh/powerline.zsh
+unalias gg
+
 source ~/.doto_src/enhancd/init.sh
 eval "$(fasd --init auto)"
 
@@ -690,20 +673,18 @@ if which eza > /dev/null; then
 fi
 
 set bell-style none
-if [[ ! "$PATH" == */home/{{ user }}/.local/bin* ]]; then
-  export PATH="$PATH:/home/{{ user }}/.local/bin"
-fi
-if [[ ! "$PATH" == */home/{{ user }}/bin* ]]; then
-  export PATH="/home/{{ user }}/bin:$PATH"
-fi
-if [[ ! "$PATH" == */home/{{ user }}/scripts* ]]; then
-  export PATH="/home/{{ user }}/scripts:$PATH"
-fi
-if [[ ! "$PATH" == */home/{{ user }}/git/depot_tools* ]]; then
-  export PATH="$PATH:/home/{{ user }}/git/depot_tools"
-fi
 export GOPATH="/home/{{ user }}/source/go"
-export PATH="$PATH:/home/{{ user }}/source/go/bin"
 export MANPAGER='vi +Man!'
+
+typeset -U path
+path=(
+  /home/{{ user }}/.local/bin
+  /home/{{ user }}/bin
+  /home/{{ user }}/scripts
+  /home/{{ user }}/source/go/bin
+  $(ruby -r rubygems -e 'puts Gem.user_dir' 2>/dev/null)/bin
+  $path
+)
+export PATH
 
 source ~/.tmuxinator/tmuxinator.zsh
