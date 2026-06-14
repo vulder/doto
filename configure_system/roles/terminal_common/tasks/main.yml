@@ -34,13 +34,6 @@
     depth: 1
     version: main
     accept_hostkey: yes
-- name: Setting up fasd repository
-  git:
-    repo: "https://github.com/clvv/fasd.git"
-    dest: ~/.doto_src/fasd
-    depth: 1
-    accept_hostkey: yes
-  register: fasd_git_result
 # Installation
 - name: Install terminal dependencies gentoo
   portage:
@@ -50,6 +43,7 @@
       - dev-python/pip
       - x11-terms/alacritty
       - sys-process/htop
+      - app-shells/zoxide
     state: present
   when: ansible_facts['os_family'] == "Gentoo"
   become: true
@@ -63,16 +57,9 @@
       - python3-pip
       - htop
       - build-essential
+      - zoxide
     state: present
   when: ansible_facts['os_family'] == "Debian"
   become: true
   tags:
     - install
-# Configure packages with install dependencies
-- name: Build and install fasd
-  make:
-    chdir: ~/.doto_src/fasd
-    target: install
-    params:
-      PREFIX: /home/{{ user }}/
-  when: fasd_git_result.after != fasd_git_result.before

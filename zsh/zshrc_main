@@ -14,7 +14,6 @@ if ! zgen saved; then
 	###zgen oh-my-zsh plugins/archlinux
 	# zgen oh-my-zsh plugins/atom
 	# zgen oh-my-zsh plugins/autoenv
-	zgen oh-my-zsh plugins/autojump
 	# zgen oh-my-zsh plugins/autopep8
 	# zgen oh-my-zsh plugins/aws
 	zgen oh-my-zsh plugins/battery
@@ -61,7 +60,6 @@ if ! zgen saved; then
 	# zgen oh-my-zsh plugins/encode64
 	zgen oh-my-zsh plugins/extract
 	# zgen oh-my-zsh plugins/fabric
-	zgen oh-my-zsh plugins/fasd
 	# zgen oh-my-zsh plugins/fastfile
 	# zgen oh-my-zsh plugins/fbterm
 	# zgen oh-my-zsh plugins/forklift
@@ -219,7 +217,6 @@ if ! zgen saved; then
 	zgen load http://git.code.sf.net/p/zsh/code Completion/Linux/Command 
 	zgen load Vifon/deer
 	zgen load joel-porquet/zsh-dircolors-solarized
-	zgen load clvv/fasd
 	#zgen load b4b4r07/enhancd
 	zgen load psprint/zsh-navigation-tools
 	
@@ -458,9 +455,6 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=magenta,bold'
 # # [ -f /root/.travis/travis.sh ] && source /root/.travis/travis.sh
 
 # ______________________________________________[OSO]
-#. /usr/share/autojump/autojump.sh
-# . /usr/share/autojump/autojump.zsh
-#. ~/.doto_src/autojump/bin/autojump.zsh
 #source /oso/db/xcl/oso/_FC/_opt/sh/shOpt.sh
 
 alias zNoflwLink="unsetopt chaselinks"
@@ -664,12 +658,19 @@ if (( $+commands[fzf] )); then
     alias ta='tmux_attach'
 fi
 
+# ______________________________________________[ZOXIDE INITIALIZATION]
+if (( $+commands[zoxide] )); then
+    # Initializes zoxide and maps the primary command to 'z' and interactive to 'zi'
+    eval "$(zoxide init zsh)"
 
+    # Optional: Retain 'j' muscle memory from autojump by alias mapping
+    alias j='z'
+    alias ji='zi'
+fi
 # source /root/.local/lib/python3.4/site-packages/powerline/bindings/zsh/powerline.zsh
 unalias gg
 
 source ~/.doto_src/enhancd/init.sh
-eval "$(fasd --init auto)"
 
 if which bat > /dev/null; then
   alias cat='bat --paging=never'
