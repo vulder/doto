@@ -204,7 +204,6 @@ if ! zgen saved; then
 	# zgen oh-my-zsh plugins/zsh_reload
 
 	# zgen load psyrendust/alf
-	zgen load arialdomartini/oh-my-git
 	# zgen load arialdomartini/oh-my-git-themes oppa-lana-style.zsh-theme
 	zgen load hchbaw/list-colors.zsh
 	zgen load sorin-ionescu/prezto
@@ -498,30 +497,8 @@ PROMPT="${fg_oB}%n${fg_oB}[${fg_oA}%~${fg_oB}]: ${fg_lgray}"
 #PS4='$FG[240][%N:$FG[060]%i$FG[240]]$reset_color $FG[190]'
 #
 
-
-ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[green]%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}⚡"
-ZSH_THEME_GIT_PROMPT_CLEAN=""
-
 ZSH_THEME_VIRTUALENV_PREFIX="%{$fg[blue]%}("
 ZSH_THEME_VIRTUALENV_SUFFIX=")%{$reset_color%} "
-
-function prompt_char {
-	if [ $UID -eq 0 ]; then echo "%{$fg[red]%}#%{$reset_color%}"; else echo "%{$fg_lineStart%}>%{$reset_color%}"; fi
-}
-
-PROMPT='
-%(?,,%{$fg[red]%}$? %{$reset_color%})%{$fg_user%}%n%{$fg_at%}@%{$fg_host%}%m%{$reset_color%}: %{$fg_oA%}%~%{$reset_color%}$(git_prompt_info)
-$(virtualenv_prompt_info)$(prompt_char) '
-#%_
-
-function prompt_ip {
-  ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -1
-}
-
-#RPROMPT='%{$fg_lgray%}[%*]%{$reset_color%}'
-#RPROMPT='%{$fg_lgray%}[$(prompt_ip)]%{$reset_color%}'
 
 TIMEFMT="
 Time: $fg[red]%E$reset_color (%P)"
@@ -548,70 +525,6 @@ setopt HIST_IGNORE_DUPS
 # setopt sharehistory
 export ZLS_COLORS=$LS_COLORS
 omg_has_action_in_progress_symbol=''     #                  
-zshGit(){
-	# omg_can_fast_forward_symbol=''
-	# omg_detached_symbol=''
-	# omg_has_adds_symbol='+'
-	# omg_has_cached_deletions_symbol=''
-	# omg_has_cached_modifications_symbol=''
-	# omg_has_deletions_symbol='-'
-	# omg_has_diverged_symbol=''					#   
-	# omg_has_modifications_symbol='✎'
-	# omg_has_stashes_symbol=''
-	# omg_has_untracked_files_symbol='∿'			#                ?    
-	# omg_is_a_git_repo_symbol=''
-	# omg_is_on_a_tag_symbol=''					#   
-	# omg_merge_tracking_branch_symbol=''		#  
-	# omg_needs_to_merge_symbol='ᄉ'
-	# omg_ready_to_commit_symbol=''				#   →
-	# omg_rebase_tracking_branch_symbol=''		#   
-	# omg_should_push_symbol=''				#    
-	
-	omg_ungit_prompt=$PS1
-	omg_second_line=$PS1' • '
-	omg_second_line=$PS1${FG[141]}'⎤ '
-	omg_not_tracked_branch_symbol=''
-	# omg_is_a_git_repo_symbol='❤'
-	omg_is_a_git_repo_symbol='⏣'
-	omg_has_untracked_files_symbol='∿'
-	omg_has_adds_symbol='+'
-	omg_has_deletions_symbol='-'
-	omg_has_cached_deletions_symbol='✖'
-	omg_has_modifications_symbol='✎'
-	omg_has_cached_modifications_symbol='☲'
-	omg_ready_to_commit_symbol='→'
-	omg_is_on_a_tag_symbol='⌫'
-	omg_needs_to_merge_symbol='ᄉ'
-	omg_has_upstream_symbol='⇅'
-	omg_detached_symbol='⚯ '
-	omg_can_fast_forward_symbol='»'
-	omg_has_diverged_symbol='Ⴤ'
-	omg_rebase_tracking_branch_symbol='↶'
-	omg_merge_tracking_branch_symbol='ᄉ'
-	omg_should_push_symbol='↑'
-	omg_has_stashes_symbol='★'
-	# omg_display_tag_name=true
-	# omg_two_lines:=false
-	zgen load arialdomartini/oh-my-git-themes oppa-lana-style.zsh-theme
-	# PS1="${PS1/red/green}"
-	# PS1="${PS1//red/yellow/}"
-	# PS1="${PS1//K\{red\}/K{214\}}"
-	
-	# PS1="${PS1//K\{white\}/K{214\}}"
-	# PS1="${PS1//K\{white\}/K{${fg_oA}\}}"
-	def="$( declare -f custom_build_prompt )"
-	# def="${def//{white\}/{190\}}"
-	# def="${def//{white\}/{102\}}"
-	# def="${def//{red\}/{214\}}"
-	# def="${def//K{red\}%F{black\}/K{214\}%F{black\}}"
-	# def="${def//K{black\}%F{red\}/K{black\}%F{99\}}"
-	def="${def//{red\}/{141\}}"
-	def="${def//{white\}/{240\}}"
-	# local black_on_red="%K{red}%F{black}"
-	RPROMPT=""
-	eval "$def";
-	# RPROMPT=''
-}
 
 bindkey '^u' clear-screen
 
@@ -667,6 +580,16 @@ if (( $+commands[zoxide] )); then
     alias j='z'
     alias ji='zi'
 fi
+
+# ______________________________________________[STARSHIP PROMPT]
+if (( $+commands[starship] )); then
+    # Starship natively handles virtualenv, git, jobs, and execution statuses asynchronously
+    eval "$(starship init zsh)"
+else
+    # Fallback to absolute minimal prompt if binary is missing
+    PROMPT='%n@%m:%~%# '
+fi
+
 # source /root/.local/lib/python3.4/site-packages/powerline/bindings/zsh/powerline.zsh
 unalias gg
 

@@ -19,6 +19,10 @@
   template:
     src: "{{ repo }}/alacritty/alacritty.toml"
     dest: ~/.alacritty.toml
+- name: Deploying starship config
+  template:
+    src: "{{ repo }}/zsh/starship.toml"
+    dest: ~/.config/starship.toml
 - name: Linking fonts
   file:
     src: "{{ repo }}/fonts"
@@ -44,6 +48,7 @@
       - x11-terms/alacritty
       - sys-process/htop
       - app-shells/zoxide
+      - app-shells/starship
     state: present
   when: ansible_facts['os_family'] == "Gentoo"
   become: true
@@ -58,6 +63,7 @@
       - htop
       - build-essential
       - zoxide
+      - starship
     state: present
   when: ansible_facts['os_family'] == "Debian"
   become: true
